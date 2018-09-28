@@ -1,8 +1,8 @@
 <template>
   <div class="divbody" id="myView">
     <div class="delete">
-      <el-button type="danger" size="medium" @click="open1">批量删除</el-button>
-      <el-button type="primary" size="medium" @click="dialogVisible = true">新增管理员</el-button>
+      <el-button type="primary" size="medium" @click="open1" icon="el-icon-delete">删除</el-button>
+      <el-button type="primary" size="medium" @click="dialogVisible = true" icon="el-icon-circle-plus-outline">新增</el-button>
     </div>
     <!-- 表格 -->
     <el-table
@@ -261,7 +261,7 @@ export default {
           if (res.data.status === "success") {
             this.$message({
               type: "success",
-              $message: res.data.message
+              message: res.data.message
             });
             this.userList = this.userList.filter(
               item => ids.indexOf(item.pk_RECORD) === -1
@@ -319,7 +319,7 @@ export default {
 .divbody {
   width: 80%;
   height: 400px;
-  float: left;
+
   margin-left: 10%;
   user-select: none;
 }

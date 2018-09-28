@@ -16,7 +16,6 @@
             @click="fn_submit">登陆
           </button>
       </form>
-
     </div>
   </div>
 </template>

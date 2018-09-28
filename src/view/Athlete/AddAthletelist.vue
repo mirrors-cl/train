@@ -214,7 +214,6 @@
                     退队日期
             </el-col>
             <el-col :span="18">
-
               <el-date-picker
                 v-model="form.OUTDATE"
                 type="date"

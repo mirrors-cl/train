@@ -3,12 +3,11 @@
             <div class="htitle">
                 田径训练管理平台
             </div>
-            <div class="headtx">
+            <div class="headPortrait">
                 <router-link :to="{name: 'login'}">  
                   <!--<img src="static/img/登陆.png">-->
                   <img v-bind:src="imageSrc">
                 </router-link>
-
             </div>
         </div>
 </template>
@@ -20,15 +19,13 @@ export default {
   name: "Headhead",
   data() {
     return {
-      // imageSrc:require(""),
       imageSrc:"",
-      // msg: "Welcome to Your Vue.js App",
       userInfo:{}
     };
   },
   created(){
     this.userInfo=getStore('userInfo');
-     this.headPrtrait();
+     // this.headPrtrait();
   },
   methods:{
     headPrtrait:function(){
@@ -41,10 +38,7 @@ export default {
         }
       })
         .then(res=>{
-          //this.imageSrc='res.data:image/png;base64,'+btoa(new Uint8Array(res.data).reduce((data,byte)=>data+String.formCharCode(byte),''))
-          //this.imageSrc=res.data.data;
           let url=URL.createObjectURL(res.data)
-          console.log(url)
           this.imageSrc =url;
       })
     }
@@ -66,7 +60,7 @@ export default {
     padding-top: 20px;
   }
 
-  .headtx {
+  .headPortrait {
     width: 80px;
     height: 80px;
     box-sizing: border-box;
@@ -75,7 +69,7 @@ export default {
     margin-right: 50px;
     margin-top: -50px;
   }
-  .headtx img {
+  .headPortrait img {
     width: 100%;
     height: 100%;
   }

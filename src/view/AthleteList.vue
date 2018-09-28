@@ -2,7 +2,7 @@
   <div class="bodydiv">
     <div class="Alist">
       <div>
-        <el-button type="danger" size="medium" @click="open1">批量删除</el-button>
+        <el-button type="primary" size="medium" @click="open1" icon="el-icon-delete">删除</el-button>
       </div>
       <el-table
         ref="multipleTable"
@@ -37,8 +37,7 @@
           label="性别"
           show-overflow-tooltip
           :filters="[{text:'男',value:'男'},{text:'女',value:'女'}]"
-          :filter-method="filterHandler"
-        >
+          :filter-method="filterHandler">
         </el-table-column>
         <el-table-column
           prop="name"
@@ -50,14 +49,6 @@
           label="联系方式"
           show-overflow-tooltip>
         </el-table-column>
-        <!-- <el-table-column
-        label="操作"
-        width="120"
-        >
-        <template slot-scope="scope" >
-          <el-button  type="danger" size="mini" @click="open2(scope.row)">删除</el-button>
-        </template>
-          </el-table-column> -->
       </el-table>
       <!-- 分页 -->
       <el-pagination
@@ -312,7 +303,6 @@
 <script>
   import fetch from "@/assets/js/fetch.js";
   import qs from "qs";
-
   export default {
     name: "ath-list",
     data: function () {
@@ -358,6 +348,7 @@
     created() {
       this.getData();
     },
+    //计算属性
     computed: {
       athlete() {
         let val = this.page;
@@ -378,7 +369,7 @@
         //this.athlete =;
       },
       // 显示
-      getData: function () {
+      getData:function(){
         fetch
           .get("/DP/DPshowlist")
           .then(res => {
@@ -407,27 +398,6 @@
             });
           });
       },
-      //
-      // //单删（传ID）
-      // open2(row) {
-      //   let id = row.pk_PLAYER;
-      //   this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-      //     confirmButtonText: "确定",
-      //     cancelButtonText: "取消",
-      //     type: "warning"
-      //   })
-      //     .then(() => {
-      //       // this.$message.success("shanchu");
-      //       this.mulRemoveath(id);
-      //     })
-      //     .catch(() => {
-      //       this.$message({
-      //         type: "info",
-      //         message: "已取消删除"
-      //       });
-      //     });
-      // },
-
       //单条传id，多条不传
       mulRemoveath: function (id) {
         debugger;
@@ -485,6 +455,7 @@
         this.form.WEIGHT = row.weight; //体重
         this.dialogVisible = true;
       },
+      //筛选
       filterHandler(value,row,column){
         console.log(value,row,column)
         const property =column['property']
