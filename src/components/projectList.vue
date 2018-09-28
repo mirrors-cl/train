@@ -4,6 +4,7 @@
     <div class="bodydiv" v-show="show3">
       <div class="listdiv">
         <div>
+          <el-button icon="el-icon-back" size="mini" @click="back">返回</el-button>
           <el-button type="primary" size="medium" @click="open1" icon="el-icon-delete">删除</el-button>
           <el-button type="primary" size="medium" @click="dialogVisible = true" icon="el-icon-circle-plus-outline">新增
           </el-button>
@@ -11,47 +12,48 @@
         <!--table-->
         <template>
           <el-table
-            :data="competitionList"
+            :data="projectList"
             style="width: 100%"
             :header-cell-style="titletable"
             @cell-click="projectList"
             @selection-change="handleSelectionChange">
             <el-table-column
-              v-for=""
               type="selection"
               width="55">
             </el-table-column>
             <el-table-column
               prop="gm_Name"
-              label="顺序"
-              width="180">
+              label="编号">
+            </el-table-column>
+
+            <el-table-column
+              prop="gm_Project_Order"
+              label="顺序">
             </el-table-column>
             <el-table-column
-              prop="list_Add"
-              label="比赛时间"
-              width="180">
+              prop="gm_Project_Date"
+              label="比赛时间">
             </el-table-column>
             <el-table-column
-              prop="list_Date"
+              prop="gm_Pname"
               label="项目名称">
             </el-table-column>
             <el-table-column
-              prop="scoreType"
+              prop="gm_Project_Session"
               label="赛次">
             </el-table-column>
             <el-table-column
-              prop="scoreType"
+              prop="pnumber"
               label="人次">
             </el-table-column>
             <el-table-column
-              prop="scoreType"
+              prop="classNumber"
               label="组数">
             </el-table-column>
             <el-table-column
               prop="scoreType"
-              label="积分类型">
+              label="负责部门">
             </el-table-column>
-
             <el-table-column label="操作">
               <template slot-scope="scope">
                 <el-button
@@ -69,24 +71,24 @@
           width="30%"
           :before-close="handleClose">
           <span>
-           <el-form :label-position="labelPosition" label-width="80px" :model="form">
+           <el-form :label-position="labelPosition" label-width="80px" :model="addForm">
                 <el-form-item label="比赛名称">
-                  <el-input v-model="form.gm_Name"></el-input>
+                  <el-input v-model="addForm.gm_Name"></el-input>
                 </el-form-item>
                 <el-form-item label="比赛地点">
-                  <el-input v-model="form.list_Add"></el-input>
+                  <el-input v-model="addForm.list_Add"></el-input>
                 </el-form-item>
                 <el-form-item label="比赛时间">
                    <el-date-picker
                      type="date"
-                     v-model="form.list_Date"
+                     v-model="addForm.list_Date"
                      placeholder="选择日期"
                      format="yyyy 年 MM 月 dd 日"
                      value-format="yyyy-MM-dd">
                   </el-date-picker>
                   </el-form-item>
                 <el-form-item label="积分类型">
-                  <el-input v-model="form.scoreType"></el-input>
+                  <el-input v-model="addForm.scoreType"></el-input>
                 </el-form-item>
           </el-form>
           </span>
@@ -137,7 +139,7 @@
   import qs from "qs";
 
   export default {
-    name: "Competition",
+    name: "projectList",
     data: function () {
       return {
         show3:false,
@@ -147,13 +149,19 @@
         dialogVisible: false,
         //diglog
         adddialogVisible: false,
-        competitionList: [],
-        form: {
-          gm_Name: "",//比赛名称
-          list_Add: "",//比赛地点
-          list_Date: "",//比赛时间
-          scoreType: "",//积分类型
+        projectList: [],
+
+        addForm: {
+          pk_List:"",//competitionID
+
+          gm_Project_Order: "",//顺序
+          gm_Project_Date: "",//比赛时间
+          gm_Pname: "",//项目名称
+          gm_Project_Session: "",//赛次
+          pnumber:"",//人数
+          classNumber:"",//组数
         },
+
         updataForm: {
           pk_List:"",//id
           gm_Name: "",//比赛名称
@@ -187,9 +195,13 @@
         let id=this.$route.query.id;
         console.log("sd",id);
         fetch
-          .get("/GL/GLshowlist")
+          .get("/PL/PLshowlist",{
+            params:{
+              pk_List:id
+            }
+          })
           .then(res => {
-            this.competitionList = res.data.data;
+            this.projectList = res.data.data;
             // console.log(rest.data);
             // this.competitionList.forEach(item => this.$set(item, "checked", false));
           })
@@ -276,6 +288,10 @@
       //table表头样式
       titletable({row, rowIndex}) {
         return {background: "#212529", color: "#fff"};
+      },
+      //
+      back(){
+        this.$router.go(-1)
       }
     }
   };

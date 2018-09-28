@@ -292,7 +292,7 @@
             </el-col>
         </el-col>
       </el-row>
-             <el-button type="primary"@click="download">下载身份证</el-button>
+             <el-button type="primary" @click="download">下载身份证</el-button>
             </span>
         <span slot="footer" class="dialog-footer">
   </span>
