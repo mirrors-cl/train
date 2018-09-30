@@ -12,7 +12,7 @@
           <!--密码-->
           <input type="password" placeholder="请输入密码" class="login-password" v-model="form.passWord">
             <!--登陆按钮-->
-            <button type="submit" value="登录" id="btn-login" class="login-submit"
+          <button type="submit" value="登录" id="btn-login" class="login-submit"
             @click="fn_submit">登陆
           </button>
       </form>
@@ -44,9 +44,9 @@ export default {
             this.SAVE_USER(res.data.data)
             //请求成功
             let identity = res.data.data.pk_IDENTITY;
-            if (identity == 1) {
+            if (identity === '1') {
               this.$router.push({ path: "/adminUser" });
-            } else if (identity == 2) {
+            } else if (identity === '2') {
               this.$router.push({ path: "/AddAthletelist" });
             }
           } else {
@@ -54,7 +54,8 @@ export default {
           }
         })
         .catch(err => {
-          alert("服务器未响应");
+          //alert("服务器未响应");
+          console.log(err);
         });
     }
   }

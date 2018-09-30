@@ -1,5 +1,5 @@
 <template>
-  <div class="divbody" id="myView">
+  <div class="divbody">
     <div class="delete">
       <el-button type="primary" size="medium" @click="open1" icon="el-icon-delete">删除</el-button>
       <el-button type="primary" size="medium" @click="dialogVisible = true" icon="el-icon-circle-plus-outline">新增</el-button>
@@ -319,7 +319,6 @@ export default {
 .divbody {
   width: 80%;
   height: 400px;
-
   margin-left: 10%;
   user-select: none;
 }

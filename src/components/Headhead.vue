@@ -4,10 +4,12 @@
                 田径训练管理平台
             </div>
             <div class="headPortrait">
-                <router-link :to="{name: 'login'}">  
+                <router-link :to="{name: 'login'}">
                   <!--<img src="static/img/登陆.png">-->
-                  <img v-bind:src="imageSrc">
+                  <!--<img v-bind:src="''+imageSrc">-->
+                  <img v-bind:src="''+imageSrc">
                 </router-link>
+              <!--<el-button @click="downs">xiazai</el-button>-->
             </div>
         </div>
 </template>
@@ -19,15 +21,22 @@ export default {
   name: "Headhead",
   data() {
     return {
-      imageSrc:"",
+      imageSrc:"static/img/登陆.png",
       userInfo:{}
     };
   },
   created(){
     this.userInfo=getStore('userInfo');
-     // this.headPrtrait();
+    // this.headPrtrait();
   },
   methods:{
+    downs:function(){
+      var alink =document.createElement("a");
+      alink.download="pig";
+      alink.href=this.imageSrc;
+      alink.click();
+    },
+    // 显示头像
     headPrtrait:function(){
       fetch
         .get("UP/backimg",{
@@ -59,7 +68,6 @@ export default {
     padding-left: 40px;
     padding-top: 20px;
   }
-
   .headPortrait {
     width: 80px;
     height: 80px;

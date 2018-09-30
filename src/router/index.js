@@ -8,6 +8,7 @@ import AddAthletelist from '@/view/Athlete/AddAthletelist'
 import Competitionlist from'@/view/Competitionlist'
 import projectList from '@/components/projectList'
 import scoreList from '@/components/scoreList'
+import trainingList from '@/view/trainingList'
 Vue.use(Router)
 
 export default new Router({
@@ -18,12 +19,7 @@ export default new Router({
       name: 'login',
       component: login
     },
-    {
-      path: '/AddAthletelist',
-      name: 'addath',
-      component: AddAthletelist
 
-    },
     //主页面
     {
       path: '/adminUser',
@@ -35,6 +31,7 @@ export default new Router({
           component: adminList
         },
         {
+          //运动员列表页
           path: 'list2',
           name: 'admin-list-2',
           component: AthList,
@@ -55,10 +52,25 @@ export default new Router({
           component:scoreList
         },
         {
+          path:'tlist',
+          name:'trainingList',
+          component:trainingList
+        },
+        {
+          path: '/AddAthletelist',
+          name: 'addath',
+          component: AddAthletelist
+
+        },
+        {
           path: '/',
           redirect: 'list'
         }
       ]
     },
+    {
+      path: '/',
+      redirect: 'login'
+    }
   ]
 })

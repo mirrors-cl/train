@@ -14,13 +14,13 @@
             <span slot="label"><i class="el-icon-menu"></i>比赛列表</span>
           </el-tab-pane>
           <el-tab-pane>
+            <span slot="label"><i class="el-icon-menu"></i>训练列表</span>
+          </el-tab-pane>
+          <el-tab-pane>
             <span slot="label"><i class="el-icon-menu"></i>比赛成绩</span>
           </el-tab-pane>
           <el-tab-pane>
             <span slot="label"><i class="el-icon-menu"></i>训练计划</span>
-          </el-tab-pane>
-          <el-tab-pane>
-            <span slot="label"><i class="el-icon-menu"></i>训练列表</span>
           </el-tab-pane>
         </el-tabs>
       </template>
@@ -56,6 +56,8 @@
 
         }else if (index==2){
           this.$router.push({name:'Competition'})
+        }else if(index==3){
+          this.$router.push({name:'trainingList'})
         }
       }
 

@@ -15,17 +15,16 @@
             :data="projectList"
             style="width: 100%"
             :header-cell-style="titletable"
-            @cell-click="projectList"
+            @cell-click="scoreList"
             @selection-change="handleSelectionChange">
             <el-table-column
               type="selection"
               width="55">
             </el-table-column>
             <el-table-column
-              prop="gm_Name"
+              prop="number"
               label="编号">
             </el-table-column>
-
             <el-table-column
               prop="gm_Project_Order"
               label="顺序">
@@ -51,7 +50,7 @@
               label="组数">
             </el-table-column>
             <el-table-column
-              prop="scoreType"
+              prop="classiFication"
               label="负责部门">
             </el-table-column>
             <el-table-column label="操作">
@@ -72,23 +71,32 @@
           :before-close="handleClose">
           <span>
            <el-form :label-position="labelPosition" label-width="80px" :model="addForm">
-                <el-form-item label="比赛名称">
-                  <el-input v-model="addForm.gm_Name"></el-input>
-                </el-form-item>
-                <el-form-item label="比赛地点">
-                  <el-input v-model="addForm.list_Add"></el-input>
+                <el-form-item label="顺序">
+                  <el-input v-model="addForm.gm_Project_Order"></el-input>
                 </el-form-item>
                 <el-form-item label="比赛时间">
                    <el-date-picker
                      type="date"
-                     v-model="addForm.list_Date"
+                     v-model="addForm.gm_Project_Date"
                      placeholder="选择日期"
                      format="yyyy 年 MM 月 dd 日"
                      value-format="yyyy-MM-dd">
                   </el-date-picker>
                   </el-form-item>
-                <el-form-item label="积分类型">
-                  <el-input v-model="addForm.scoreType"></el-input>
+                <el-form-item label="项目名称">
+                  <el-input v-model="addForm.gm_Pname"></el-input>
+                </el-form-item>
+                <el-form-item label="赛次">
+                  <el-input v-model="addForm.gm_Project_Session"></el-input>
+                </el-form-item>
+                <el-form-item label="人次">
+                  <el-input v-model="addForm.pnumber"></el-input>
+                </el-form-item>
+                <el-form-item label="组数">
+                  <el-input v-model="addForm.classNumber"></el-input>
+                </el-form-item>
+                  <el-form-item label="负责部门">
+                  <el-input v-model="addForm.classiFication"></el-input>
                 </el-form-item>
           </el-form>
           </span>
@@ -100,32 +108,43 @@
         <!--修改-->
         <el-dialog
           title="提示"
-          :visible.sync="adddialogVisible"
+          :visible.sync="updatadialogVisible"
           width="30%"
           :before-close="handleClose">
           <span>
-            <el-form :label-position="labelPosition" label-width="80px" :model="updataForm">
-                <el-form-item label="比赛名称">
-                  <el-input v-model="updataForm.gm_Name"></el-input>
-                </el-form-item>
-                <el-form-item label="比赛地点">
-                  <el-input v-model="updataForm.list_Add"></el-input>
+             <el-form :label-position="labelPosition" label-width="80px" :model="updataForm">
+                <el-form-item label="顺序">
+                  <el-input v-model="updataForm.gm_Project_Order"></el-input>
                 </el-form-item>
                 <el-form-item label="比赛时间">
                    <el-date-picker
-                     v-model="updataForm.list_Date"
                      type="date"
+                     v-model="updataForm.gm_Project_Date"
                      placeholder="选择日期"
                      format="yyyy 年 MM 月 dd 日"
                      value-format="yyyy-MM-dd">
                   </el-date-picker>
                   </el-form-item>
-                <el-form-item label="积分类型">
-                  <el-input v-model="updataForm.scoreType"></el-input>
+                <el-form-item label="项目名称">
+                  <el-input v-model="updataForm.gm_Pname"></el-input>
                 </el-form-item>
-          </el-form></span>
+                <el-form-item label="赛次">
+                  <el-input v-model="updataForm.gm_Project_Session"></el-input>
+                </el-form-item>
+                <el-form-item label="人次">
+                  <el-input v-model="updataForm.pnumber"></el-input>
+                </el-form-item>
+                <el-form-item label="组数">
+                  <el-input v-model="updataForm.classNumber"></el-input>
+                </el-form-item>
+                  <el-form-item label="负责部门">
+                  <el-input v-model="updataForm.classiFication"></el-input>
+                </el-form-item>
+          </el-form>
+
+          </span>
           <span slot="footer" class="dialog-footer">
-            <el-button @click="adddialogVisible = false">取 消</el-button>
+            <el-button @click="cancel">取 消</el-button>
             <el-button type="primary" @click="updataMatch">确 定</el-button>
           </span>
         </el-dialog>
@@ -148,27 +167,21 @@
         //dialog
         dialogVisible: false,
         //diglog
-        adddialogVisible: false,
+        updatadialogVisible: false,
         projectList: [],
-
         addForm: {
-          pk_List:"",//competitionID
-
+          pk_List: this.$route.query.id,//competitionID
+          number:"",//编号
           gm_Project_Order: "",//顺序
           gm_Project_Date: "",//比赛时间
           gm_Pname: "",//项目名称
           gm_Project_Session: "",//赛次
           pnumber:"",//人数
           classNumber:"",//组数
+          classiFication:""//负责部门
         },
 
-        updataForm: {
-          pk_List:"",//id
-          gm_Name: "",//比赛名称
-          list_Add: "",//比赛地点
-          list_Date: "",//比赛时间
-          scoreType: "",//积分类型
-        },
+        updataForm: {},
         //状态值
         multipleSelection: [],
       }
@@ -180,12 +193,19 @@
     mounted(){
       setTimeout(()=>this.show3=true,200)
     },
+    computed:{
+      //计算属性
+      querys:function () {
+        return this.$route.query.id
+      }
+    },
     methods: {
       //敏感操作是否关闭
       handleClose(done) {
         this.$confirm('确认关闭？')
           .then(_ => {
             done();
+            this.getdata();
           })
           .catch(_ => {
           });
@@ -198,6 +218,7 @@
           .get("/PL/PLshowlist",{
             params:{
               pk_List:id
+
             }
           })
           .then(res => {
@@ -209,43 +230,36 @@
             alert("服务器错误")
           })
       },
-      //add
+      //````````````````````````````add api
       competiTionadd: function () {
-        console.log({...this.form});
-        fetch.post("/GL/GLadd", qs.stringify(this.form)).then(res => {
+        fetch
+          .post("/PL/PLadd",qs.stringify(this.addForm)).then(res => {
           this.getdata();
+          this.addForm = {pk_List:this.querys};
           this.dialogVisible = false;
         })
       },
       //---------------------------------------------修改
       handleEdit(index, row) {
-        // this.updataForm=row;
-        console.log(index,row);
-        this.updataForm.pk_List=row.pk_List;
-        this.updataForm.gm_Name = row.gm_Name;
-        this.updataForm.list_Add = row.list_Add;
-        this.updataForm.list_Date = row.list_Date;
-        this.updataForm.scoreType = row.scoreType;
-        this.adddialogVisible = true;
+        this.updataForm=row;
+        this.updatadialogVisible = true;
       },
       updataMatch:function(){
-        console.log(this.updataForm);
-        fetch.post("/GL/GLupdate", qs.stringify(this.updataForm)).then(res => {
+        fetch.post("/PL/PLupdate", qs.stringify(this.updataForm)).then(res => {
           this.getdata();
           this.adddialogVisible = false;
         })
       },
-      //项目列表
-      projectList: function (row, column) {
-        console.log(column.label);
+      //比赛成绩列表
+      scoreList:function (row, column) {
         if (column.label === "操作") {
         } else {
-          //数据要修改显示数据不对id不对
-          this.$router.push({name:'scoreList',query:{id:row.pk_List}})
+          this.$router.push({name:'scoreList',query:{id:row.pk_Gm_Project}})
         }
       },
       //delete
       handleSelectionChange:function(val){
+        console.log(val)
         this.multipleSelection=val;
 
       },
@@ -268,28 +282,33 @@
       removeUser:function(){
         let ids =[];
         ids =this.multipleSelection
-          .map(item=>item.pk_List)
+          .map(item=>item.pk_Gm_Project)
           .filter(item=>item!==undefined);
-        fetch.post("/GL/GLdelete",qs.stringify({key:ids.join()}))
+        fetch.post("/PL/PLdelete",qs.stringify({key:ids.join()}))
           .then(res=>{
             if (res.data.status==="success") {
               this.$message({
                 type:"success",
                 message:res.data.message
               });
-              this.competitionList=this.competitionList.filter(
-                item=>ids.indexOf(item.pk_List)=== -1
+              this.projectList=this.projectList.filter(
+                item=>ids.indexOf(item.pk_Gm_Project)=== -1
               )
             }
+            this.getdata()
           })
 
 
+      },
+      cancel:function(){
+        this.updatadialogVisible=false
+        this.getdata();
       },
       //table表头样式
       titletable({row, rowIndex}) {
         return {background: "#212529", color: "#fff"};
       },
-      //
+      //返回
       back(){
         this.$router.go(-1)
       }
@@ -299,12 +318,6 @@
 
 <style>
   .listdiv {
-    display: block;
-    user-select: none;
-    width: 80%;
-    margin-left: 10%;
-  }
-  .listdiv1 {
     display: block;
     user-select: none;
     width: 80%;

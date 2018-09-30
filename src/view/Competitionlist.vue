@@ -24,8 +24,7 @@
             <el-table-column
               prop="gm_Name"
               label="比赛名称"
-              width="180"
-            >
+              width="180">
             </el-table-column>
             <el-table-column
               prop="list_Add"
@@ -250,8 +249,6 @@
               )
             }
           })
-
-
       },
       //table表头样式
       titletable({row, rowIndex}) {
@@ -263,12 +260,6 @@
 
 <style>
   .listdiv {
-    display: block;
-    user-select: none;
-    width: 80%;
-    margin-left: 10%;
-  }
-  .listdiv1 {
     display: block;
     user-select: none;
     width: 80%;

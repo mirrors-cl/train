@@ -1,7 +1,6 @@
 <template>
   <div >
-   <!-- <head-head></head-head> -->
-   <headhead></headhead>
+   <!--<headhead></headhead>-->
     <div class="modeldiv">
       <el-row>
         <el-col :span="8">
@@ -225,8 +224,8 @@
         </el-col>
         <el-col :span="24">
              <el-col :span="12" class="buttondiv">
-                 <el-button @click="qxbutton">取消</el-button>
-               <el-button type="primary" @click="qrbutton">确认</el-button>
+                 <el-button @click="qxbutton">返回</el-button>
+               <el-button type="primary" @click="qrbutton">确认并填写身份证</el-button>
             </el-col>
         </el-col>
       </el-row>
@@ -307,7 +306,7 @@
          </el-col>
         </span>
         <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="dialogVisible=false">取 消</el-button>
     <el-button type="primary" @click="phontButton">确 定</el-button>
   </span>
       </el-dialog>
@@ -318,7 +317,6 @@
 <script>
  // 引用qs
  import qs from "qs";
-import headhead from "@/components/Headhead";
 // 引用fetch
 import fetch from "@/assets/js/fetch.js";
  import {getStore} from "@/assets/js/utils.js";
@@ -326,7 +324,7 @@ export default {
   name: "Athlete-list",
   //组件
   components: {
-    headhead
+    // headhead
   },
   data: function() {
     let userInfo=getStore('userInfo')
@@ -432,22 +430,19 @@ export default {
     },
     //取消
     qxbutton:function(){
-      this.useraddlist = { brand_right: 0 }
+      this.$router.push({name:'admin-list-2'})
+      // this.useraddlist = { brand_right: 0 }
     },
     //照片上传
     phontButton(){
       console.log(typeof this.fileList);
       if (!this.file1){
         alert('未选择照片')
-
       } if(!this.file2){
         alert('未选择身份证正面')
-
       }if(!this.file3){
         alert('未选择身份证反面');
-
       }else {
-
         this.$refs.upload1.submit();
         this.$refs.upload2.submit();
         this.$refs.upload3.submit();
@@ -460,6 +455,7 @@ export default {
     handleExceed(files, fileList) {
       this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${fileList.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
     },
+
   }
 };
 </script>
@@ -469,8 +465,10 @@ export default {
   margin: 8px auto;
 }
 .modeldiv {
-  width: 1200px;
-  margin: 15px auto;
+  margin-top: 10px;
+  user-select: none;
+  width: 80%;
+  margin-left: 10%;
 }
 .buttondiv {
   margin-top: 20px;

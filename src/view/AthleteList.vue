@@ -3,6 +3,7 @@
     <div class="Alist">
       <div>
         <el-button type="primary" size="medium" @click="open1" icon="el-icon-delete">删除</el-button>
+        <el-button type="primary" size="medium" @click="addAthlete">添加运动员</el-button>
       </div>
       <el-table
         ref="multipleTable"
@@ -23,7 +24,6 @@
           label="编号"
           width="120">
         </el-table-column>
-
         <el-table-column
           prop="record_PROJECT"
           label="项目"
@@ -65,8 +65,13 @@
         :visible.sync="dialogVisible"
         width="80%">
             <span>
-               <el-row>
-        <el-col :span="8">
+            <el-row>
+              <el-col :span="24">
+                <div>
+                  <img v-bind:src="imageSrc">
+                </div>
+              </el-col>
+           <el-col :span="8">
             <el-col :span="6" class="textsize">
                     名称
             </el-col>
@@ -307,6 +312,8 @@
     name: "ath-list",
     data: function () {
       return {
+        // 身份证
+         imageSrc:"",
         dialogVisible: false,
         form: {
           ADRESS: "", //通讯地址
@@ -425,6 +432,18 @@
           });
       },
       buttonlist: function (row) {
+                  fetch
+                  .get("UP/backimg",{
+                  responseType:'blob',
+                  params:{
+                    type:'3',
+                    pk_player:row.pk_PLAYER
+                  }
+                })
+                  .then(res=>{
+                    let url=URL.createObjectURL(res.data)
+                    this.imageSrc =url;
+                })
         this.form.ADRESS = row.adress; //通讯地址
         this.form.AGE = row.age;  //年龄
         this.form.BIRTHDAY = row.birthday;  //出生日期
@@ -454,6 +473,7 @@
         this.form.SEX = row.sex; //性别
         this.form.WEIGHT = row.weight; //体重
         this.dialogVisible = true;
+        
       },
       //筛选
       filterHandler(value,row,column){
@@ -464,7 +484,10 @@
       },
       //下载
       download(){
-        var alink =document.createElement("a");
+      },
+      //routerADD
+      addAthlete:function(){
+        this.$router.push({name:'addath'})
       },
       titletable({row, rowIndex}) {
         return {background: "#212529", color: "#fff"};
@@ -481,15 +504,9 @@
   }
 
   .Alist {
-    display: block;
     user-select: none;
     width: 80%;
     margin-left: 10%;
   }
 
-  /* 鼠标悬停 */
-  .table tr:hover {
-    cursor: pointer;
-    background-color: #1e578f;
-  }
 </style>
