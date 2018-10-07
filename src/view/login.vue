@@ -6,13 +6,13 @@
         <img src="static/img/yd.png" class="content"/>
       </div>
       <p style="font-size: 24px;color: #ffaa51;text-align: center">管理员</p>
-      <form target="_self">
+      <form @click.prevent>
         <!--用户名-->
         <input type="text" placeholder="请输入登录名" class="login-username" v-model="form.userName">
           <!--密码-->
           <input type="password" placeholder="请输入密码" class="login-password" v-model="form.passWord">
             <!--登陆按钮-->
-          <button type="submit" value="登录" id="btn-login" class="login-submit"
+          <button  value="登录" id="btn-login" class="login-submit"
             @click="fn_submit">登陆
           </button>
       </form>
@@ -37,26 +37,32 @@ export default {
   methods: {
     ...mapMutations(['SAVE_USER']),
     fn_submit: function() {
-      fetch
-        .post("/Mlogin", qs.stringify(this.form))
-        .then(res => {
-          if (res.data.status === "success") {
-            this.SAVE_USER(res.data.data)
-            //请求成功
-            let identity = res.data.data.pk_IDENTITY;
-            if (identity === '1') {
-              this.$router.push({ path: "/adminUser" });
-            } else if (identity === '2') {
-              this.$router.push({ path: "/AddAthletelist" });
-            }
-          } else {
-            alert("账号或密码错误");
-          }
-        })
-        .catch(err => {
-          //alert("服务器未响应");
-          console.log(err);
-        });
+      debugger;
+     try {
+       fetch
+         .post("/Mlogin", qs.stringify(this.form))
+         .then(res => {
+           if (res.data.status === "success") {
+             this.SAVE_USER(res.data.data);
+             //请求成功
+             let identity = res.data.data.pk_IDENTITY;
+             if (identity === '1') {
+               this.$router.push({ path: "/adminUser"});
+             } else if (identity === '2') {
+               this.$router.push({ path: "/AddAthletelist"});
+             }
+           } else {
+             alert("账号或密码错误");
+           }
+         })
+         .catch(err => {
+           //alert("服务器未响应");
+           console.log(err);
+         });
+     }catch (e) {
+        console.log(e)
+
+     }
     }
   }
 };

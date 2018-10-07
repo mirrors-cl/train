@@ -7,8 +7,9 @@
                 <router-link :to="{name: 'login'}">
                   <!--<img src="static/img/登陆.png">-->
                   <!--<img v-bind:src="''+imageSrc">-->
-                  <img v-bind:src="''+imageSrc">
+                  <img v-bind:src="imageSrc">
                 </router-link>
+              <!--下载-->
               <!--<el-button @click="downs">xiazai</el-button>-->
             </div>
         </div>

@@ -67,8 +67,8 @@
             <span>
             <el-row>
               <el-col :span="24">
-                <div>
-                  <img v-bind:src="imageSrc">
+                <div class="headPortrait">
+                  <img v-bind:src="imageSrc" style="width: 80px; height: 80px;">
                 </div>
               </el-col>
            <el-col :span="8">
@@ -431,19 +431,21 @@
             }
           });
       },
-      buttonlist: function (row) {
-                  fetch
-                  .get("UP/backimg",{
-                  responseType:'blob',
-                  params:{
-                    type:'3',
-                    pk_player:row.pk_PLAYER
-                  }
-                })
-                  .then(res=>{
-                    let url=URL.createObjectURL(res.data)
-                    this.imageSrc =url;
-                })
+      buttonlist:function(row) {
+        console.log("row",row);
+        debugger
+          fetch
+          .get("UP/backimg",{
+            responseType:'blob',
+            params:{
+              type:'3',
+              pk_player:row.pk_PLAYER
+            }
+          })
+          .then(res=>{
+            let url=URL.createObjectURL(res.data)
+            this.imageSrc =url;
+          })
         this.form.ADRESS = row.adress; //通讯地址
         this.form.AGE = row.age;  //年龄
         this.form.BIRTHDAY = row.birthday;  //出生日期
@@ -497,10 +499,10 @@
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .tablecss {
-    width: 500px;
-    height: 200px;
-    border: 1px;
+  .headPortrait {
+    width: 100px;
+    height: 100px;
+    float: left;
   }
 
   .Alist {

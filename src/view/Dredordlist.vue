@@ -115,14 +115,13 @@
         <el-button type="primary" @click="qrbutton">确 定</el-button>
       </div>
     </el-dialog>
-    
-    <!-- 新增弹框 -->
-        <el-dialog title="新增管理员" :visible.sync="dialogVisible" width="37%" >
-      <el-form :model="useraddlist"  label-width="80px" :label-position="labelPosition">
+    <!--新增弹框-->
+        <el-dialog title="新增管理员" :visible.sync="dialogVisible" width="30%" :before-close="handleClose" >
+      <el-form :model="useraddlist"  label-width="80px" :label-position="labelPosition" :rules="rules">
         <el-form-item label="账号"  >
           <el-input v-model="useraddlist.RECORD_NAME"></el-input>
         </el-form-item>
-         <el-form-item label="姓名" >
+         <el-form-item label="姓名" prop="name" >
           <el-input v-model="useraddlist.NAME" ></el-input>
         </el-form-item>
         <el-form-item label="角色"  >
@@ -132,16 +131,16 @@
             <el-option label="教练" value="教练"></el-option>
           </el-select>
         </el-form-item>
-         <el-form-item label="项目">
+         <el-form-item label="项目" prop="name">
           <el-input v-model="useraddlist.RECORD_PROJECT"></el-input>
         </el-form-item>
          <el-form-item label="联系方式"  >
           <el-input v-model="useraddlist.RECORD_TELEPHONE"></el-input>
         </el-form-item>
-         <el-form-item label="年龄" >
+         <el-form-item label="年龄" prop="name">
           <el-input v-model="useraddlist.AGE" ></el-input>
         </el-form-item>
-           <el-form-item label="籍贯">
+           <el-form-item label="籍贯" prop="name">
           <el-input v-model="useraddlist.NPLACE"></el-input>
         </el-form-item>
       </el-form>
@@ -152,7 +151,6 @@
     </el-dialog>
   </div>
 </template>
-
 <script>
 import axios from "axios";
 import qs from "qs";
@@ -161,6 +159,31 @@ export default {
   name: "admin-list",
   data: function() {
     return {
+      //正则表达式
+      rules: {
+        name: [
+          { required: true, message: '请输入内容', trigger: 'blur' },
+          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+        ],
+        region: [
+          { required: true, message: '请选择活动区域', trigger: 'change' }
+        ],
+        date1: [
+          { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+        ],
+        date2: [
+          { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
+        ],
+        type: [
+          { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
+        ],
+        resource: [
+          { required: true, message: '请选择活动资源', trigger: 'change' }
+        ],
+        desc: [
+          { required: true, message: '请填写活动形式', trigger: 'blur' }
+        ]
+      },
       userList: [],
       show: false,
       //增加开关
@@ -210,6 +233,15 @@ export default {
     }
   },
   methods: {
+    //敏感操作
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done();
+
+        })
+        .catch(_ => {});
+    },
     // 请求显示数据
     getData: function() {
       fetch
@@ -283,8 +315,8 @@ export default {
     },
     //修改
     qrbutton: function() {
-      axios
-        .post("/api/DR/DRupdate", qs.stringify({ ...this.form }))
+      fetch
+        .post("/DR/DRupdate", qs.stringify({ ...this.form }))
         .then(res => {
           this.getData();
         });
@@ -293,8 +325,8 @@ export default {
     },
     // 增加
     addqrbutton: function(reddate) {
-      axios
-        .post("/api/DR/DRadd", qs.stringify({ ...this.useraddlist }))
+      fetch
+        .post("/DR/DRadd", qs.stringify({ ...this.useraddlist }))
         .then(res => {
           this.getData();
           this.useraddlist = { brand_right: 0 };
@@ -309,12 +341,6 @@ export default {
   }
 };
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<!--<style>-->
-<!--.el-input {-->
-  <!--width: 50%;-->
-<!--}-->
-<!--</style>-->
 <style lang="stylus" scoped>
 .divbody {
   width: 80%;

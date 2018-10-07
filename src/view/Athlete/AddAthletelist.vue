@@ -327,7 +327,7 @@ export default {
     // headhead
   },
   data: function() {
-    let userInfo=getStore('userInfo')
+    let userInfo=getStore('userInfo');
     return {
       dialogVisible: false,
 

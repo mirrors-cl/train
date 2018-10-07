@@ -198,12 +198,13 @@
       },
       updataMatch:function(){
         console.log(this.updataForm);
-        fetch.post("/GL/GLupdate", qs.stringify(this.updataForm)).then(res => {
+        fetch.post("/GL/GLupdate", qs.stringify(this.updataForm))
+          .then(res => {
             this.getdata();
             this.adddialogVisible = false;
           })
       },
-      //项目列表
+      //路由传参数（项目列表）
       projectList: function (row, column) {
         console.log(column.label);
         if (column.label === "操作") {
@@ -214,7 +215,6 @@
       //delete
       handleSelectionChange:function(val){
       this.multipleSelection=val;
-
       },
       open1() {
         this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {

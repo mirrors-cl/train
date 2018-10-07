@@ -8,7 +8,7 @@ export function setStore(key,val){
 }
 
 export function getStore(key) {
-  let val=localStorage.getItem(key)
+  let val=localStorage.getItem(key);
    try{
       return JSON.parse(val)
    }catch (e) {
