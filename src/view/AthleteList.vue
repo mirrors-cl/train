@@ -3,7 +3,7 @@
     <div class="Alist">
       <div>
         <el-button type="primary" size="medium" @click="open1" icon="el-icon-delete">删除</el-button>
-        <el-button type="primary" size="medium" @click="addAthlete">添加运动员</el-button>
+        <el-button type="primary" size="medium" @click="addAthlete">添加运动员账号</el-button>
       </div>
       <el-table
         ref="multipleTable"
@@ -297,9 +297,27 @@
             </el-col>
         </el-col>
       </el-row>
-             <el-button type="primary" @click="download">下载身份证</el-button>
+             <el-button type="primary" @click="download">下载身份证正面</el-button>
+                <el-button type="primary" @click="download1">下载身份证反面</el-button>
             </span>
         <span slot="footer" class="dialog-footer">
+  </span>
+      </el-dialog>
+      <el-dialog
+        title="添加运动员"
+        :visible.sync="dialogVisible1"
+        width="30%"
+        :before-close="handleClose">
+        <span>
+        <el-form ref="form" :model="athleteForm" label-width="80px">
+          <el-form-item label="账号">
+            <el-input v-model="athleteForm.RECORD_NAME"></el-input>
+          </el-form-item>
+        </el-form>
+        </span>
+        <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible1 = false">取 消</el-button>
+    <el-button type="primary" @click="addButton">确 定</el-button>
   </span>
       </el-dialog>
     </div>
@@ -312,9 +330,18 @@
     name: "ath-list",
     data: function () {
       return {
-        // 身份证
+        // 照片
          imageSrc:"",
+        //身份证正面
+        pagephoto1:"",
+
+        //身份证反面
+        pagephotoback1:"",
+
+        //详情
         dialogVisible: false,
+        //添加
+        dialogVisible1: false,
         form: {
           ADRESS: "", //通讯地址
           AGE: "", //年龄
@@ -347,6 +374,12 @@
           SEX: "", //性别
           WEIGHT: "" //体重
         },
+        athleteForm:{
+          //运动员账号
+          RECORD_NAME: "",
+          //运动员身份
+          RECORD_ROLE: "运动员",
+        },
         totalList: [],
         multipleSelection: "",
         page: 1
@@ -368,6 +401,14 @@
       }
     },
     methods: {
+      //敏感信息关闭
+      handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
+      },
       handleSelectionChange(val) {
         this.multipleSelection = val;
       },
@@ -432,9 +473,34 @@
           });
       },
       buttonlist:function(row) {
-        console.log("row",row);
-        debugger
+        //照片
           fetch
+          .get("UP/backimg",{
+            responseType:'blob',
+            params:{
+              type:'1',
+              pk_player:row.pk_PLAYER
+            }
+          })
+          .then(res=>{
+            let url=URL.createObjectURL(res.data)
+            this.imageSrc =url;
+          });
+          //身份证正面
+        fetch
+          .get("UP/backimg",{
+            responseType:'blob',
+            params:{
+              type:'2',
+              pk_player:row.pk_PLAYER
+            }
+          })
+          .then(res=>{
+            let url=URL.createObjectURL(res.data)
+            this.pagephoto1=url;
+          });
+        //身份证反面
+        fetch
           .get("UP/backimg",{
             responseType:'blob',
             params:{
@@ -444,8 +510,8 @@
           })
           .then(res=>{
             let url=URL.createObjectURL(res.data)
-            this.imageSrc =url;
-          })
+            this.pagephotoback1 =url;
+          });
         this.form.ADRESS = row.adress; //通讯地址
         this.form.AGE = row.age;  //年龄
         this.form.BIRTHDAY = row.birthday;  //出生日期
@@ -479,18 +545,41 @@
       },
       //筛选
       filterHandler(value,row,column){
-        console.log(value,row,column)
-        const property =column['property']
-        console.log("1",property)
+        console.log(value,row,column);
+        const property =column['property'];
+        console.log("1",property);
         return row[property]===value;
       },
       //下载
       download(){
+        debugger
+        var alink =document.createElement("a");
+        alink.download="name1";
+        alink.href=this.pagephoto1;
+        alink.click();
+
+      },
+      download1(){
+        var alink1 =document.createElement("a");
+        alink1.download="name2";
+        alink1.href=this.pagephotoback1;
+        alink1.click();
       },
       //routerADD
       addAthlete:function(){
-        this.$router.push({name:'addath'})
+        this.dialogVisible1= true;
+        //填写运动员信息
       },
+      addButton:function(){
+        fetch.post("DR/DRaddPlayer",qs.stringify(this.athleteForm)).then(res=>{
+            console.log(res);
+          this.$router.push({name:'addath',query:{pk_user:res.data.data.pk_user,user_name:res.data.data.user_name}})
+        })
+          .catch(()=>{
+
+          })
+      },
+      //style
       titletable({row, rowIndex}) {
         return {background: "#212529", color: "#fff"};
       }

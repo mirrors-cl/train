@@ -8,7 +8,7 @@
         :before-close="handleClose">
         <span>
               <el-form label-width="80px" :model="formLabelAlign">
-                 <el-form-item label="选择日期">
+                 <el-form-item label="选择时间">
                    <el-date-picker
                      v-model="formLabelAlign.date"
                      type="date"
@@ -22,9 +22,6 @@
               </el-form-item>
               <el-form-item label="训练内容">
                 <el-input v-model="formLabelAlign.ss" type="textarea" row="3"></el-input>
-              </el-form-item>
-                   <el-form-item label="训练内容1">
-                <el-input v-model="formLabelAlign.bb" type="textarea" row="3"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="submitForm">立即创建</el-button>

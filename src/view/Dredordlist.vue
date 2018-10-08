@@ -2,7 +2,7 @@
   <div class="divbody">
     <div class="delete">
       <el-button type="primary" size="medium" @click="open1" icon="el-icon-delete">删除</el-button>
-      <el-button type="primary" size="medium" @click="dialogVisible = true" icon="el-icon-circle-plus-outline">新增</el-button>
+      <el-button type="primary" size="medium" @click="dialogVisible = true" icon="el-icon-circle-plus-outline">新增管理员</el-button>
     </div>
     <!-- 表格 -->
     <el-table
@@ -90,13 +90,13 @@
          <el-form-item label="姓名" >
           <el-input v-model="form.NAME" ></el-input>
         </el-form-item>
-        <el-form-item label="角色" >
-          <el-select v-model="form.RECORD_ROLE" placeholder="角色">
-            <el-option label="医生" value="1"></el-option>
-            <el-option label="管理员" value="2"></el-option>
-            <el-option label="教练" value="3"></el-option>
-          </el-select>
-        </el-form-item>
+        <!--<el-form-item label="角色" >-->
+          <!--<el-select v-model="form.RECORD_ROLE" placeholder="角色">-->
+            <!--<el-option label="管理员" value="1"></el-option>-->
+            <!--<el-option label="运动员" value="2"></el-option>-->
+            <!--<el-option label="教练" value="3"></el-option>-->
+          <!--</el-select>-->
+        <!--</el-form-item>-->
          <el-form-item label="项目">
           <el-input v-model="form.RECORD_PROJECT"></el-input>
         </el-form-item>
@@ -117,36 +117,38 @@
     </el-dialog>
     <!--新增弹框-->
         <el-dialog title="新增管理员" :visible.sync="dialogVisible" width="30%" :before-close="handleClose" >
-      <el-form :model="useraddlist"  label-width="80px" :label-position="labelPosition" :rules="rules">
-        <el-form-item label="账号"  >
+
+      <el-form :model="useraddlist"  label-width="80px" :label-position="labelPosition" :rules="rules" ref="useraddlist">
+
+        <el-form-item label="账号" prop="RECORD_NAME" >
           <el-input v-model="useraddlist.RECORD_NAME"></el-input>
         </el-form-item>
-         <el-form-item label="姓名" prop="name" >
+         <el-form-item label="姓名" prop="NAME" >
           <el-input v-model="useraddlist.NAME" ></el-input>
         </el-form-item>
-        <el-form-item label="角色"  >
-          <el-select   v-model="useraddlist.RECORD_ROLE" placeholder="角色">
-            <el-option label="医生" value="医生"></el-option>
-            <el-option label="管理员" value="管理员"></el-option>
-            <el-option label="教练" value="教练"></el-option>
-          </el-select>
-        </el-form-item>
-         <el-form-item label="项目" prop="name">
+        <!--<el-form-item label="角色" >-->
+          <!--<el-select   v-model="useraddlist.RECORD_ROLE" placeholder="角色">-->
+            <!--<el-option label="管理员" value="医生"></el-option>-->
+            <!--<el-option label="运动员" value="管理员"></el-option>-->
+            <!--<el-option label="教练" value="教练"></el-option>-->
+          <!--</el-select>-->
+        <!--</el-form-item>-->
+         <el-form-item label="项目" prop="RECORD_PROJECT">
           <el-input v-model="useraddlist.RECORD_PROJECT"></el-input>
         </el-form-item>
-         <el-form-item label="联系方式"  >
+         <el-form-item label="联系方式" prop="RECORD_TELEPHONE" >
           <el-input v-model="useraddlist.RECORD_TELEPHONE"></el-input>
         </el-form-item>
-         <el-form-item label="年龄" prop="name">
+         <el-form-item label="年龄" prop="AGE">
           <el-input v-model="useraddlist.AGE" ></el-input>
         </el-form-item>
-           <el-form-item label="籍贯" prop="name">
+           <el-form-item label="籍贯" prop="NPLACE">
           <el-input v-model="useraddlist.NPLACE"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addqrbutton">确 定</el-button>
+        <el-button @click="addqxbutton">取 消</el-button>
+        <el-button type="primary" @click="addqrbutton('useraddlist')">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -161,40 +163,45 @@ export default {
     return {
       //正则表达式
       rules: {
-        name: [
+        NAME: [
           { required: true, message: '请输入内容', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          { min: 2, max: 5, message: '长度在 2 到 5  个字符', trigger: 'blur' }
         ],
-        region: [
-          { required: true, message: '请选择活动区域', trigger: 'change' }
+        RECORD_NAME:[
+          { required: true, message: '请输入内容', trigger: 'blur' },
+          { min: 4, max: 16, message: '长度在 4 到 16 个字符', trigger: 'blur' }
         ],
-        date1: [
-          { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+        RECORD_PROJECT:[
+          { required: true, message: '请输入内容', trigger: 'blur' },
+          { min: 1, max: 6, message: '长度在 1 到 6 个字符', trigger: 'blur' }
         ],
-        date2: [
-          { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
+        RECORD_TELEPHONE:[
+          { required: true, message: '请输入内容', trigger: 'blur' },
+          { min: 11, max: 11, message: '长度在 11个字符', trigger: 'blur' }
         ],
-        type: [
-          { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
+        AGE:[
+          { required: true, message: '请输入内容', trigger: 'blur' },
+          { min: 2, max: 2, message: '请输入正确年龄', trigger: 'blur' }
         ],
-        resource: [
-          { required: true, message: '请选择活动资源', trigger: 'change' }
-        ],
-        desc: [
-          { required: true, message: '请填写活动形式', trigger: 'blur' }
+        NPLACE:[
+          { required: true, message: '请输入内容', trigger: 'blur' },
+          { min: 2, max: 8, message: '长度在 2 到 8 个字符', trigger: 'blur' }
         ]
+
       },
       userList: [],
       show: false,
       //增加开关
       dialogVisible: false,
+      //增加运动员账号
+
       //修改开关
       dialogFormVisible: false,
       //状态勾选值
       multipleSelection: "",
       form: {
         PK_RECORD: "", //id
-        RECORD_NAME: "", //昵称
+        RECORD_NAME: "", //账号
         RECORD_ROLE: "", //角色
         RECORD_PROJECT: "", //项目
         NAME: "", //姓名
@@ -203,7 +210,7 @@ export default {
         NPLACE: "" //籍贯
       },
       useraddlist: {
-        RECORD_NAME: "", //昵称
+        RECORD_NAME: "", //账号
         RECORD_ROLE: "", //角色
         RECORD_PROJECT: "", //项目
         NAME: "", //姓名
@@ -233,6 +240,10 @@ export default {
     }
   },
   methods: {
+    addqxbutton:function(){
+      this.$refs["useraddlist"].resetFields();
+      this.dialogVisible=false
+    },
     //敏感操作
     handleClose(done) {
       this.$confirm('确认关闭？')
@@ -279,10 +290,8 @@ export default {
           });
         });
     },
-
     //删除
     removeUser: function() {
-      debugger;
       let ids = [];
       ids = this.multipleSelection
         .map(item => item.pk_RECORD)
@@ -315,6 +324,7 @@ export default {
     },
     //修改
     qrbutton: function() {
+      this.form.RECORD_ROLE="管理员";
       fetch
         .post("/DR/DRupdate", qs.stringify({ ...this.form }))
         .then(res => {
@@ -324,15 +334,26 @@ export default {
       this.dialogFormVisible = false;
     },
     // 增加
-    addqrbutton: function(reddate) {
-      fetch
-        .post("/DR/DRadd", qs.stringify({ ...this.useraddlist }))
-        .then(res => {
-          this.getData();
-          this.useraddlist = { brand_right: 0 };
-        });
-      // 取消弹框
-      this.dialogVisible = false;
+    addqrbutton:function(reddate){
+
+      this.$refs[reddate].validate((valid) => {
+        if (valid) {
+          this.useraddlist.RECORD_ROLE="管理员";
+          fetch
+            .post("/DR/DRadd", qs.stringify({ ...this.useraddlist}))
+            .then(res => {
+              this.getData();
+              this.useraddlist = { brand_right: 0 };
+            });
+          // 取消弹框
+          this.dialogVisible = false;
+
+        } else {
+
+          console.log('error submit!!');
+          return false;
+        }
+      });
     },
     // -----------------------------------------------------------------------------------------------表格头部样式
     titletable({ row, rowIndex }) {

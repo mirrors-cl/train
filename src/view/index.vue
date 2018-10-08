@@ -3,11 +3,11 @@
     <headhead></headhead>
     <div class="dhdiv">
       <template>
-        <el-tabs v-model="activeName2" type="border-card" @tab-click="handleClick" >
+        <el-tabs v-model="activeName2" type="border-card" @tab-click="handleClick">
           <el-tab-pane>
-            <span slot="label"><i class="el-icon-menu"></i>运动员列表</span>
+            <span slot="label"><i class="el-icon-menu"> </i>运动员列表</span>
           </el-tab-pane>
-          <el-tab-pane>
+          <el-tab-pane name="first">
             <span slot="label"><i class="el-icon-menu"></i>管理员列表</span>
           </el-tab-pane>
           <el-tab-pane>
@@ -53,8 +53,7 @@
           this.$router.push({name:'admin-list-2'})
         }else if(index==1){
           this.$router.push({name:'admin-list'})
-
-        }else if (index==2){
+        }else if(index==2){
           this.$router.push({name:'Competition'})
         }else if(index==3){
           this.$router.push({name:'trainingList'})
@@ -67,7 +66,6 @@
     }
   };
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
   .el-tabs__content{
     display: none;

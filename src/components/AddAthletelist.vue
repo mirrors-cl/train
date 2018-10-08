@@ -5,10 +5,10 @@
       <el-row>
         <el-col :span="8">
             <el-col :span="6" class="textsize">
-                    名称
+                    账号
             </el-col>
             <el-col :span="18">
-                <el-input v-model="form.PLAYER_NAME" placeholder=""></el-input>
+                <el-input v-model="form.PLAYER_NAME" placeholder="" :disabled="true"></el-input>
             </el-col>
         </el-col>
          <el-col :span="8">
@@ -158,10 +158,10 @@
             </el-col>
         </el-col>
         <el-col :span="8">
-            <el-col :span="10"  class="textsize">
+            <el-col :span="12"  class="textsize">
                     紧急联系人与本人关系
             </el-col>
-            <el-col :span="14">
+            <el-col :span="12">
                <el-input v-model="form.CONTACTSRELATION" placeholder=""></el-input>
             </el-col>
         </el-col>
@@ -328,6 +328,10 @@ export default {
   },
   data: function() {
     let userInfo=getStore('userInfo');
+
+   let a=this.$route.query.pk_user;
+   let b=this.$route.query.user_name;
+
     return {
       dialogVisible: false,
 
@@ -339,7 +343,7 @@ export default {
       file3:"",
       //增加
       form: {
-        PK_PLAYER:"fed334262eab4ce791a3937336c93a80",
+        PK_PLAYER:a,
         ADRESS: "", //通讯地址
         AGE: "", //年龄
         BIRTHDAY: "", //出生日期
@@ -362,7 +366,7 @@ export default {
         NPLACE: "", //籍贯
         OUTDATE: "", //退队日期
         PHOTO:"", //照片
-        PLAYER_NAME: "", //名称
+        PLAYER_NAME: b, //名称
         PLAYER_TELEPHONE: "", //联系方式
         POLITICAL: "", //政治面貌
         RECORD_PROJECT: "", //项目
@@ -420,13 +424,22 @@ export default {
     },
     //提交
     qrbutton:function() {
-      fetch
-        .post("/DP/DPadd", qs.stringify({ ...this.form }))
-        .then(res => {
-            this.dialogVisible = true;
-            this.useraddlist = { brand_right: 0 }
+
+      if(this.form.OUTDATE===""){
+        this.$message.error('退队日期不能为空');
+      }else if(this.form.JOININGDATE===""){
+        this.$message.error('参队日期不能为空');
+      }else if(this.form.BIRTHDAY===""){
+        this.$message.error('出生日期不能为空');
+      }else {
+        fetch
+          .post("/DP/DPadd", qs.stringify({ ...this.form }))
+          .then(res => {
+              this.dialogVisible = true;
+              this.useraddlist = { brand_right: 0 }
+            }
+          );
       }
-      );
     },
     //取消
     qxbutton:function(){
