@@ -43,7 +43,6 @@
       }
     },
     created(){
-
     },
     methods:{
       handleClick(tab, event) {
@@ -59,7 +58,6 @@
           this.$router.push({name:'trainingList'})
         }
       }
-
     },
     components: {
       headhead

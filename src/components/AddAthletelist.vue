@@ -255,6 +255,7 @@
             <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
             <!--<el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>-->
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+             <div slot="tip" class="el-upload__tip">请上传一寸证件照</div>
           </el-upload>
         </el-col>
       </el-col>
@@ -375,17 +376,17 @@ export default {
       },
       //照片
       photoInfo:{
-       pk_player:userInfo.pk_USER,
+       pk_player:a,
         type:"1"
       },
       //身份证正面
       pagephoto:{
-        pk_player:userInfo.pk_USER,
+        pk_player:a,
         type:"2"
       },
       //身份证反面
       pagephotoback:{
-        pk_player:userInfo.pk_USER,
+        pk_player:a,
         type:"3"
       },
     };
@@ -435,6 +436,7 @@ export default {
         fetch
           .post("/DP/DPadd", qs.stringify({ ...this.form }))
           .then(res => {
+
               this.dialogVisible = true;
               this.useraddlist = { brand_right: 0 }
             }
@@ -443,6 +445,12 @@ export default {
     },
     //取消
     qxbutton:function(){
+      let a = this.form.PK_PLAYER;
+        fetch
+          .post("/DP/deleteUAndP",qs.stringify({pk_player:a}))
+          .then(res=>{
+            console.log("chengggong")
+        })
       this.$router.push({name:'admin-list-2'})
       // this.useraddlist = { brand_right: 0 }
     },
@@ -459,6 +467,7 @@ export default {
         this.$refs.upload1.submit();
         this.$refs.upload2.submit();
         this.$refs.upload3.submit();
+        this.$router.push({name:'admin-list-2'});
         this.dialogVisible =false;
       }
     },

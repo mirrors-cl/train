@@ -9,17 +9,30 @@ import Competitionlist from'@/view/Competitionlist'
 import projectList from '@/components/projectList'
 import scoreList from '@/components/scoreList'
 import trainingList from '@/view/trainingList'
+import test from '@/test/test'
+import playerform from '@/view/Athlete/playerFormation'
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    //测试
+    {
+      path:'/test',
+      name:'test',
+      component:test
+    },
     //登陆
     {
       path: '/login',
       name: 'login',
       component: login
     },
-
+    //运动员界面
+    {
+      path:'/playerform',
+      name:'playerform',
+      component:playerform
+    },
     //主页面
     {
       path: '/adminUser',

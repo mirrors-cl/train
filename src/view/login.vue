@@ -49,7 +49,7 @@ export default {
              if (identity === '1') {
                this.$router.push({ path: "/adminUser"});
              } else if (identity === '2') {
-               this.$router.push({ path: "/AddAthletelist"});
+               this.$router.push({ path: '/playerform'});
              }
            } else {
              alert("账号或密码错误");
