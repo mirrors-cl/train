@@ -1,7 +1,7 @@
 <template>
   <div class="divbody">
     <div class="delete">
-      <el-button type="primary" size="medium" @click="open1" icon="el-icon-delete">删除</el-button>
+      <el-button type="danger" size="medium" @click="open1" icon="el-icon-delete">删除</el-button>
       <el-button type="primary" size="medium" @click="dialogVisible = true" icon="el-icon-circle-plus-outline">新增管理员</el-button>
     </div>
     <!-- 表格 -->
@@ -45,15 +45,23 @@
       <!-- 列表 -->
       <el-table-column
         prop="record_ROLE"
-        label="角色">
+        label="角色"
+        width="100px">
+      </el-table-column>
+      <el-table-column
+        prop="record_DUTY"
+        label="职责"
+        width="150px">
       </el-table-column>
       <el-table-column
         prop="record_PROJECT"
-        label="项目">
+        label="项目"
+      width="100px">
       </el-table-column>
       <el-table-column
         prop="name"
-        label="姓名">
+        label="姓名"
+      width="100px">
       </el-table-column>
       <el-table-column
         prop="record_TS"
@@ -97,6 +105,9 @@
             <!--<el-option label="教练" value="3"></el-option>-->
           <!--</el-select>-->
         <!--</el-form-item>-->
+        <el-form-item label="职称">
+          <el-input v-model="form.RECORD_DUTY"></el-input>
+        </el-form-item>
          <el-form-item label="项目">
           <el-input v-model="form.RECORD_PROJECT"></el-input>
         </el-form-item>
@@ -116,23 +127,17 @@
       </div>
     </el-dialog>
     <!--新增弹框-->
-        <el-dialog title="新增管理员" :visible.sync="dialogVisible" width="30%" :before-close="handleClose" >
-
+    <el-dialog title="新增管理员" :visible.sync="dialogVisible" width="30%" :before-close="handleClose" >
       <el-form :model="useraddlist"  label-width="80px" :label-position="labelPosition" :rules="rules" ref="useraddlist">
-
         <el-form-item label="账号" prop="RECORD_NAME" >
           <el-input v-model="useraddlist.RECORD_NAME"></el-input>
         </el-form-item>
          <el-form-item label="姓名" prop="NAME" >
           <el-input v-model="useraddlist.NAME" ></el-input>
         </el-form-item>
-        <!--<el-form-item label="角色" >-->
-          <!--<el-select   v-model="useraddlist.RECORD_ROLE" placeholder="角色">-->
-            <!--<el-option label="管理员" value="医生"></el-option>-->
-            <!--<el-option label="运动员" value="管理员"></el-option>-->
-            <!--<el-option label="教练" value="教练"></el-option>-->
-          <!--</el-select>-->
-        <!--</el-form-item>-->
+        <el-form-item label="职称" prop="RECORD_DUTY">
+          <el-input v-model="useraddlist.RECORD_DUTY"></el-input>
+        </el-form-item>
          <el-form-item label="项目" prop="RECORD_PROJECT">
           <el-input v-model="useraddlist.RECORD_PROJECT"></el-input>
         </el-form-item>
@@ -186,7 +191,12 @@ export default {
         NPLACE:[
           { required: true, message: '请输入内容', trigger: 'blur' },
           { min: 2, max: 8, message: '长度在 2 到 8 个字符', trigger: 'blur' }
-        ]
+        ],
+        RECORD_DUTY:[
+          { required: true, message: '请输入内容', trigger: 'blur' },
+          { min: 2, max: 8, message: '长度在 2 到 8 个字符', trigger: 'blur' }
+        ],
+
 
       },
       userList: [],
@@ -200,6 +210,7 @@ export default {
       //状态勾选值
       multipleSelection: "",
       form: {
+        RECORD_DUTY:"",//职责
         PK_RECORD: "", //id
         RECORD_NAME: "", //账号
         RECORD_ROLE: "", //角色
@@ -210,6 +221,7 @@ export default {
         NPLACE: "" //籍贯
       },
       useraddlist: {
+        RECORD_DUTY:"",//职责
         RECORD_NAME: "", //账号
         RECORD_ROLE: "", //角色
         RECORD_PROJECT: "", //项目
@@ -312,6 +324,8 @@ export default {
     },
     //修改回显数据UI
     handleEdit: function(index, row) {
+      console.log(row);
+      this.form.RECORD_DUTY=row.record_DUTY;
       this.form.PK_RECORD = row.pk_RECORD; //ID
       this.form.RECORD_NAME = row.record_NAME; //昵称
       this.form.RECORD_ROLE = row.record_ROLE; //角色
@@ -342,12 +356,24 @@ export default {
           fetch
             .post("/DR/DRadd", qs.stringify({ ...this.useraddlist}))
             .then(res => {
-              this.getData();
-              this.useraddlist = { brand_right: 0 };
-            });
-          // 取消弹框
-          this.dialogVisible = false;
+              console.log(res.data.data);
+              if(res.data.data ===null){
+                this.$message({
+                  type: "error",
+                  message: res.data.message
+                });
+              }else {
+                this.$message({
+                  type:"success",
+                  message: '增加成功',
+                })
+                this.getData();
+                this.useraddlist = { brand_right: 0 };
+                // 取消弹框
+                this.dialogVisible = false;
+              }
 
+            });
         } else {
 
           console.log('error submit!!');

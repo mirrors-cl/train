@@ -133,22 +133,17 @@
         </el-col>
         <el-col :span="8">
           <el-col :span="6" class="textsize">
-            获得荣誉
+            血型
           </el-col>
           <el-col :span="18">
-            <el-input v-model="form.HONOR" placeholder=""></el-input>
+            <el-select v-model="form.BLOOD" placeholder="请选择血型" style="width: 280px">
+              <el-option label="血型A" value="血型A"></el-option>
+              <el-option label="血型B" value="血型B"></el-option>
+              <el-option label="血型AB" value="血型AB"></el-option>
+              <el-option label="血型O" value="血型O"></el-option>
+            </el-select>
           </el-col>
         </el-col>
-
-        <el-col :span="8">
-            <el-col :span="8"  class="textsize">
-                    紧急联系人电话
-            </el-col>
-            <el-col :span="16">
-               <el-input v-model="form.CONTACTSPHONE" placeholder=""></el-input>
-            </el-col>
-        </el-col>
-
         <el-col :span="8">
             <el-col :span="6"  class="textsize">
                     退队原因 
@@ -158,33 +153,30 @@
             </el-col>
         </el-col>
         <el-col :span="8">
-            <el-col :span="12"  class="textsize">
+            <el-col :span="11"  class="textsize">
                     紧急联系人与本人关系
             </el-col>
-            <el-col :span="12">
+            <el-col :span="13">
                <el-input v-model="form.CONTACTSRELATION" placeholder=""></el-input>
             </el-col>
         </el-col>
         <el-col :span="8">
-          <el-col :span="6" class="textsize">
-            血型
+          <el-col :span="8"  class="textsize">
+            紧急联系人电话
           </el-col>
-          <el-col :span="18">
-            <el-select v-model="form.BLOOD" placeholder="请选择血型">
-              <el-option label="血型A" value="血型A"></el-option>
-              <el-option label="血型B" value="血型B"></el-option>
-              <el-option label="血型AB" value="血型AB"></el-option>
-              <el-option label="血型O" value="血型O"></el-option>
-            </el-select>
+          <el-col :span="16">
+            <el-input v-model="form.CONTACTSPHONE" placeholder=""></el-input>
           </el-col>
         </el-col>
-         <el-col :span="8">
+
+        <el-col :span="8">
             <el-col :span="6" class="textsize">
                     参队日期
             </el-col>
             <el-col :span="18">
                <el-col :span="18">
                  <el-date-picker
+                   style="width: 280px"
                    v-model="form.JOININGDATE"
                    type="date"
                    placeholder="选择日期"
@@ -200,6 +192,7 @@
             </el-col>
             <el-col :span="18">
               <el-date-picker
+                style="width: 280px"
                 v-model="form.BIRTHDAY"
                 type="date"
                 placeholder="选择日期"
@@ -214,6 +207,7 @@
             </el-col>
             <el-col :span="18">
               <el-date-picker
+                style="width: 280px"
                 v-model="form.OUTDATE"
                 type="date"
                 placeholder="选择日期"
@@ -222,6 +216,33 @@
               </el-date-picker>
             </el-col>
         </el-col>
+        <el-col :span="12">
+          <el-col :span="4" class="textsize">
+            获得荣誉
+          </el-col>
+          <el-col :span="20">
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 8, maxRows: 8}"
+              placeholder="请输入内容"
+              v-model="form.HONOR">
+            </el-input>
+          </el-col>
+        </el-col>
+        <!--<el-col :span="12">-->
+          <!--<el-col :span="4" class="textsize">-->
+            <!--伤病记录-->
+          <!--</el-col>-->
+          <!--<el-col :span="20">-->
+            <!--<el-input-->
+              <!--size="20px"-->
+              <!--type="textarea"-->
+              <!--:autosize="{ minRows: 8, maxRows: 8}"-->
+              <!--placeholder="请输入内容"-->
+              <!--v-model="form.HONOR">-->
+            <!--</el-input>-->
+          <!--</el-col>-->
+        <!--</el-col>-->
         <el-col :span="24">
              <el-col :span="12" class="buttondiv">
                  <el-button @click="qxbutton">返回</el-button>

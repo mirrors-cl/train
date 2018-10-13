@@ -2,8 +2,8 @@
   <div class="bodydiv">
     <div class="Alist">
       <div>
-        <el-button type="primary" size="medium" @click="open1" icon="el-icon-delete">删除</el-button>
-        <el-button type="primary" size="medium" @click="dialogVisible1=true">添加运动员账号</el-button>
+        <el-button type="danger" size="medium" @click="open1" icon="el-icon-delete">删除</el-button>
+        <el-button type="primary" size="medium" @click="dialogVisible1=true" icon="el-icon-circle-plus-outline">添加运动员账号</el-button>
       </div>
       <el-table
         ref="multipleTable"
@@ -336,10 +336,10 @@
 
            <el-col :span="8">
             <el-col :span="6" class="textsize">
-                    名称
+                    账号
             </el-col>
             <el-col :span="18">
-                <el-input v-model="updataform.PLAYER_NAME" placeholder=""></el-input>
+                <el-input v-model="updataform.PLAYER_NAME" placeholder="" :disabled="true"></el-input>
             </el-col>
         </el-col>
          <el-col :span="8">
@@ -570,17 +570,13 @@
             ref="upload1"
             action="/UP/upimg"
             :data="photoInfo"
-            :on-preview="handlePreview"
-            :on-change="handleChange"
-            :on-remove="handleRemove"
             :file-list="fileList"
             :limit="1"
             :on-exceed="handleExceed"
             :auto-upload="false">
             <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
             <!--<el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>-->
-            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-             <div slot="tip" class="el-upload__tip">请上传一寸证件照</div>
+             <div slot="tip" class="el-upload__tip">请上传一寸证件照,只能上传jpg/png文件</div>
           </el-upload>
         </el-col>
       </el-col>
@@ -594,9 +590,6 @@
                   ref="upload2"
                   action="/UP/upimg"
                   :data="pagephoto"
-                  :on-preview="handlePreview"
-                  :on-change="handleChange1"
-                  :on-remove="handleRemove"
                   :file-list="fileList"
                   :limit="1"
                   :on-exceed="handleExceed"
@@ -617,9 +610,6 @@
                   ref="upload3"
                   action="/UP/upimg"
                   :data="pagephotoback"
-                  :on-preview="handlePreview"
-                  :on-change="handleChange2"
-                  :on-remove="handleRemove"
                   :file-list="fileList"
                   :limit="1"
                   :on-exceed="handleExceed"
@@ -648,6 +638,7 @@
     name: "ath-list",
     data: function () {
       return {
+        fileList:[],
         // 照片
          imageSrc:"",
         //身份证正面
@@ -663,6 +654,7 @@
         //修改
         updatadialogVisible:false,
         form: {
+          PLAYER_CODE:"",//编码
           ADRESS: "", //通讯地址
           AGE: "", //年龄
           BIRTHDAY: "", //出生日期
@@ -685,8 +677,6 @@
           NPLACE: "", //籍贯
           OUTDATE: "", //退队日期
           PHOTO: "", //照片
-          pagephoto: "",//正面
-          pagephotoback: "",//反面
           PLAYER_NAME: "", //名称
           PLAYER_TELEPHONE: "", //联系方式
           POLITICAL: "", //政治面貌
@@ -710,7 +700,6 @@
           type:"3"
         },
         updataform:{},
-
         athleteForm:{
           //运动员账号
           RECORD_NAME: "",
@@ -810,7 +799,6 @@
           });
       },
       buttonlist:function(row,column) {
-
         console.log(column.label);
         if(column.label === "操作"){
 
@@ -859,7 +847,6 @@
           this.form.WEIGHT = row.weight; //体重
           this.dialogVisible = true;
         }
-
       },
       //筛选
       filterHandler(value,row,column){
@@ -887,6 +874,12 @@
       addButton:function(){
         fetch.post("DR/DRaddPlayer",qs.stringify(this.athleteForm))
           .then(res=>{
+            if(res.data.data===null){
+              this.$message({
+                message: res.data.message,
+                type: 'error'
+              })
+            }else
           this.$router.push({name:'addath',query:{pk_user:res.data.data.pk_user,user_name:res.data.data.user_name}})
         })
           .catch(()=>{
@@ -904,8 +897,8 @@
         // this.pagephoto.pk_player=row.PK_PLAYER;
         // this.pagephotoback.pk_player=row.PK_PLAYER;
         console.log(row);
-        this.updataform.PK_PLAYER=row.PK_PLAYER;
         this.updataform=this.form;
+        this.updataform.PK_PLAYER=row.PK_PLAYER;
         this.updataform.ADRESS = row.adress; //通讯地址
         this.updataform.AGE = row.age;  //年龄
         this.updataform.BIRTHDAY = row.birthday;  //出生日期
@@ -935,6 +928,10 @@
         this.updataform.SEX = row.sex; //性别
         this.updataform.WEIGHT = row.weight; //体重
         this.updatadialogVisible = true;
+      },
+      //修改照片
+      handleExceed(files, fileList) {
+        this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${fileList.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
       },
       //style
       titletable({row, rowIndex}) {

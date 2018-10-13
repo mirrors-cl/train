@@ -4,11 +4,9 @@
          <div class="eyes"></div>
       </div>
 
+
   </div>
 </template>
-
-
-
 <script>
   import fetch from "@/assets/js/fetch.js";
     export default {

@@ -11,16 +11,16 @@
             <span slot="label"><i class="el-icon-menu"></i>管理员列表</span>
           </el-tab-pane>
           <el-tab-pane>
-            <span slot="label"><i class="el-icon-menu"></i>比赛列表</span>
-          </el-tab-pane>
-          <el-tab-pane>
-            <span slot="label"><i class="el-icon-menu"></i>训练列表</span>
-          </el-tab-pane>
-          <el-tab-pane>
             <span slot="label"><i class="el-icon-menu"></i>比赛成绩</span>
           </el-tab-pane>
           <el-tab-pane>
             <span slot="label"><i class="el-icon-menu"></i>训练计划</span>
+          </el-tab-pane>
+          <el-tab-pane>
+            <span slot="label"><i class="el-icon-menu"></i>运动员表现统计</span>
+          </el-tab-pane>
+          <el-tab-pane>
+            <span slot="label"><i class="el-icon-menu"></i>训练数据报告</span>
           </el-tab-pane>
         </el-tabs>
       </template>
