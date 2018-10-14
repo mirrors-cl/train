@@ -43,6 +43,7 @@
       }
     },
     created(){
+      console.log("rout",this.$router.name)
     },
     methods:{
       handleClick(tab, event) {
