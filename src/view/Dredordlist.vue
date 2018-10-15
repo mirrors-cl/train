@@ -130,7 +130,7 @@
     <el-dialog title="新增管理员" :visible.sync="dialogVisible" width="30%" :before-close="handleClose" >
       <el-form :model="useraddlist"  label-width="80px" :label-position="labelPosition" :rules="rules" ref="useraddlist">
         <el-form-item label="账号" prop="RECORD_NAME" >
-          <el-input v-model="useraddlist.RECORD_NAME"></el-input>
+          <el-input v-model.trim="useraddlist.RECORD_NAME"></el-input>
         </el-form-item>
          <el-form-item label="姓名" prop="NAME" >
           <el-input v-model="useraddlist.NAME" ></el-input>

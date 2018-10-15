@@ -641,11 +641,13 @@
         fileList:[],
         // 照片
          imageSrc:"",
-        //身份证正面
-        pagephoto1:"",
+
         rowId:"",
+
         //身份证反面
         pagephotoback1:"",
+        //身份证正面
+        pagephoto1:"",
 
         //详情
         dialogVisible: false,
@@ -887,16 +889,22 @@
       },
       //修改
       updatabutton:function(){
+        this.$refs.upload1.submit();
+        this.$refs.upload2.submit();
+        this.$refs.upload3.submit();
           fetch.post("/DP/DPupdate",qs.stringify(this.updataform))
             .then(res=>{
-              this.getData
+              this.getData();
+              this.updatadialogVisible=false;
             })
       },
       handleEdit:function(index,row){
-        // this.photoInfo.pk_player=row.PK_PLAYER;
-        // this.pagephoto.pk_player=row.PK_PLAYER;
-        // this.pagephotoback.pk_player=row.PK_PLAYER;
-        console.log(row);
+        debugger
+        console.log("row",row);
+        this.photoInfo.pk_player=row.PK_PLAYER;
+        this.pagephoto.pk_player=row.PK_PLAYER;
+        this.pagephotoback.pk_player=row.PK_PLAYER;
+
         this.updataform=this.form;
         this.updataform.PK_PLAYER=row.PK_PLAYER;
         this.updataform.ADRESS = row.adress; //通讯地址

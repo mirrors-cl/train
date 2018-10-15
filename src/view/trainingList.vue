@@ -14,8 +14,7 @@
                    type="dates"
                    placeholder="选择一个或多个日期"
                    format="yyyy 年 MM 月 dd 日"
-                   value-format="yyyy-MM-dd"
-                 >
+                   value-format="yyyy-MM-dd">
                 </el-date-picker>
                 </el-form-item>
               <el-form-item label="地点">
@@ -85,7 +84,7 @@
           </el-form>
         </span>
         <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible1 = false">取 消</el-button>
+        <el-button @click="qxtrainingbutton">取 消</el-button>
         <el-button type="primary" @click="trainingbutton">确 定</el-button>
       </span>
       </el-dialog>
@@ -125,7 +124,7 @@
           </template>
         </span>
         <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible2 = false">取 消</el-button>
+        <el-button @click="qxplayerbutton">取 消</el-button>
         <el-button type="primary" @click="playerbutton">确 定</el-button>
       </span>
       </el-dialog>
@@ -194,6 +193,38 @@
     <el-button type="primary" @click="dialogVisible3 = false">确 定</el-button>
   </span>
       </el-dialog>
+      <!--修改运动员详情-->
+      <el-dialog
+        title="修改训练计划"
+        :visible.sync="dialogVisible4"
+        width="50%"
+        :before-close="handleClose">
+        <span>
+          <el-form ref="updateTraining" :model="updateTraining" label-width="80px">
+         <el-form-item label="请选择时间">
+            <el-time-picker
+              is-range
+              v-model="updateTraining.mt_project_mdate"
+              range-separator="至"
+              start-placeholder="开始时间"
+              end-placeholder="结束时间"
+              placeholder="选择时间范围"
+              value-format="HH:mm-ss">
+          </el-time-picker>
+         </el-form-item>
+            <el-form-item label="训练项目">
+            <el-input v-model="updateTraining.mt_project_projoct"></el-input>
+          </el-form-item>
+                    <el-form-item label="训练内容">
+            <el-input v-model="updateTraining.mt_project_practice"></el-input>
+          </el-form-item>
+          </el-form>
+        </span>
+        <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible4 = false">取 消</el-button>
+        <el-button type="primary" @click="updateTrainingButton">确 定</el-button>
+      </span>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -205,10 +236,15 @@
     name: "ath-list",
     data: function () {
       return {
+        //复用勾选运动员变量
+        playercheck:"",
         dialogVisible: false,
         dialogVisible1: false,
         dialogVisible2: false,
         dialogVisible3: false,
+        //修改
+        dialogVisible4:false,
+
         zjbutton: false,
         //控件渲染数组
         demoEvents: [],
@@ -220,7 +256,7 @@
           title: '',//地点
           drill_practice: '',//简介
         },
-
+        //计划详情
         trainingDetails: {
           date: "",//某天
           MT_PROJECT_MDATE: "",//时间段
@@ -228,9 +264,17 @@
           user: "",//参与人
           MT_PROJECT_PRACTICE: ""//训练内容
         },
+        //修改表单
+        updateTraining :{
+          olddate:"",//原时间
+          oldmt_project_participant:"",//原运动员
+          mt_project_mdate:"",//新时间
+          mt_project_participant:"",//新的创建人
+          mt_project_projoct:"",//新项目
+          mt_project_practice:"",//新的训练内容
+        },
         date: "",
         playerform: [],
-
       }
     },
     created() {
@@ -240,24 +284,65 @@
     //计算属性
     computed: {},
     methods: {
+      //修改界面
+      handleEdit:function(index,row){
+        this.updateTraining.olddate=row.mt_project_mdate;
+        this.updateTraining.oldmt_project_participant=row.mt_project_participant;
+
+        //修改勾选人弹框
+        this.dialogVisible2=true;
+        this.playerdata();
+        //修改填报页面
+        // this.dialogVisible4=true;
+        console.log("index,row",index,row)
+      },
+      //修改操作
+      updateTrainingButton:function(){
+        debugger
+        this.updateTraining.mt_project_mdate=this.updateTraining.mt_project_mdate.join();
+       console.log( "123456",)
+
+        fetch.post("/TP/TPupdate",qs.stringify(this.updateTraining)).then(res=>{
+
+          this.updateTraining = { trainingDetails: 0 };
+          this.dialogVisible4=false
+
+        })
+
+      },
       //筛选
       filterHandler(value, row, column) {
         const property = column['property'];
         return row[property] === value;
       },
+      qxplayerbutton:function(){
+        this.dialogVisible2=false;
+        this.playercheck=""
+      },
       //勾选成功传入添加训练计划
       playerbutton: function () {
-        this.dialogVisible2 = false
-        this.dialogVisible1 = true;
+        if(this.playercheck===""){
+          this.dialogVisible2=false;
+          this.dialogVisible4=true
+            
+        }else if (this.playercheck==="1") {
+          this.dialogVisible2 = false;
+          this.dialogVisible1 = true;
+        }
+
+
       },
       //勾选队员
       handleSelectionChange(val) {
+
         this.trainingDetails.user = val.map(item => item.PK_PLAYER).filter(item => item !== undefined).join();
+        this.updateTraining.mt_project_participant = val.map(item=>item.PK_PLAYER).filter(item=>item!== undefined).join();
         console.log(val);
         this.multipleSelection = val;
       },
       //增加详情训练计划
-      trainingbutton: function () {
+      trainingbutton:function(){
+        this.playercheck="";
         this.trainingDetails.MT_PROJECT_MDATE.join();
         fetch.post("/TP/TPadd", qs.stringify({
           date: this.trainingDetails.date,
@@ -265,10 +350,17 @@
           mt_project_projoct: this.trainingDetails.MT_PROJECT_PROJOCT,
           mt_project_participant: this.trainingDetails.user,
           mt_project_practice: this.trainingDetails.MT_PROJECT_PRACTICE
-        }))
-          .then(res => {
-          })
+        })).then(res => {
+          this.useraddlist = { trainingDetails: 0 };
+            this.dialogVisible1=false;
+            this.getdata()
 
+          })
+      },
+      //增加取消
+      qxtrainingbutton:function(){
+        this.dialogVisible1=false;
+        this.playercheck=""
       },
       //运动员信息
       playerdata: function () {
@@ -297,6 +389,8 @@
       },
       //勾选操作
       checkOut: function () {
+        this.playercheck="1";
+
         this.playerdata();
         this.dialogVisible2 = true
       },
@@ -304,6 +398,8 @@
       handleClose(done) {
         this.$confirm('确认关闭？')
           .then(_ => {
+            this.playercheck="";
+
             done();
           })
           .catch(_ => {
