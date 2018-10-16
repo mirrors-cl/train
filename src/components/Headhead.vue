@@ -4,25 +4,17 @@
       田径训练管理平台
     </div>
     <div class="headPortrait">
-
-      <el-dropdown trigger="click">
-  <span class="el-dropdown-link">
-  <img v-bind:src="imageSrc">
-    <!--<i class="el-icon-caret-bottom el-icon&#45;&#45;right"></i>-->
-
-  </span>
+    <el-dropdown trigger="click" >
+          <span class="el-dropdown-link">
+          <img v-bind:src="imageSrc">
+          </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item class="clearfix" @click.native="dialogVisible = true">
-            修改密码
-            <el-badge class="mark"/>
+          <el-dropdown-item class="clearfix" @click.native="dialogVisible = true">修改密码<el-badge class="mark"/>
           </el-dropdown-item>
-          <el-dropdown-item class="clearfix" @click.native="qcbuuon">
-            退出
-            <el-badge class="mark"/>
+          <el-dropdown-item class="clearfix" @click.native="qcbuuon">退出<el-badge class="mark"/>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-
       <!--<router-link :to="{name:'login'}">-->
       <!--</router-link>-->
       <!--下载-->
@@ -54,6 +46,7 @@
   import fetch from "@/assets/js/fetch.js";
   import {getStore} from "@/assets/js/utils.js";
   import qs from "qs";
+
   export default {
     name: "Headhead",
     data() {
@@ -68,7 +61,7 @@
         }
       };
       const validatePass2 = (rule, value, callback) => {
-        console.log("value",value);
+        console.log("value", value);
         if (value === '') {
           callback(new Error('请再次输入密码'));
         } else if (value !== this.form.password) {
@@ -81,10 +74,10 @@
         //passwrod正则表达式
         rules2: {
           password: [
-            { validator: validatePass, trigger: 'blur' }
+            {validator: validatePass, trigger: 'blur'}
           ],
           password1: [
-            { validator: validatePass2, trigger: 'blur' }
+            {validator: validatePass2, trigger: 'blur'}
           ],
         },
         imageSrc: "",
@@ -102,19 +95,19 @@
     },
     methods: {
       //确认修改密码
-      datepassword:function(){
-        fetch.post("/restPassword",qs.stringify({pk_user:this.userInfo.pk_USER,password:this.form.password}))
-          .then(res=>{
-            this.dialogVisible=false;
+      datepassword: function () {
+        fetch.post("/restPassword", qs.stringify({pk_user: this.userInfo.pk_USER, password: this.form.password}))
+          .then(res => {
+            this.dialogVisible = false;
 
-        }).catch(errors=>{
+          }).catch(errors => {
           alert("请求超时")
         })
       },
       //取消清除正则验证提示
-      qxbuuton:function(){
+      qxbuuton: function () {
         this.$refs["form"].resetFields();
-        this.dialogVisible=false
+        this.dialogVisible = false
       },
       //敏感操作
       handleClose(done) {
@@ -169,7 +162,8 @@
       padding-top: 20px;
     }
     .headPortrait {
-
+      //鼠标悬停小手😆
+      cursor pointer;
       box-sizing: border-box;
       padding: 5px;
       float: right;

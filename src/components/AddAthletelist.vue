@@ -350,7 +350,6 @@ export default {
   },
   data: function() {
     let userInfo=getStore('userInfo');
-
    let a=this.$route.query.pk_user;
    let b=this.$route.query.user_name;
 

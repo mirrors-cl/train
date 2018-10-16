@@ -391,7 +391,6 @@ export default {
 <style lang="stylus" scoped>
 .divbody {
   width: 80%;
-  height: 400px;
   margin-left: 10%;
   user-select: none;
 }

@@ -74,7 +74,6 @@
               value-format="HH:mm-ss">
           </el-time-picker>
          </el-form-item>
-
             <el-form-item label="训练项目">
             <el-input v-model="trainingDetails.MT_PROJECT_PROJOCT"></el-input>
           </el-form-item>
@@ -275,6 +274,7 @@
         },
         date: "",
         playerform: [],
+
       }
     },
     created() {
@@ -282,7 +282,9 @@
       this.getdata();
     },
     //计算属性
-    computed: {},
+    computed: {
+
+    },
     methods: {
       Deletehandle(index,row){
         fetch.post("/TP/TPdelete",qs.stringify({olddate:row.mt_project_mdate,oldmt_project_participant:row.mt_project_participant}))
@@ -312,17 +314,13 @@
 
       //修改操作
       updateTrainingButton:function(){
-        debugger
         this.updateTraining.mt_project_mdate=this.updateTraining.mt_project_mdate.join();
-       console.log( "123456",)
-
-        fetch.post("/TP/TPupdate",qs.stringify(this.updateTraining)).then(res=>{
-
+        fetch
+          .post("/TP/TPupdate",qs.stringify(this.updateTraining))
+          .then(res=>{
           this.updateTraining = { trainingDetails: 0 };
           this.dialogVisible4=false
-
         })
-
       },
       //筛选
       filterHandler(value, row, column) {
@@ -343,12 +341,9 @@
           this.dialogVisible2 = false;
           this.dialogVisible1 = true;
         }
-
-
       },
       //勾选队员
       handleSelectionChange(val) {
-
         this.trainingDetails.user = val.map(item => item.PK_PLAYER).filter(item => item !== undefined).join();
         this.updateTraining.mt_project_participant = val.map(item=>item.PK_PLAYER).filter(item=>item!== undefined).join();
         console.log(val);
@@ -368,7 +363,6 @@
           this.useraddlist = { trainingDetails: 0 };
             this.dialogVisible1=false;
             this.getdata()
-
           })
       },
       //增加取消
@@ -388,17 +382,15 @@
           .then(res => {
             this.demoEvents = res.data.data
             // this.demoEvents.push(res);
-
-          })
-      },
+          })},
       getdata1: function () {
-        fetch.get("/TP/TPselect", {
+        fetch.get("/TP/TPselect",{
           params: {
             date: this.date
           }
         }).then(item => {
           this.trainingList = item.data.data;
-          console.log(item)
+        this.xht=item.data.data
         })
       },
       //勾选操作
@@ -412,8 +404,8 @@
       handleClose(done) {
         this.$confirm('确认关闭？')
           .then(_ => {
+            //重置playercheck
             this.playercheck="";
-
             done();
           })
           .catch(_ => {
@@ -457,8 +449,6 @@
       colourstyle: function () {
         this.getdata1();
         this.dialogVisible3 = true
-
-
       },
     }
   };
