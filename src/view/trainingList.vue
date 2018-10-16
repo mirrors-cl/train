@@ -182,7 +182,7 @@
         <el-button
           size="mini"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          @click="Deletehandle(scope.$index, scope.row)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -284,6 +284,19 @@
     //计算属性
     computed: {},
     methods: {
+      Deletehandle(index,row){
+        fetch.post("/TP/TPdelete",qs.stringify({olddate:row.mt_project_mdate,oldmt_project_participant:row.mt_project_participant}))
+          .then(res=>{
+            this.$message({
+              message: '恭喜你，这是一条成功消息',
+              type: 'success'
+            });
+            this.getdata1();
+          }).catch(errors=>{
+          this.$message.error('错了哦，这是一条错误消息');
+        })
+          console.log(row)
+      },
       //修改界面
       handleEdit:function(index,row){
         this.updateTraining.olddate=row.mt_project_mdate;
@@ -296,6 +309,7 @@
         // this.dialogVisible4=true;
         console.log("index,row",index,row)
       },
+
       //修改操作
       updateTrainingButton:function(){
         debugger
