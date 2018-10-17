@@ -37,7 +37,7 @@
       >
         <el-menu-item index="1"><i class="el-icon-menu"></i>运动员列表</el-menu-item>
         <el-menu-item index="2"><i class="el-icon-menu"></i>管理员列表</el-menu-item>
-        <el-menu-item index="3"><i class="el-icon-menu"></i>比赛成绩</el-menu-item>
+        <el-menu-item index="3"><i class="el-icon-menu"></i>{{competition}}</el-menu-item>
         <el-menu-item index="4"><i class="el-icon-menu"></i>训练计划</el-menu-item>
         <el-menu-item index="5"><i class="el-icon-menu"></i>运动员表现统计</el-menu-item>
         <el-menu-item index="6"><i class="el-icon-menu"></i>训练数据报告</el-menu-item>
@@ -65,6 +65,7 @@
     },
     created(){
     },
+
     methods:{
       handleSelect(key, keyPath) {
         if (keyPath ==1){
@@ -90,6 +91,21 @@
       //     this.$router.push({name:'trainingList'})
       //   }
       // }
+    },
+    computed:{
+      competition(){
+        const {name}=this.$route
+        if(name==='scoreList'){
+
+          return '成绩列表'
+        }else if(name==='projectList'){
+          return '项目列表'
+        }else {
+          return '比赛列表'
+        }
+
+
+      }
     },
     components: {
       headhead

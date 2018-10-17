@@ -38,46 +38,68 @@ export default new Router({
       path: '/adminUser',
       name: 'admin',
       component: index,
-      children: [{
-          path: 'list',
-          name: 'admin-list',
-          component: adminList
-        },
+      children: [
         {
           //运动员列表页
           path: 'list2',
           name: 'admin-list-2',
+          meta: {
+            requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+          },
           component: AthList,
+        },
+        {
+          path: 'list',
+          name: 'admin-list',
+          meta:{
+            requireAuth: true
+          },
+          component: adminList
         },
         {
           path:'clist',
           name:'Competition',
+          meta: {
+            requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+          },
           component:Competitionlist
         },
         {
           path:'plist',
           name:'projectList',
+          meta: {
+            requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+          },
           component:projectList
         },
         {
           path:'slsit',
           name:'scoreList',
+          meta: {
+            requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+          },
           component:scoreList
         },
         {
           path:'tlist',
           name:'trainingList',
+          meta: {
+            requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+          },
           component:trainingList
         },
         {
           path: '/AddAthletelist',
           name: 'addath',
+          meta: {
+            requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+          },
           component: AddAthletelist
 
         },
         {
           path: '/',
-          redirect: 'list'
+          redirect: 'list2'
         }
       ]
     },

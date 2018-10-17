@@ -306,7 +306,8 @@
       },
       //table表头样式
       titletable({row, rowIndex}) {
-        return {background: "#212529", color: "#fff"};
+        return {background: "#929aab", color: "#fff"};
+        // #212529
       },
       //返回
       back(){

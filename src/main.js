@@ -14,10 +14,31 @@ Vue.config.productionTip = false
 
 import 'vue-event-calendar/dist/style.css'
 import vueEventCalendar from 'vue-event-calendar'
-Vue.use(vueEventCalendar, {locale: 'zh'})
+Vue.use(vueEventCalendar, {locale: 'zh'});
 
 //const $ = require('jquery')
 /* eslint-disable no-new */
+
+
+//router全局路由守卫
+router.beforeEach((to, from, next) => {
+
+    if (to.meta.requireAuth){
+      if (true){
+        next();
+      }else {
+        next({
+          path:'/login',
+          query: {redirect: to.fullPath}
+        })
+
+      }
+    }else {
+      next();
+    }
+
+
+})
 new Vue({
   el: '#app',
   router,
