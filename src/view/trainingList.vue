@@ -52,6 +52,7 @@
             </ul>
             <el-button type="primary" size="mini" @click="checkOut" v-show="zjbutton">添加训练内容</el-button>
             <el-button type="primary" size="mini" @click="colourstyle" v-show="zjbutton">详细训练计划</el-button>
+            <el-button type="primary" size="mini" @click="PdfReport" v-show="zjbutton">pdf报告计划</el-button>
           </div>
         </template>
       </vue-event-calendar>
@@ -131,47 +132,39 @@
       <el-dialog
         title="训练详情"
         :visible.sync="dialogVisible3"
-        width="60%"
+        width="80%"
         :before-close="handleClose">
         <span>
           <template>
   <el-table
     :data="trainingList"
     style="width: 100%">
-    <el-table-column type="expand">
-      <template slot-scope="props">
-        <el-form label-position="left" inline class="demo-table-expand">
-          <el-row>
-          <el-col :span="3"><div class="grid-content bg-purple-dark">训练项目:</div></el-col>
-           <el-col :span="21">
-             <el-card class="box-card">
-             <div>{{props.row.mt_project_projoct}}</div>
-               </el-card>
-           </el-col>
-          </el-row>
-          <el-row>
-          <el-col :span="3"><div class="grid-content bg-purple-dark">训练内容:</div></el-col>
-            <el-col :span="21">
-                <el-card class="box-card">
-                {{props.row.mt_project_practice}}
-                </el-card>
-            </el-col>
-          </el-row>
-            <el-row>
-          <el-col :span="3"><div class="grid-content bg-purple-dark">参与人:</div></el-col>
-            <el-col :span="21">
-                <el-card class="box-card">
-                {{props.row.mt_project_participant}}
-                </el-card>
-            </el-col>
-
-          </el-row>
-        </el-form>
+    <el-table-column
+      label="训练时间"
+      prop="mt_project_mdate"
+      width="250px">
+    </el-table-column>
+     <el-table-column
+       label="项目"
+       prop="mt_project_projoct"
+       width="100px">
+    </el-table-column>
+    <el-table-column
+      label="姓名"
+      width="100px">
+      <template slot-scope="scope">
+        <el-popover trigger="hover" placement="top">
+          <p>姓名: {{ scope.row.mt_project_participant }}</p>
+          <div slot="reference" class="name-wrapper">
+            <el-tag size="medium">运动员名称</el-tag>
+          </div>
+        </el-popover>
       </template>
     </el-table-column>
     <el-table-column
-      label="训练时间"
-      prop="mt_project_mdate">
+      label="训练内容"
+      prop="mt_project_practice"
+      width="300px">
     </el-table-column>
     <el-table-column label="操作">
       <template slot-scope="scope">
@@ -224,6 +217,46 @@
         <el-button type="primary" @click="updateTrainingButton">确 定</el-button>
       </span>
       </el-dialog>
+      <!--pdf上传下载-->
+      <el-dialog
+        title="PDF列表"
+        :visible.sync="dialogVisible5"
+        width="40%"
+        :before-close="handleClose">
+        <span>
+          <el-upload
+            ref="upload"
+            action=""
+            accept=".pdf,.PDF"
+            :limit="1"
+            :data="photoInfo"
+            :auto-upload="true"
+            :file-list="fileList"
+            :on-exceed="handleExceed">
+            <el-button size="small" type="primary">点击上传</el-button>
+        </el-upload>
+             <template>
+                <el-table :data="tableData" style="width: 100%" border="true">
+                  <el-table-column
+                    prop="date"
+                    label="PDF名字"
+                    width="250px">
+                  </el-table-column>
+             <el-table-column label="操作">
+                  <template slot-scope="scope">
+                    <el-button
+                      size="mini"
+                      @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                  </template>
+             </el-table-column>
+                </el-table>
+              </template>
+        </span>
+        <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible5 = false">取 消</el-button>
+    <el-button type="primary" @click="dialogVisible5 = false">确 定</el-button>
+  </span>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -235,14 +268,16 @@
     name: "ath-list",
     data: function () {
       return {
+        fileList:[],
         //复用勾选运动员变量
-        playercheck:"",
+        playercheck: "",
         dialogVisible: false,
         dialogVisible1: false,
         dialogVisible2: false,
         dialogVisible3: false,
+        dialogVisible5: false,
         //修改
-        dialogVisible4:false,
+        dialogVisible4: false,
 
         zjbutton: false,
         //控件渲染数组
@@ -264,13 +299,13 @@
           MT_PROJECT_PRACTICE: ""//训练内容
         },
         //修改表单
-        updateTraining :{
-          olddate:"",//原时间
-          oldmt_project_participant:"",//原运动员
-          mt_project_mdate:"",//新时间
-          mt_project_participant:"",//新的创建人
-          mt_project_projoct:"",//新项目
-          mt_project_practice:"",//新的训练内容
+        updateTraining: {
+          olddate: "",//原时间
+          oldmt_project_participant: "",//原运动员
+          mt_project_mdate: "",//新时间
+          mt_project_participant: "",//新的创建人
+          mt_project_projoct: "",//新项目
+          mt_project_practice: "",//新的训练内容
         },
         date: "",
         playerform: [],
@@ -282,62 +317,70 @@
       this.getdata();
     },
     //计算属性
-    computed: {
-
-    },
+    computed: {},
     methods: {
-      Deletehandle(index,row){
-        fetch.post("/TP/TPdelete",qs.stringify({olddate:row.mt_project_mdate,oldmt_project_participant:row.mt_project_participant}))
-          .then(res=>{
+      //pdf窗口
+      PdfReport: function () {
+        this.dialogVisible5 = true;
+      },
+      //上传动作
+      handleExceed(files, fileList) {
+        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      },
+      Deletehandle(index, row) {
+        fetch.post("/TP/TPdelete", qs.stringify({
+          olddate: row.mt_project_mdate,
+          oldmt_project_participant: row.mt_project_participant
+        }))
+          .then(res => {
             this.$message({
               message: '恭喜你，这是一条成功消息',
               type: 'success'
             });
             this.getdata1();
-          }).catch(errors=>{
+          }).catch(errors => {
           this.$message.error('错了哦，这是一条错误消息');
         })
-          console.log(row)
+        console.log(row)
       },
       //修改界面
-      handleEdit:function(index,row){
-        this.updateTraining.olddate=row.mt_project_mdate;
-        this.updateTraining.oldmt_project_participant=row.mt_project_participant;
+      handleEdit: function (index, row) {
+        this.updateTraining.olddate = row.mt_project_mdate;
+        this.updateTraining.oldmt_project_participant = row.mt_project_participant;
 
         //修改勾选人弹框
-        this.dialogVisible2=true;
+        this.dialogVisible2 = true;
         this.playerdata();
         //修改填报页面
         // this.dialogVisible4=true;
-        console.log("index,row",index,row)
+        console.log("index,row", index, row)
       },
-
       //修改操作
-      updateTrainingButton:function(){
-        this.updateTraining.mt_project_mdate=this.updateTraining.mt_project_mdate.join();
+      updateTrainingButton: function () {
+        this.updateTraining.mt_project_mdate = this.updateTraining.mt_project_mdate.join();
         fetch
-          .post("/TP/TPupdate",qs.stringify(this.updateTraining))
-          .then(res=>{
-          this.updateTraining = { trainingDetails: 0 };
-          this.dialogVisible4=false
-        })
+          .post("/TP/TPupdate", qs.stringify(this.updateTraining))
+          .then(res => {
+            this.updateTraining = {trainingDetails: 0};
+            this.dialogVisible4 = false
+          })
       },
       //筛选
       filterHandler(value, row, column) {
         const property = column['property'];
         return row[property] === value;
       },
-      qxplayerbutton:function(){
-        this.dialogVisible2=false;
-        this.playercheck=""
+      qxplayerbutton: function () {
+        this.dialogVisible2 = false;
+        this.playercheck = ""
       },
       //勾选成功传入添加训练计划
       playerbutton: function () {
-        if(this.playercheck===""){
-          this.dialogVisible2=false;
-          this.dialogVisible4=true
-            
-        }else if (this.playercheck==="1") {
+        if (this.playercheck === "") {
+          this.dialogVisible2 = false;
+          this.dialogVisible4 = true
+
+        } else if (this.playercheck === "1") {
           this.dialogVisible2 = false;
           this.dialogVisible1 = true;
         }
@@ -345,13 +388,13 @@
       //勾选队员
       handleSelectionChange(val) {
         this.trainingDetails.user = val.map(item => item.PK_PLAYER).filter(item => item !== undefined).join();
-        this.updateTraining.mt_project_participant = val.map(item=>item.PK_PLAYER).filter(item=>item!== undefined).join();
+        this.updateTraining.mt_project_participant = val.map(item => item.PK_PLAYER).filter(item => item !== undefined).join();
         console.log(val);
         this.multipleSelection = val;
       },
       //增加详情训练计划
-      trainingbutton:function(){
-        this.playercheck="";
+      trainingbutton: function () {
+        this.playercheck = "";
         this.trainingDetails.MT_PROJECT_MDATE.join();
         fetch.post("/TP/TPadd", qs.stringify({
           date: this.trainingDetails.date,
@@ -360,15 +403,15 @@
           mt_project_participant: this.trainingDetails.user,
           mt_project_practice: this.trainingDetails.MT_PROJECT_PRACTICE
         })).then(res => {
-          this.useraddlist = { trainingDetails: 0 };
-            this.dialogVisible1=false;
-            this.getdata()
-          })
+          this.useraddlist = {trainingDetails: 0};
+          this.dialogVisible1 = false;
+          this.getdata()
+        })
       },
       //增加取消
-      qxtrainingbutton:function(){
-        this.dialogVisible1=false;
-        this.playercheck=""
+      qxtrainingbutton: function () {
+        this.dialogVisible1 = false;
+        this.playercheck = ""
       },
       //运动员信息
       playerdata: function () {
@@ -382,20 +425,21 @@
           .then(res => {
             this.demoEvents = res.data.data
             // this.demoEvents.push(res);
-          })},
+          })
+      },
       getdata1: function () {
-        fetch.get("/TP/TPselect",{
+        fetch.get("/TP/TPselect", {
           params: {
             date: this.date
           }
         }).then(item => {
           this.trainingList = item.data.data;
-        this.xht=item.data.data
+          this.xht = item.data.data
         })
       },
       //勾选操作
       checkOut: function () {
-        this.playercheck="1";
+        this.playercheck = "1";
 
         this.playerdata();
         this.dialogVisible2 = true
@@ -405,7 +449,7 @@
         this.$confirm('确认关闭？')
           .then(_ => {
             //重置playercheck
-            this.playercheck="";
+            this.playercheck = "";
             done();
           })
           .catch(_ => {

@@ -40,7 +40,7 @@
         <el-menu-item index="3"><i class="el-icon-menu"></i>{{competition}}</el-menu-item>
         <el-menu-item index="4"><i class="el-icon-menu"></i>训练计划</el-menu-item>
         <el-menu-item index="5"><i class="el-icon-menu"></i>运动员表现统计</el-menu-item>
-        <el-menu-item index="6"><i class="el-icon-menu"></i>训练数据报告</el-menu-item>
+        <!--<el-menu-item index="6"><i class="el-icon-menu"></i>训练数据报告</el-menu-item>-->
       </el-menu>
     </div>
 

@@ -11,7 +11,7 @@
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item class="clearfix" @click.native="dialogVisible = true">修改密码<el-badge class="mark"/>
           </el-dropdown-item>
-          <el-dropdown-item class="clearfix" @click.native="qcbuuon">退出<el-badge class="mark"/>
+          <el-dropdown-item class="clearfix" @click.native="qcbuuon">安全退出<el-badge class="mark"/>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -118,8 +118,19 @@
           .catch(_ => {
           });
       },
+      //设置token
+      //设置cookie
+      setCookie: function (cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        console.info(cname + "=" + cvalue + "; " + expires);
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+        console.info(document.cookie);
+      },
       //退出
       qcbuuon: function () {
+        this.$cookies.set("token",'',-1, '/');
         this.$router.push({name: 'login'})
       },
       // downs: function () {

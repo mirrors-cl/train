@@ -4,6 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+//vue-cookies
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
 
 // element
 import ElementUI from 'element-ui';
@@ -12,6 +15,7 @@ Vue.use(ElementUI);
 Vue.config.productionTip = false
 //vue-event-calendar
 
+//日期插件
 import 'vue-event-calendar/dist/style.css'
 import vueEventCalendar from 'vue-event-calendar'
 Vue.use(vueEventCalendar, {locale: 'zh'});
@@ -22,20 +26,32 @@ Vue.use(vueEventCalendar, {locale: 'zh'});
 
 //router全局路由守卫
 router.beforeEach((to, from, next) => {
-
-    if (to.meta.requireAuth){
-      if (true){
-        next();
-      }else {
-        next({
-          path:'/login',
-          query: {redirect: to.fullPath}
-        })
-
-      }
-    }else {
-      next();
+  function getCookie(token)
+  {
+    var aCookie = document.cookie.split("; ");
+    for (var i=0; i < aCookie.length; i++)
+    {
+      var aCrumb = aCookie[i].split("=");
+      if (token == aCrumb[0])
+        return unescape(aCrumb[1]);
     }
+    return null;
+  }
+
+  if (to.meta.requireAuth){
+    if (getCookie('token')){
+      next();
+    }else {
+      next({
+        path:'/login',
+        query: {redirect: to.fullPath}
+      })
+
+
+    }
+  }else {
+    next();
+  }
 
 
 })
