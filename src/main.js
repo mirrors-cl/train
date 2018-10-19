@@ -23,7 +23,6 @@ Vue.use(vueEventCalendar, {locale: 'zh'});
 //const $ = require('jquery')
 /* eslint-disable no-new */
 
-
 //router全局路由守卫
 router.beforeEach((to, from, next) => {
   function getCookie(token)
@@ -55,6 +54,7 @@ router.beforeEach((to, from, next) => {
 
 
 })
+
 new Vue({
   el: '#app',
   router,

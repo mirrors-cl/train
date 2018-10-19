@@ -225,32 +225,32 @@
         :before-close="handleClose">
         <span>
           <el-upload
+            class="upload-demo"
             ref="upload"
-            action=""
-            accept=".pdf,.PDF"
-            :limit="1"
-            :data="photoInfo"
-            :auto-upload="true"
+            action="http://localhost:8081/PF/uploadpf"
+            :on-preview="handlePreview"
+            :on-remove="handleRemove"
+            accept=".pdf,.PDD"
             :file-list="fileList"
-            :on-exceed="handleExceed">
-            <el-button size="small" type="primary">点击上传</el-button>
+            :auto-upload="false">
+          <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+          <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+          <!--<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
         </el-upload>
              <template>
-                <el-table :data="tableData" style="width: 100%" border="true">
+                <el-table :data="tablePDF" style="width: 100%">
                   <el-table-column
-                    prop="date"
+                    prop="name"
                     label="PDF名字"
                     width="250px">
                   </el-table-column>
              <el-table-column label="操作">
                   <template slot-scope="scope">
-                    <el-button
-                      size="mini"
-                      @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                    <el-button size="mini" @click="handleEditpdf(scope.$index, scope.row)">下载</el-button>
                   </template>
              </el-table-column>
                 </el-table>
-              </template>
+             </template>
         </span>
         <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible5 = false">取 消</el-button>
@@ -263,11 +263,11 @@
 <script>
   import fetch from "@/assets/js/fetch.js"
   import qs from "qs";
-
   export default {
     name: "ath-list",
     data: function () {
       return {
+        //pdf上传
         fileList:[],
         //复用勾选运动员变量
         playercheck: "",
@@ -278,7 +278,6 @@
         dialogVisible5: false,
         //修改
         dialogVisible4: false,
-
         zjbutton: false,
         //控件渲染数组
         demoEvents: [],
@@ -308,7 +307,10 @@
           mt_project_practice: "",//新的训练内容
         },
         date: "",
+        //运动员
         playerform: [],
+        //pdf列表
+        tablePDF:[]
 
       }
     },
@@ -319,11 +321,33 @@
     //计算属性
     computed: {},
     methods: {
+      //显示pdf列表
+      getdataPDF:function(){
+        fetch.get("/PF/selectpf").then(res=>{
+            this.tablePDF=res.data.data;
+          console.log(res)
+        }).catch(reason => {
+          alert("请求失败请联系管理员")
+        })
+      },
       //pdf窗口
       PdfReport: function () {
+        this.getdataPDF();
         this.dialogVisible5 = true;
       },
       //上传动作
+
+      submitUpload() {
+        this.$refs.upload.submit();
+      },
+      handleRemove(file, fileList) {
+        console.log(file, fileList);
+      },
+      handlePreview(file) {
+        console.log(file);
+      },
+
+
       handleExceed(files, fileList) {
         this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
       },
@@ -342,6 +366,16 @@
           this.$message.error('错了哦，这是一条错误消息');
         })
         console.log(row)
+      },
+      handleEditpdf:function(index,row){
+        console.log(row);
+        fetch.get("/PF/downpf",{params: {
+            id:row.id
+          }}).then(res=>{
+          console.log("PDF下载成功")
+        }).catch(error=>{
+          alert("服务器错误")
+        })
       },
       //修改界面
       handleEdit: function (index, row) {

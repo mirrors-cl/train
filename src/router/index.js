@@ -11,6 +11,7 @@ import scoreList from '@/components/scoreList'
 import trainingList from '@/view/trainingList'
 import test from '@/test/test'
 import playerform from '@/view/Athlete/playerFormation'
+
 Vue.use(Router)
 
 export default new Router({
