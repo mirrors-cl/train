@@ -11,11 +11,18 @@ import scoreList from '@/components/scoreList'
 import trainingList from '@/view/trainingList'
 import test from '@/test/test'
 import playerform from '@/view/Athlete/playerFormation'
+import errors from '@/view/errorPage/errors'
+// import errorfou from '@view/errorPage/404'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path:'/errors',
+      name:'errors',
+      component:errors
+    },
     //测试
     {
       path:'/test',

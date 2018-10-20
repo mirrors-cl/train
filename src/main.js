@@ -22,12 +22,23 @@ Vue.use(vueEventCalendar, {locale: 'zh'});
 
 //const $ = require('jquery')
 /* eslint-disable no-new */
+export function setCookie (c_name, value, expiredays) {
+
+  var exdate = new Date();
+
+  exdate.setDate(exdate.getDate() + expiredays);
+
+  document.cookie = c_name + "=" + escape(value) + ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString());
+
+};
 
 //router全局路由守卫
 router.beforeEach((to, from, next) => {
+
   function getCookie(token)
   {
     var aCookie = document.cookie.split("; ");
+    console.log(aCookie);
     for (var i=0; i < aCookie.length; i++)
     {
       var aCrumb = aCookie[i].split("=");

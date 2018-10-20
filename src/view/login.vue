@@ -10,7 +10,7 @@
         <!--用户名-->
         <input type="text" placeholder="请输入登录名" class="login-username" v-model="form.userName">
           <!--密码-->
-          <input type="password" placeholder="请输入密码" class="login-password" v-model="form.passWord">
+          <input type="password" placeholder="请输入密码" class="login-password" autocomplete="new-password" v-model="form.passWord">
             <!--登陆按钮-->
           <button  value="登录" id="btn-login" class="login-submit"
             @click="fn_submit">登陆
@@ -42,6 +42,8 @@ export default {
        fetch
          .post("/Mlogin", qs.stringify(this.form))
          .then(res => {
+           document.cookie = 'token=res.data.data.token';
+
            if (res.data.status === "success") {
              this.SAVE_USER(res.data.data);
              //请求成功

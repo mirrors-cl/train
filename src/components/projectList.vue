@@ -31,7 +31,9 @@
             </el-table-column>
             <el-table-column
               prop="gm_Project_Date"
-              label="比赛时间">
+              label="比赛时间"
+              width="200px"
+            >
             </el-table-column>
             <el-table-column
               prop="gm_Pname"
@@ -74,10 +76,19 @@
                 <el-form-item label="顺序">
                   <el-input v-model="addForm.gm_Project_Order"></el-input>
                 </el-form-item>
-                <el-form-item label="比赛时间">
+                <el-form-item label="开始时间">
                    <el-date-picker
                      type="date"
-                     v-model="addForm.gm_Project_Date"
+                     v-model="addForm.gm_Project_StartDate"
+                     placeholder="选择日期"
+                     format="yyyy 年 MM 月 dd 日"
+                     value-format="yyyy-MM-dd">
+                  </el-date-picker>
+                  </el-form-item>
+              <el-form-item label="开始时间">
+                   <el-date-picker
+                     type="date"
+                     v-model="addForm.gm_Project_EndDate"
                      placeholder="选择日期"
                      format="yyyy 年 MM 月 dd 日"
                      value-format="yyyy-MM-dd">
@@ -116,10 +127,19 @@
                 <el-form-item label="顺序">
                   <el-input v-model="updataForm.gm_Project_Order"></el-input>
                 </el-form-item>
-                <el-form-item label="比赛时间">
+                 <el-form-item label="开始时间">
                    <el-date-picker
                      type="date"
-                     v-model="updataForm.gm_Project_Date"
+                     v-model="updataForm.gm_Project_StartDate"
+                     placeholder="选择日期"
+                     format="yyyy 年 MM 月 dd 日"
+                     value-format="yyyy-MM-dd">
+                  </el-date-picker>
+                  </el-form-item>
+                  <el-form-item label="开始时间">
+                   <el-date-picker
+                     type="date"
+                     v-model="updataForm.gm_Project_EndDate"
                      placeholder="选择日期"
                      format="yyyy 年 MM 月 dd 日"
                      value-format="yyyy-MM-dd">
@@ -171,9 +191,10 @@
         projectList: [],
         addForm: {
           pk_List: this.$route.query.id,//competitionID
+          gm_Project_StartDate:"",//开始时间
+          gm_Project_EndDate:"",//结束时间
           number:"",//编号
           gm_Project_Order: "",//顺序
-          gm_Project_Date: "",//比赛时间
           gm_Pname: "",//项目名称
           gm_Project_Session: "",//赛次
           pnumber:"",//人数
@@ -247,14 +268,15 @@
       updataMatch:function(){
         fetch.post("/PL/PLupdate", qs.stringify(this.updataForm)).then(res => {
           this.getdata();
-          this.adddialogVisible = false;
+          this.updatadialogVisible = false;
         })
       },
       //比赛成绩列表
       scoreList:function (row, column) {
+        console.log(row);
         if (column.label === "操作") {
         } else {
-          this.$router.push({name:'scoreList',query:{id:row.pk_Gm_Project}})
+          this.$router.push({name:'scoreList',query:{id:row.pk_Gm_Project,grade_Time:row.gm_Project_EndDate}})
         }
       },
       //delete

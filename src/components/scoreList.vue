@@ -23,12 +23,17 @@
             <el-table-column
               prop="gm_Name"
               label="项目名称"
-              width="180">
+              width="120">
             </el-table-column>
             <el-table-column
               prop="grade_Ranking"
               label="名次"
-              width="180">
+              width="100">
+            </el-table-column>
+            <el-table-column
+              prop="grade_Time"
+              label="填报时间"
+              width="150">
             </el-table-column>
             <el-table-column
               prop="grade_Group"
@@ -78,6 +83,7 @@
               <el-form-item label="名次">
                   <el-input v-model="form.grade_Ranking"></el-input>
                 </el-form-item>
+
               <el-form-item label="小组">
                   <el-input v-model="form.grade_Group"></el-input>
                 </el-form-item>
@@ -117,6 +123,15 @@
               <el-form-item label="名次">
                   <el-input v-model="updataForm.grade_Ranking"></el-input>
                 </el-form-item>
+             <el-form-item label="填报时间">
+                <el-date-picker
+                  v-model="updataForm.grade_Time"
+                  type="datetime"
+                  placeholder="选择日期时间"
+
+                  value-format="yyyy-MM-dd HH:mm">
+              </el-date-picker>
+                  </el-form-item>
               <el-form-item label="小组">
                   <el-input v-model="updataForm.grade_Group"></el-input>
                 </el-form-item>
@@ -164,6 +179,7 @@
         adddialogVisible: false,
         scoreList: [],
         form: {
+          grade_Time:this.$route.query.grade_Time,
           pk_Gm_Project:"",//项目主键
           gm_Name:"",//项目名称
           grade:"",//成绩

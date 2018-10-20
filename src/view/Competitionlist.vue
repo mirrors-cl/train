@@ -60,10 +60,19 @@
                 <el-form-item label="比赛地点">
                   <el-input v-model="form.list_Add"></el-input>
                 </el-form-item>
-                <el-form-item label="比赛时间">
+                <el-form-item label="开始日期">
                    <el-date-picker
                      type="date"
-                     v-model="form.list_Date"
+                     v-model="form.list_StartDate"
+                     placeholder="选择日期"
+                     format="yyyy 年 MM 月 dd 日"
+                     value-format="yyyy-MM-dd">
+                  </el-date-picker>
+                  </el-form-item>
+              <el-form-item label="结束日期">
+                   <el-date-picker
+                     type="date"
+                     v-model="form.list_EndDate"
                      placeholder="选择日期"
                      format="yyyy 年 MM 月 dd 日"
                      value-format="yyyy-MM-dd">
@@ -93,16 +102,25 @@
                 <el-form-item label="比赛地点">
                   <el-input v-model="updataForm.list_Add"></el-input>
                 </el-form-item>
-                <el-form-item label="比赛时间">
+                 <el-form-item label="开始日期">
                    <el-date-picker
-                     v-model="updataForm.list_Date"
                      type="date"
+                     v-model="updataForm.list_StartDate"
                      placeholder="选择日期"
                      format="yyyy 年 MM 月 dd 日"
                      value-format="yyyy-MM-dd">
                   </el-date-picker>
                   </el-form-item>
-                <el-form-item label="积分类型">
+              <el-form-item label="结束日期">
+                   <el-date-picker
+                     type="date"
+                     v-model="updataForm.list_EndDate"
+                     placeholder="选择日期"
+                     format="yyyy 年 MM 月 dd 日"
+                     value-format="yyyy-MM-dd">
+                  </el-date-picker>
+                  </el-form-item>
+              <el-form-item label="积分类型">
                   <el-input v-model="updataForm.scoreType"></el-input>
                 </el-form-item>
           </el-form></span>
@@ -131,16 +149,20 @@
         adddialogVisible: false,
         competitionList: [],
         form: {
+          list_StartDate:"",//开始时间
+          list_EndDate:"",//结束时间
           gm_Name: "",//比赛名称
           list_Add: "",//比赛地点
-          list_Date: "",//比赛时间
+          // list_Date: "",//比赛时间
           scoreType: "",//积分类型
         },
         updataForm: {
+          list_StartDate:"",//开始时间
+          list_EndDate:"",//结束时间
           pk_List:"",//id
           gm_Name: "",//比赛名称
           list_Add: "",//比赛地点
-          list_Date: "",//比赛时间
+          // list_Date: "",//比赛时间
           scoreType: "",//积分类型
         },
         //状态值
@@ -189,7 +211,8 @@
         this.updataForm.pk_List=row.pk_List;
         this.updataForm.gm_Name = row.gm_Name;
         this.updataForm.list_Add = row.list_Add;
-        this.updataForm.list_Date = row.list_Date;
+        this.updataForm.list_StartDate = row.list_StartDate;
+        this.updataForm.list_EndDate = row.list_EndDate;
         this.updataForm.scoreType = row.scoreType;
         this.adddialogVisible = true;
       },
