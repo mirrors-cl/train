@@ -11,18 +11,14 @@ import scoreList from '@/components/scoreList'
 import trainingList from '@/view/trainingList'
 import test from '@/test/test'
 import playerform from '@/view/Athlete/playerFormation'
-import errors from '@/view/errorPage/errors'
+import productDataList from '@/view/productData/productDataList'
 // import errorfou from '@view/errorPage/404'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path:'/errors',
-      name:'errors',
-      component:errors
-    },
+
     //测试
     {
       path:'/test',
@@ -47,6 +43,12 @@ export default new Router({
       name: 'admin',
       component: index,
       children: [
+        //科技产品列表
+        {
+          path:'/productDataList',
+          name:'productDataList',
+          component:productDataList
+        },
         {
           //运动员列表页
           path: 'list2',

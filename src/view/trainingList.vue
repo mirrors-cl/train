@@ -96,25 +96,11 @@
         :before-close="handleClose">
         <span>
           <template>
-            <!--筛选-->
-            <template>
-              <el-select
-                v-model="value9"
-                multiple
-                filterable
-                remote
-                reserve-keyword
-                placeholder="请输入关键词"
-                :remote-method="remoteMethod"
-                :loading="loading">
-                <el-option
-                  v-for="item in options4"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
-            </template>
+            <!--搜索运动员-->
+            <el-row>
+              <el-col :span="8"> <el-input v-model="selectplayer" suffix-icon="el-icon-edit" placeholder="请输入运动员姓名"></el-input></el-col>
+                 <el-col :span="8"><el-button type="primary" icon="el-icon-search" @click="selectName">搜索</el-button></el-col>
+            </el-row>
             <!--运动员勾选列表-->
           <el-table
             :data="playerform"
@@ -287,6 +273,8 @@
     name: "ath-list",
     data: function () {
       return {
+        //selectplayer
+        selectplayer:"",
         //加载数据动效
         loading: false,
         //pdf上传
@@ -343,6 +331,12 @@
     //计算属性
     computed: {},
     methods: {
+      //select
+      selectName:function(){
+        fetch.post("/DP/likeSearch",qs.stringify({name:this.selectplayer})).then(res=>{
+        this.playerform=res.data.data
+        })
+      },
       //显示pdf列表
       getdataPDF:function(){
         fetch.get("/PF/selectpf").then(res=>{
@@ -435,7 +429,6 @@
         if (this.playercheck === "") {
           this.dialogVisible2 = false;
           this.dialogVisible4 = true
-
         } else if (this.playercheck === "1") {
           this.dialogVisible2 = false;
           this.dialogVisible1 = true;
@@ -459,9 +452,29 @@
           mt_project_participant: this.trainingDetails.user,
           mt_project_practice: this.trainingDetails.MT_PROJECT_PRACTICE
         })).then(res => {
-          this.useraddlist = {trainingDetails: 0};
-          this.dialogVisible1 = false;
-          this.getdata()
+          if(res.data.status==="error"){
+            let tishi=res.data.data;
+            let starttime="";
+            let endtime="";
+            console.log("tishi",tishi);
+            var str="";
+            for (let i=0;i<tishi.length;i++) {
+              starttime=tishi[i].starttime;
+              endtime=tishi[i].endtime;
+              str+=tishi[i].name+",";
+            }
+            this.$message({
+              duration:"0",
+              showClose: true,
+              message: `运动员${str}已经有训练计划了,${starttime}-${endtime}`,
+              type: 'error'
+            });
+          }else {
+            this.useraddlist = {trainingDetails: 0};
+            this.dialogVisible1 = false;
+            this.getdata()
+          }
+
         })
       },
       //增加取消

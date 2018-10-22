@@ -32,8 +32,7 @@
             <el-table-column
               prop="gm_Project_Date"
               label="比赛时间"
-              width="200px"
-            >
+              width="180px">
             </el-table-column>
             <el-table-column
               prop="gm_Pname"

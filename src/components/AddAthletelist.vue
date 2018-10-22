@@ -80,7 +80,10 @@
                     性别
             </el-col>
             <el-col :span="18">
-               <el-input v-model="form.SEX" placeholder=""></el-input>
+              <el-select v-model="form.SEX" placeholder="请选择性别" style="width: 288px">
+                <el-option label="男" value="男"></el-option>
+                <el-option label="女" value="女"></el-option>
+              </el-select>
             </el-col>
         </el-col>
         <el-col :span="8">
@@ -136,7 +139,7 @@
             血型
           </el-col>
           <el-col :span="18">
-            <el-select v-model="form.BLOOD" placeholder="请选择血型" style="width: 280px">
+            <el-select v-model="form.BLOOD" placeholder="请选择血型" style="width: 288px">
               <el-option label="血型A" value="血型A"></el-option>
               <el-option label="血型B" value="血型B"></el-option>
               <el-option label="血型AB" value="血型AB"></el-option>
@@ -176,7 +179,7 @@
             <el-col :span="18">
                <el-col :span="18">
                  <el-date-picker
-                   style="width: 280px"
+                   style="width: 288px"
                    v-model="form.JOININGDATE"
                    type="date"
                    placeholder="选择日期"
@@ -192,7 +195,7 @@
             </el-col>
             <el-col :span="18">
               <el-date-picker
-                style="width: 280px"
+                style="width: 288px"
                 v-model="form.BIRTHDAY"
                 type="date"
                 placeholder="选择日期"
@@ -207,7 +210,7 @@
             </el-col>
             <el-col :span="18">
               <el-date-picker
-                style="width: 280px"
+                style="width: 288px"
                 v-model="form.OUTDATE"
                 type="date"
                 placeholder="选择日期"

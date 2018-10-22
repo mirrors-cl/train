@@ -32,9 +32,7 @@
         @select="handleSelect"
         background-color="#545c64"
         text-color="#fff"
-        active-text-color="#ffd04b"
-
-      >
+        active-text-color="#ffd04b">
         <el-menu-item index="1"><i class="el-icon-menu"></i>运动员列表</el-menu-item>
         <el-menu-item index="2"><i class="el-icon-menu"></i>管理员列表</el-menu-item>
         <el-menu-item index="3"><i class="el-icon-menu"></i>{{competition}}</el-menu-item>
@@ -76,6 +74,8 @@
           this.$router.push({name:'Competition'})
         }else if (keyPath ==4){
           this.$router.push({name:'trainingList'})
+        }else if (keyPath ==5){
+          this.$router.push({name:'productDataList'})
         }
       },
       // handleClick(tab, event) {

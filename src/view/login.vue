@@ -42,7 +42,9 @@ export default {
        fetch
          .post("/Mlogin", qs.stringify(this.form))
          .then(res => {
-           document.cookie = 'token=res.data.data.token';
+           // const user = { name: res.data.data.token, age: 25 };
+           // localStorage.setItem('user', qs.stringify(user));
+           document.cookie ="token=res.data.data.token";
 
            if (res.data.status === "success") {
              this.SAVE_USER(res.data.data);
