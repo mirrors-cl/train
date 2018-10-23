@@ -278,6 +278,7 @@ export default {
         });
     },
     currentChange(val) {
+      // console.log("sssssssssssssssss",val)
       this.page = val;
     },
     // 状态改变方法

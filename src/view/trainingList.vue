@@ -98,8 +98,10 @@
           <template>
             <!--搜索运动员-->
             <el-row>
-              <el-col :span="8"> <el-input v-model="selectplayer" suffix-icon="el-icon-edit" placeholder="请输入运动员姓名"></el-input></el-col>
-                 <el-col :span="8"><el-button type="primary" icon="el-icon-search" @click="selectName">搜索</el-button></el-col>
+              <el-col :span="8"> <el-input v-model="selectplayer" suffix-icon="el-icon-edit"
+                                           placeholder="请输入运动员姓名"></el-input></el-col>
+                 <el-col :span="8"><el-button type="primary" icon="el-icon-search"
+                                              @click="selectName">搜索</el-button></el-col>
             </el-row>
             <!--运动员勾选列表-->
           <el-table
@@ -233,7 +235,7 @@
           <el-upload
             class="upload-demo"
             ref="upload"
-            action="http://localhost:8081/PF/uploadpf"
+            action="/PF/uploadpf"
             :on-preview="handlePreview"
             :on-remove="handleRemove"
             accept=".pdf,.PDD"
@@ -241,7 +243,7 @@
             :auto-upload="false">
           <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
           <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-          <!--<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
+            <!--<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
         </el-upload>
              <template>
                 <el-table :data="tablePDF" style="width: 100%">
@@ -269,16 +271,17 @@
 <script>
   import fetch from "@/assets/js/fetch.js"
   import qs from "qs";
+
   export default {
     name: "ath-list",
     data: function () {
       return {
         //selectplayer
-        selectplayer:"",
+        selectplayer: "",
         //加载数据动效
         loading: false,
         //pdf上传
-        fileList:[],
+        fileList: [],
         //复用勾选运动员变量
         playercheck: "",
         dialogVisible: false,
@@ -320,7 +323,7 @@
         //运动员
         playerform: [],
         //pdf列表
-        tablePDF:[]
+        tablePDF: []
 
       }
     },
@@ -332,15 +335,16 @@
     computed: {},
     methods: {
       //select
-      selectName:function(){
-        fetch.post("/DP/likeSearch",qs.stringify({name:this.selectplayer})).then(res=>{
-        this.playerform=res.data.data
+      selectName: function () {
+
+        fetch.post("/DP/likeSearch", qs.stringify({name: this.selectplayer})).then(res => {
+          this.playerform = res.data.data
         })
       },
       //显示pdf列表
-      getdataPDF:function(){
-        fetch.get("/PF/selectpf").then(res=>{
-            this.tablePDF=res.data.data;
+      getdataPDF: function () {
+        fetch.get("/PF/selectpf").then(res => {
+          this.tablePDF = res.data.data;
           console.log(res)
         }).catch(reason => {
           alert("请求失败请联系管理员")
@@ -354,7 +358,11 @@
       //上传动作
 
       submitUpload() {
+        debugger;
+        // this.$refs.upload.clearFiles();
+
         this.$refs.upload.submit();
+        // this.dialogVisible5=false;
       },
       handleRemove(file, fileList) {
         console.log(file, fileList);
@@ -362,7 +370,6 @@
       handlePreview(file) {
         console.log(file);
       },
-
 
       handleExceed(files, fileList) {
         this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
@@ -383,15 +390,21 @@
         })
         console.log(row)
       },
-      handleEditpdf:function(index,row){
-        console.log(row);
-        fetch.get("/PF/downpf",{params: {
-            id:row.id
-          }}).then(res=>{
-          console.log("PDF下载成功")
-        }).catch(error=>{
-          alert("服务器错误")
-        })
+      handleEditpdf: function (index, row) {
+        let alink =document.createElement("a");
+        alink.download="name";
+        alink.href=`/PF/downpf?id=${row.id}`;
+        console.log("type1",alink.href);
+        alink.click();
+        // fetch.get("/PF/downpf", {
+        //   params: {
+        //     id: row.id
+        //   }
+        // }).then(res => {
+        //   console.log("PDF下载成功")
+        // }).catch(error => {
+        //   alert("服务器错误")
+        // })
       },
       //修改界面
       handleEdit: function (index, row) {
@@ -452,24 +465,24 @@
           mt_project_participant: this.trainingDetails.user,
           mt_project_practice: this.trainingDetails.MT_PROJECT_PRACTICE
         })).then(res => {
-          if(res.data.status==="error"){
-            let tishi=res.data.data;
-            let starttime="";
-            let endtime="";
-            console.log("tishi",tishi);
-            var str="";
-            for (let i=0;i<tishi.length;i++) {
-              starttime=tishi[i].starttime;
-              endtime=tishi[i].endtime;
-              str+=tishi[i].name+",";
+          if (res.data.status === "error") {
+            let tishi = res.data.data;
+            let starttime = "";
+            let endtime = "";
+            console.log("tishi", tishi);
+            var str = "";
+            for (let i = 0; i < tishi.length; i++) {
+              starttime = tishi[i].starttime;
+              endtime = tishi[i].endtime;
+              str += tishi[i].name + ",";
             }
             this.$message({
-              duration:"0",
+              duration: "0",
               showClose: true,
               message: `运动员${str}已经有训练计划了,${starttime}-${endtime}`,
               type: 'error'
             });
-          }else {
+          } else {
             this.useraddlist = {trainingDetails: 0};
             this.dialogVisible1 = false;
             this.getdata()
@@ -567,6 +580,11 @@
   };
 </script>
 <style scoped>
+
+  .event-item li {
+    list-style-type: none;
+  }
+
   .modeldiv {
     width: 80%;
     height: 100px;

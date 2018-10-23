@@ -2,257 +2,277 @@
   <div >
    <!--<headhead></headhead>-->
     <div class="modeldiv">
-      <el-row>
-        <el-col :span="8">
-            <el-col :span="6" class="textsize">
-                    账号
-            </el-col>
-            <el-col :span="18">
+      <el-form :model="form" :rules="rules" ref="updataform" label-width="100px" class="demo-ruleForm">
+        <el-row>
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">账号</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="账号" prop="PLAYER_NAME">
                 <el-input v-model="form.PLAYER_NAME" placeholder="" :disabled="true"></el-input>
+              </el-form-item>
             </el-col>
-        </el-col>
-         <el-col :span="8">
-            <el-col :span="6"  class="textsize">
-                    联系方式
-            </el-col>
-            <el-col :span="18">
-              <el-input v-model="form.PLAYER_TELEPHONE" placeholder=""></el-input>
-            </el-col>
-        </el-col>
-         <el-col :span="8">
-            <el-col :span="6"  class="textsize">
-                    身高
-            </el-col>
-            <el-col :span="18">
-               <el-input v-model="form.HEIGHT" placeholder=""></el-input>
-            </el-col>
-        </el-col>
-         <el-col :span="8">
-            <el-col :span="6"  class="textsize">
-                    姓名
-            </el-col>
-            <el-col :span="18">
-               <el-input v-model="form.Name" placeholder=""></el-input>
-            </el-col>
-        </el-col>
-         <el-col :span="8">
-            <el-col :span="6"  class="textsize">
-                    体重
-            </el-col>
-            <el-col :span="18">
-               <el-input v-model="form.WEIGHT" placeholder=""></el-input>
-            </el-col>
-        </el-col>
-         <el-col :span="8">
-            <el-col :span="6"  class="textsize">
-                    籍贯
-            </el-col>
-            <el-col :span="18">
-               <el-input v-model="form.NPLACE" placeholder=""></el-input>
-            </el-col>
-        </el-col>
+          </el-col>
           <el-col :span="8">
-            <el-col :span="6"  class="textsize">
-                    年龄
+            <!--<el-col :span="6" class="textsize">联系方式</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="联系方式" prop="PLAYER_TELEPHONE">
+                <el-input v-model="form.PLAYER_TELEPHONE" placeholder=""></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.PLAYER_TELEPHONE" placeholder="" ></el-input>-->
             </el-col>
-            <el-col :span="18">
-               <el-input v-model="form.AGE" placeholder=""></el-input>
-            </el-col>
-        </el-col>
+          </el-col>
           <el-col :span="8">
-            <el-col :span="6"  class="textsize">
-                    专业等级
+            <!--<el-col :span="6" class="textsize">身高</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="身高" prop="HEIGHT">
+                <el-input v-model="form.HEIGHT" placeholder=""></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.HEIGHT" placeholder="" ></el-input>-->
             </el-col>
-            <el-col :span="18">
-               <el-input v-model="form.LEAVEL" placeholder=""></el-input>
-            </el-col>
-        </el-col>
+          </el-col>
           <el-col :span="8">
-            <el-col :span="6"  class="textsize">
-                    项目
+            <!--<el-col :span="6" class="textsize">姓名</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="姓名" prop="NAME">
+                <el-input v-model="form.NAME" placeholder=""></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.NAME" placeholder="" ></el-input>-->
             </el-col>
-            <el-col :span="18">
-               <el-input v-model="form.RECORD_PROJECT" placeholder=""></el-input>
-            </el-col>
-        </el-col>
-        <el-col :span="8">
-            <el-col :span="6"  class="textsize">
-                    性别
-            </el-col>
-            <el-col :span="18">
-              <el-select v-model="form.SEX" placeholder="请选择性别" style="width: 288px">
-                <el-option label="男" value="男"></el-option>
-                <el-option label="女" value="女"></el-option>
-              </el-select>
-            </el-col>
-        </el-col>
-        <el-col :span="8">
-            <el-col :span="6"  class="textsize">
-                    民族
-            </el-col>
-            <el-col :span="18">
-               <el-input v-model="form.NATION" placeholder=""></el-input>
-            </el-col>
-        </el-col>
-        <el-col :span="8">
-            <el-col :span="6"  class="textsize">
-                    政治面貌
-            </el-col>
-            <el-col :span="18">
-               <el-input v-model="form.POLITICAL" placeholder=""></el-input>
-            </el-col>
-        </el-col>
-        <el-col :span="8">
-            <el-col :span="6"  class="textsize">
-                    通讯地址
-            </el-col>
-            <el-col :span="18">
-               <el-input v-model="form.ADRESS" placeholder=""></el-input>
-            </el-col>
-        </el-col>
-        <el-col :span="8">
-            <el-col :span="6"  class="textsize">
-                    身份证号
-            </el-col>
-            <el-col :span="18">
-               <el-input v-model="form.CRAD" placeholder=""></el-input>
-            </el-col>
-        </el-col>
-        <el-col :span="8">
-            <el-col :span="6"  class="textsize">
-                    毕业学校
-            </el-col>
-            <el-col :span="18">
-               <el-input v-model="form.FINISHSCHOOL" placeholder=""></el-input>
-            </el-col>
-        </el-col>
-        <el-col :span="8">
-            <el-col :span="6"  class="textsize">
-                    紧急联系人
-            </el-col>
-            <el-col :span="18">
-               <el-input v-model="form.CONTACTS" placeholder=""></el-input>
-            </el-col>
-        </el-col>
-        <el-col :span="8">
-          <el-col :span="6" class="textsize">
-            血型
           </el-col>
-          <el-col :span="18">
-            <el-select v-model="form.BLOOD" placeholder="请选择血型" style="width: 288px">
-              <el-option label="血型A" value="血型A"></el-option>
-              <el-option label="血型B" value="血型B"></el-option>
-              <el-option label="血型AB" value="血型AB"></el-option>
-              <el-option label="血型O" value="血型O"></el-option>
-            </el-select>
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">体重</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="体重" prop="WEIGHT">
+                <el-input v-model="form.WEIGHT" placeholder=""></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.WEIGHT" placeholder=""></el-input>-->
+            </el-col>
           </el-col>
-        </el-col>
-        <el-col :span="8">
-            <el-col :span="6"  class="textsize">
-                    退队原因 
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">籍贯</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="籍贯" prop="NPLACE">
+                <el-input v-model="form.NPLACE" placeholder=""></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.NPLACE" placeholder=""></el-input>-->
             </el-col>
-            <el-col :span="18">
-               <el-input v-model="form.CAUSE" ></el-input>
-            </el-col>
-        </el-col>
-        <el-col :span="8">
-            <el-col :span="11"  class="textsize">
-                    紧急联系人与本人关系
-            </el-col>
-            <el-col :span="13">
-               <el-input v-model="form.CONTACTSRELATION" placeholder=""></el-input>
-            </el-col>
-        </el-col>
-        <el-col :span="8">
-          <el-col :span="8"  class="textsize">
-            紧急联系人电话
           </el-col>
-          <el-col :span="16">
-            <el-input v-model="form.CONTACTSPHONE" placeholder=""></el-input>
-          </el-col>
-        </el-col>
 
-        <el-col :span="8">
-            <el-col :span="6" class="textsize">
-                    参队日期
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">年龄</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="年龄" prop="AGE">
+                <el-input v-model="form.AGE" placeholder=""></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.AGE" placeholder="" ></el-input>-->
             </el-col>
-            <el-col :span="18">
-               <el-col :span="18">
-                 <el-date-picker
-                   style="width: 288px"
-                   v-model="form.JOININGDATE"
-                   type="date"
-                   placeholder="选择日期"
-                   format="yyyy 年 MM 月 dd 日"
-                   value-format="yyyy-MM-dd">
-                 </el-date-picker>
-            </el-col>
-            </el-col>
-        </el-col>
-           <el-col :span="8">
-            <el-col :span="6"  class="textsize">
-                    出身日期
-            </el-col>
-            <el-col :span="18">
-              <el-date-picker
-                style="width: 288px"
-                v-model="form.BIRTHDAY"
-                type="date"
-                placeholder="选择日期"
-                format="yyyy 年 MM 月 dd 日"
-                value-format="yyyy-MM-dd">
-              </el-date-picker>
-            </el-col>
-        </el-col>
-        <el-col :span="8">
-            <el-col :span="6" class="textsize">
-                    退队日期
-            </el-col>
-            <el-col :span="18">
-              <el-date-picker
-                style="width: 288px"
-                v-model="form.OUTDATE"
-                type="date"
-                placeholder="选择日期"
-                format="yyyy 年 MM 月 dd 日"
-                value-format="yyyy-MM-dd">
-              </el-date-picker>
-            </el-col>
-        </el-col>
-        <el-col :span="12">
-          <el-col :span="4" class="textsize">
-            获得荣誉
           </el-col>
-          <el-col :span="20">
-            <el-input
-              type="textarea"
-              :autosize="{ minRows: 8, maxRows: 8}"
-              placeholder="请输入内容"
-              v-model="form.HONOR">
-            </el-input>
-          </el-col>
-        </el-col>
-        <!--<el-col :span="12">-->
-          <!--<el-col :span="4" class="textsize">-->
-            <!--伤病记录-->
-          <!--</el-col>-->
-          <!--<el-col :span="20">-->
-            <!--<el-input-->
-              <!--size="20px"-->
-              <!--type="textarea"-->
-              <!--:autosize="{ minRows: 8, maxRows: 8}"-->
-              <!--placeholder="请输入内容"-->
-              <!--v-model="form.HONOR">-->
-            <!--</el-input>-->
-          <!--</el-col>-->
-        <!--</el-col>-->
-        <el-col :span="24">
-             <el-col :span="12" class="buttondiv">
-                 <el-button @click="qxbutton">返回</el-button>
-               <el-button type="primary" @click="qrbutton">确认并填写身份证</el-button>
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">专业等级</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="专业等级" prop="LEAVEL">
+                <el-input v-model="form.LEAVEL" placeholder=""></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.LEAVEL" placeholder="" ></el-input>-->
             </el-col>
-        </el-col>
-      </el-row>
+          </el-col>
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">项目</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="项目" prop="RECORD_PROJECT">
+                <el-input v-model="form.RECORD_PROJECT" placeholder=""></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.RECORD_PROJECT" placeholder="" ></el-input>-->
+            </el-col>
+          </el-col>
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">性别</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="性别" prop="SEX">
+                <el-input v-model="form.SEX" placeholder=""></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.SEX" placeholder="" ></el-input>-->
+            </el-col>
+          </el-col>
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">民族</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="民族" prop="NATION">
+                <el-input v-model="form.NATION" placeholder=""></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.NATION" placeholder="" ></el-input>-->
+            </el-col>
+          </el-col>
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">政治面貌</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="政治面貌" prop="region">
+                <el-input v-model="form.POLITICAL" placeholder=""></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.POLITICAL" placeholder="" ></el-input>-->
+            </el-col>
+          </el-col>
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">通讯地址</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="通讯地址" prop="ADRESS">
+                <el-input v-model="form.ADRESS" placeholder=""></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.ADRESS" placeholder="" ></el-input>-->
+            </el-col>
+          </el-col>
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">身份证号</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="身份证号" prop="CRAD">
+                <el-input v-model="form.CRAD" placeholder=""></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.CRAD" placeholder=""></el-input>-->
+            </el-col>
+          </el-col>
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">毕业学校</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="毕业学校" prop="FINISHSCHOOL">
+                <el-input v-model="form.FINISHSCHOOL" placeholder=""></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.FINISHSCHOOL" placeholder="" ></el-input>-->
+            </el-col>
+          </el-col>
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">紧急联系人</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="紧急联系人" prop="CONTACTS">
+                <el-input v-model="form.CONTACTS" placeholder=""></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.CONTACTS" placeholder=""></el-input>-->
+            </el-col>
+          </el-col>
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">获得荣誉</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="获得荣誉" prop="HONOR">
+                <el-input v-model="form.HONOR" placeholder=""></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.HONOR" placeholder="" ></el-input>-->
+            </el-col>
+          </el-col>
+
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">退队原因</el-col>-->
+            <el-col :span="24">
+              <el-form-item size="20px" label="退队原因" prop="CAUSE" >
+                <el-input v-model="form.CAUSE" placeholder=""></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.CAUSE" ></el-input>-->
+            </el-col>
+          </el-col>
+          <el-col :span="8">
+            <!--<el-col :span="8" class="textsize">紧急联系人电话</el-col>-->
+            <el-col :span="7">
+              <div style="font-size: 14px;">
+                紧急联系人电话
+              </div>
+            </el-col>
+            <el-col :span="17">
+              <el-form-item prop="CONTACTSPHONE">
+                <el-input v-model="form.CONTACTSPHONE"  placeholder="请输入内容" style="margin-left: -58%;width: 157%;"></el-input>
+              </el-form-item>
+              <!--<el-form-item size="20px"  prop="region">-->
+              <!--<el-input v-model="updataform.CONTACTSPHONE" placeholder="" style="width: 300px"></el-input>-->
+              <!--</el-form-item>-->
+              <!--<el-input v-model="updataform.CONTACTSPHONE" placeholder="" ></el-input>-->
+            </el-col>
+          </el-col>
+
+
+          <el-col :span="8">
+            <el-col span="10">
+              <div style="font-size: 14px">
+                紧急联系人与本人关系
+              </div>
+            </el-col>
+            <!--<el-col :span="10" class="textsize">紧急联系人与本人关系</el-col>-->
+            <el-col :span="14">
+              <el-form-item prop="CONTACTSRELATION" size="20px">
+                <el-input v-model="form.CONTACTSRELATION" style="width: 170%;margin-left: -72%"></el-input>
+              </el-form-item>
+              <!--<el-input v-model="updataform.CONTACTSRELATION" placeholder=""></el-input>-->
+            </el-col>
+          </el-col>
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">血型</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="血型" prop="BLOOD">
+                <el-select v-model="form.BLOOD" placeholder="请选择活动区域" style="width: 100%">
+                  <el-option label="血型A" value="血型A"></el-option>
+                  <el-option label="血型B" value="血型B"></el-option>
+                  <el-option label="血型AB" value="血型AB"></el-option>
+                  <el-option label="血型O" value="血型O"></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-col>
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">参队日期</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="参队日期" prop="JOININGDATE">
+                <el-date-picker
+                  v-model="form.JOININGDATE"
+                  type="date"
+                  style="width: 100%"
+                  placeholder="选择日期"
+                  format="yyyy 年 MM 月 dd 日"
+                  value-format="yyyy-MM-dd">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-col>
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">出生日期</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="出生日期" prop="BIRTHDAY">
+                <el-date-picker
+                  v-model="form.BIRTHDAY"
+                  type="date"
+                  style="width: 100%"
+                  placeholder="选择日期"
+                  format="yyyy 年 MM 月 dd 日"
+                  value-format="yyyy-MM-dd">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-col>
+          <el-col :span="8">
+            <!--<el-col :span="6" class="textsize">退队日期</el-col>-->
+            <el-col :span="24">
+              <el-form-item label="退队日期" prop="">
+                <el-date-picker
+                  v-model="form.OUTDATE"
+                  type="date"
+                  style="width: 100%"
+                  placeholder="选择日期"
+                  format="yyyy 年 MM 月 dd 日"
+                  value-format="yyyy-MM-dd">
+                </el-date-picker>
+              </el-form-item>
+              <!--<el-date-picker-->
+              <!--v-model="updataform.OUTDATE"-->
+              <!--type="date"-->
+              <!--placeholder="选择日期"-->
+              <!--format="yyyy 年 MM 月 dd 日"-->
+              <!--value-format="yyyy-MM-dd">-->
+              <!--</el-date-picker>-->
+            </el-col>
+          </el-col>
+          <el-col :span="24">
+            <el-col :span="12" class="buttondiv">
+              <el-button @click="qxbutton">返回</el-button>
+              <el-button type="primary" @click="qrbutton">确认并填写身份证</el-button>
+            </el-col>
+          </el-col>
+        </el-row>
+      </el-form>
       <el-dialog
         title="照片信息"
         :visible.sync="dialogVisible"
@@ -357,6 +377,92 @@ export default {
    let b=this.$route.query.user_name;
 
     return {
+      rules:{
+        PLAYER_TELEPHONE:[
+          { required: true, message: '请输入手机号', trigger: 'blur' },
+          { min: 11, max: 11, message: '长度在 11个字符', trigger: 'blur' }
+        ],
+        HEIGHT:[
+          { required: true, message: '请输入正确身高', trigger: 'blur' },
+          { min: 3, max: 3, message: '长度在 3个字符（单位CM）', trigger: 'blur' }
+        ],
+        NAME:[
+          { required: true, message: '请输入正确姓名', trigger: 'blur' },
+          { min: 2, max: 4, message: '长度在2-4个字符', trigger: 'blur' }
+        ],
+        WEIGHT:[
+          { required: true, message: '请输入正确体重', trigger: 'blur' },
+          { min: 2, max: 3, message: '长度在2-4个字符（单位kg）', trigger: 'blur' }
+        ],
+        NPLACE:[
+          { required: true, message: '请输入正确籍贯', trigger: 'blur' },
+          { min: 2, max: 6, message: '长度在2-6个字符', trigger: 'blur' }
+        ],
+        AGE:[
+          { required: true, message: '请输入正确年龄', trigger: 'blur' },
+          { min: 2, max: 2, message: '长度在2个字符', trigger: 'blur' }
+        ],
+        LEAVEL:[
+          { required: true, message: '请输入正确等级', trigger: 'blur' },
+          { min: 1, max: 8, message: '长度在1-8个字符', trigger: 'blur' }
+        ],
+        RECORD_PROJECT:[
+          { required: true, message: '请输入正确项目', trigger: 'blur' },
+          { min: 2, max: 10, message: '长度在2-10个字符', trigger: 'blur' }
+        ],
+        SEX:[
+          { required: true, message: '请输入正确性别', trigger: 'blur' },
+          { min: 1, max: 1, message: '长度在1个字符', trigger: 'blur' }
+        ],
+        NATION:[
+          { required: true, message: '请输入正确名族', trigger: 'blur' },
+          { min: 1, max: 5, message: '长度在1-5个字符', trigger: 'blur' }
+        ],
+        ADRESS:[
+          { required: true, message: '请输入正确通讯地址', trigger: 'blur' },
+          { min: 1, max:30, message: '长度在1-30个字符', trigger: 'blur' }
+        ],
+        CRAD:[
+          { required: true, message: '请输入正确身份证号码', trigger: 'blur' },
+          { min: 15, max:18, message: '长度在15-18个字符', trigger: 'blur' }
+        ],
+        FINISHSCHOOL:[
+          { required: true, message: '请输入毕业学校', trigger: 'blur' },
+          { min: 1, max:20, message: '长度在1-20个字符', trigger: 'blur' }
+        ],
+        CONTACTS:[
+          { required: true, message: '请输入紧急联系人', trigger: 'blur' },
+          { min: 2, max:8, message: '长度在2-8个字符', trigger: 'blur' }
+
+        ],
+        HONOR:[
+          { required: true, message: '请填写荣誉', trigger: 'blur' },
+          { min: 1, max:100, message: '请填写荣誉', trigger: 'blur' }
+        ],
+        CONTACTSPHONE:[
+          { required: true, message: '请输入手机号', trigger: 'blur' },
+          { min: 11, max: 11, message: '长度在 11个字符', trigger: 'blur' }
+        ],
+        CONTACTSRELATION:[
+          { required: true, message: '请输入正确格式', trigger: 'blur' },
+          { min: 2, max: 20, message: '长度在 2-20个字符', trigger: 'blur' }
+        ],
+        BLOOD:[
+          { required: true, message: '请选择血型', trigger: 'change' }
+        ],
+        JOININGDATE:[
+          { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+        ],
+        BIRTHDAY:[
+          { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+        ]
+
+
+
+
+
+
+      },
       dialogVisible: false,
 
       //照片
@@ -369,7 +475,7 @@ export default {
       form: {
         PK_PLAYER:a,
         ADRESS: "", //通讯地址
-        AGE: "", //年龄
+        // AGE: "", //年龄
         BIRTHDAY: "", //出生日期
         BLOOD: "", //血型
         CAUSE: "", //退队原因

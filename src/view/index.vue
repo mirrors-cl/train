@@ -62,6 +62,7 @@
       }
     },
     created(){
+     this.Navigationmenu()
     },
 
     methods:{
@@ -78,6 +79,21 @@
           this.$router.push({name:'productDataList'})
         }
       },
+      //动态颜色
+      Navigationmenu:function(){
+        const {name} =this.$route;
+        if (name==='admin-list-2'){
+          this.activeIndex2='1'
+        }else if (name==='admin-list'){
+          this.activeIndex2='2'
+        }else if(name==='Competition'){
+          this.activeIndex2='3'
+        }else if (name==='trainingList') {
+          this.activeIndex2='4'
+        }else if (name==='productDataList'){
+          this.activeIndex2='5'
+        }
+      }
       // handleClick(tab, event) {
       //   let index =tab.index;
       //   console.log(tab.index);
@@ -103,13 +119,12 @@
         }else {
           return '比赛列表'
         }
+      },
 
-
-      }
     },
     components: {
       headhead
-    }
+    },
   };
 </script>
 <style>
