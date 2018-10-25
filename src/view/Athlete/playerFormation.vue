@@ -2,40 +2,8 @@
   <div class="bodydiv">
     <headhead></headhead>
     <div class="modeldiv">
-      <!--<el-dialog-->
-        <!--title="添加训练计划"-->
-        <!--:visible.sync="dialogVisible"-->
-        <!--width="30%"-->
-        <!--:before-close="handleClose">-->
-        <!--<span>-->
-              <!--<el-form label-width="80px" :model="formLabelAlign">-->
-                 <!--<el-form-item label="选择时间">-->
-                   <!--<el-date-picker-->
-                     <!--v-model="formLabelAlign.date"-->
-                     <!--type="date"-->
-                     <!--placeholder="选择日期"-->
-                     <!--format="yyyy 年 MM 月 dd 日"-->
-                     <!--value-format="yyyy-MM-dd">-->
-                   <!--</el-date-picker>-->
-                <!--</el-form-item>-->
-              <!--<el-form-item label="地点">-->
-                <!--<el-input v-model="formLabelAlign.title" ></el-input>-->
-              <!--</el-form-item>-->
-              <!--<el-form-item label="训练内容">-->
-                <!--<el-input v-model="formLabelAlign.ss" type="textarea" row="3"></el-input>-->
-              <!--</el-form-item>-->
-              <!--<el-form-item>-->
-                <!--<el-button type="primary" @click="submitForm">立即创建</el-button>-->
-              <!--</el-form-item>-->
-            <!--</el-form>-->
-        <!--</span>-->
-      <!--</el-dialog>-->
-      <!--<el-button type="primary" size="mini" @click="dialogVisible=true">添加训练计划</el-button>-->
-
       <!--日期控件-->
-      <vue-event-calendar :events="demoEvents"
-                          @month-changed="monthChange"
-                          @day-changed="dayChange">
+      <vue-event-calendar :events="demoEvents" @month-changed="monthChange" @day-changed="dayChange">
         <template slot-scope="props">
           <div v-for="(event, index) in props.showEvents" class="event-item">
             <ul>
@@ -51,16 +19,17 @@
         </template>
       </vue-event-calendar>
     </div>
-
   </div>
 </template>
 <script>
   import headhead from '@/components/Headhead'
   import fetch from "@/assets/js/fetch.js"
   import qs from "qs";
+  import {getStore} from "@/assets/js/utils.js";
   export default {
     name: "ath-player",
     data: function () {
+      let userInfo=getStore('userInfo');
       return {
         dialogVisible:false,
         demoEvents: [],

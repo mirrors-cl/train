@@ -47,7 +47,10 @@ export default new Router({
         {
           path:'/productDataList',
           name:'productDataList',
-          component:productDataList
+          component:productDataList,
+          meta:{
+            requireAuth:true
+          }
         },
         {
           //运动员列表页

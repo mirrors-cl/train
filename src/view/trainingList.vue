@@ -30,7 +30,7 @@
         </span>
       </el-dialog>
       <el-button type="primary" size="mini" @click="dialogVisible=true">添加训周期</el-button>
-      <!--训练计划-->
+      <!--训练周期-->
       <vue-event-calendar :events="demoEvents"
                           @month-changed="monthChange"
                           @day-changed="dayChange">
@@ -238,6 +238,7 @@
             action="/PF/uploadpf"
             :on-preview="handlePreview"
             :on-remove="handleRemove"
+            :on-success="uploadSuccess"
             accept=".pdf,.PDD"
             :file-list="fileList"
             :auto-upload="false">
@@ -328,7 +329,6 @@
       }
     },
     created() {
-
       this.getdata();
     },
     //计算属性
@@ -355,14 +355,18 @@
         this.getdataPDF();
         this.dialogVisible5 = true;
       },
-      //上传动作
-
+      //uploadMovement
       submitUpload() {
         debugger;
-        // this.$refs.upload.clearFiles();
 
         this.$refs.upload.submit();
         // this.dialogVisible5=false;
+      },
+      //functionUploadSuceess
+      uploadSuccess: function (response, file, fileList) {
+        console.log("zheshiceshi",response,file,fileList);
+        //emptyList
+        this.$refs.upload.clearFiles()
       },
       handleRemove(file, fileList) {
         console.log(file, fileList);
@@ -370,7 +374,6 @@
       handlePreview(file) {
         console.log(file);
       },
-
       handleExceed(files, fileList) {
         this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
       },
@@ -424,8 +427,28 @@
         fetch
           .post("/TP/TPupdate", qs.stringify(this.updateTraining))
           .then(res => {
-            this.updateTraining = {trainingDetails: 0};
-            this.dialogVisible4 = false
+            if (res.data.status === "error") {
+              let tishi = res.data.data;
+              let starttime = "";
+              let endtime = "";
+              console.log("tishi", tishi);
+              var str = "";
+              for (let i = 0; i < tishi.length; i++) {
+                starttime = tishi[i].starttime;
+                endtime = tishi[i].endtime;
+                str += tishi[i].name + ",";
+              }
+              this.$message({
+                duration: "0",
+                showClose: true,
+                message: `运动员${str}已经有训练计划了,${starttime}-${endtime}`,
+                type: 'error'
+              });
+            } else {
+              this.updateTraining = {trainingDetails: 0};
+              this.dialogVisible4 = false;
+              this.getdata()
+            }
           })
       },
       //筛选
@@ -463,7 +486,8 @@
           mt_project_mdate: this.trainingDetails.MT_PROJECT_MDATE.join(),
           mt_project_projoct: this.trainingDetails.MT_PROJECT_PROJOCT,
           mt_project_participant: this.trainingDetails.user,
-          mt_project_practice: this.trainingDetails.MT_PROJECT_PRACTICE
+          mt_project_practice: this.trainingDetails.MT_PROJECT_PRACTICE,
+          oldKey:''
         })).then(res => {
           if (res.data.status === "error") {
             let tishi = res.data.data;
@@ -487,7 +511,6 @@
             this.dialogVisible1 = false;
             this.getdata()
           }
-
         })
       },
       //增加取消
