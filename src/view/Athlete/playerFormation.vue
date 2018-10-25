@@ -80,12 +80,15 @@
     data: function () {
       let userInfo = getStore('userInfo');
       return {
+        //详情
+        trainingList:[],
         dialogVisible3: false,
         //监听按钮
         monitor: false,
         player_name: userInfo.user_NAME,
         dialogVisible: false,
         demoEvents: [],
+        date:""
       }
     },
     created() {
@@ -94,8 +97,10 @@
     //count
     computed: {},
     methods: {
+
       //showdetails
       colourstyle: function () {
+        this.getDate1()
         // 弹框
         this.dialogVisible3 = true
       },
@@ -105,6 +110,13 @@
         ).then(res => {
           this.demoEvents = res.data.data
           console.log(res)
+        })
+      },
+      getDate1: function(){
+        fetch.post("/DP/showAllProject",qs.stringify({playerName:this.player_name,date:this.date}))
+          .then(res=>{
+            this.trainingList = res.data.data;
+            console.log(res)
         })
       },
       //敏感操作
@@ -122,6 +134,7 @@
         console.log(month)
       },
       dayChange(day) {
+        this.date=day.date
         this.monitor = true
         console.log(day)
       },
