@@ -856,7 +856,7 @@
       handleClose(done) {
         this.$confirm('确认关闭？')
           .then(_ => {
-            this.athleteForm = { brand_right: 0 };
+            this.athleteForm.RECORD_NAME="";
             done();
           })
           .catch(_ => {});

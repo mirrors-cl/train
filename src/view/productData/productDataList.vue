@@ -835,17 +835,15 @@
         </el-table-column>
       </el-table>
     </template>
-    <!--&lt;!&ndash;数据测试按钮&ndash;&gt;-->
+    <!--数据测试按钮-->
     <!--<el-button @click="getdata">sss</el-button>-->
-
     <!--分页-->
     <div class="block">
-      <!--@size-change="handleSizeChange"-->
-      <!--:current-page="currentPage4"-->
       <el-pagination
         @current-change="handleCurrentChange"
         background
         :page-size="100"
+        :current-page.sync="currentPage1"
         layout="total,prev, pager, next"
         :total="pageSizi">
       </el-pagination>
@@ -860,6 +858,7 @@
   name: "productDataList",
   data:function () {
       return{
+        currentPage1:1,
         //搜索状态（1时间周期）（2运动员姓名）
         state:"",
         //运动员名称
@@ -885,20 +884,24 @@
   methods:{
     //搜索运动员
     selectName:function () {
+      this.currentPage1=1
       fetch.get("/SC/selectPlayerCountByname",{
         params:{
           initpage:1,
           name:this.name
         }
       }).then(res=>{
+        console.log(  this.currentPage1)
         this.pageSizi=res.data.allsize;
         this.tableData=res.data.data;
         this.state="2"
+
       })
 
     },
     //搜索时间周期
     selectDate:function(){
+      this.currentPage1=1
       fetch.get("/SC/selectPlayerCountBytime",{
         params: {
           start:this.datelist.start,
@@ -909,6 +912,7 @@
         this.pageSizi=res.data.allsize;
         this.state="1";
         this.tableData=res.data.data;
+
       })
     },
     //请求数据
@@ -928,7 +932,7 @@
     },
     //当前页改变监听事件
     handleCurrentChange(val) {
-      debugger
+      console.log(val)
       if (this.state==="1"){
         fetch.get("/SC/selectPlayerCountBytime",{
           params: {

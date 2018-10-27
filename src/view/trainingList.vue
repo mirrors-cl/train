@@ -30,7 +30,7 @@
         </span>
       </el-dialog>
       <el-button type="primary" size="mini" @click="dialogVisible=true">添加训周期</el-button>
-      <!--训练周期-->
+      <!--添加训练周期-->
       <vue-event-calendar :events="demoEvents"
                           @month-changed="monthChange"
                           @day-changed="dayChange">
@@ -64,7 +64,7 @@
         :before-close="handleClose">
         <span>
           <el-form ref="trainingDetails" :model="trainingDetails" label-width="80px">
-         <el-form-item label="请选择时间">
+         <el-form-item label="请选择时间" prop="MT_PROJECT_MDATE">
             <el-time-picker
               is-range
               v-model="trainingDetails.MT_PROJECT_MDATE"
@@ -75,10 +75,10 @@
               value-format="HH:mm-ss">
           </el-time-picker>
          </el-form-item>
-            <el-form-item label="训练项目">
+            <el-form-item label="训练项目" prop="MT_PROJECT_PROJOCT">
             <el-input v-model="trainingDetails.MT_PROJECT_PROJOCT"></el-input>
           </el-form-item>
-                    <el-form-item label="训练内容">
+                    <el-form-item label="训练内容" prop="MT_PROJECT_PRACTICE">
             <el-input v-model="trainingDetails.MT_PROJECT_PRACTICE"></el-input>
           </el-form-item>
           </el-form>
@@ -136,7 +136,7 @@
         <el-button type="primary" @click="playerbutton">确 定</el-button>
       </span>
       </el-dialog>
-      <!--详情-->
+      <!--显示训练详情-->
       <el-dialog
         title="训练详情"
         :visible.sync="dialogVisible3"
@@ -334,6 +334,11 @@
     //计算属性
     computed: {},
     methods: {
+      selectfun:function(){
+        this.$refs["trainingDetails"].resetFields();
+        this.useraddlist = { brand_right: 0 };
+        this.zjbutton=false
+      },
       //select
       selectName: function () {
 
@@ -445,7 +450,6 @@
                 type: 'error'
               });
             } else {
-              this.updateTraining = {trainingDetails: 0};
               this.dialogVisible4 = false;
               this.getdata()
             }
@@ -506,10 +510,11 @@
               message: `运动员${str}已经有训练计划了,${starttime}-${endtime}`,
               type: 'error'
             });
+             this.zjbutton=false
           } else {
-            this.useraddlist = {trainingDetails: 0};
             this.dialogVisible1 = false;
             this.getdata()
+            this.selectfun();
           }
         })
       },

@@ -3,7 +3,7 @@
    <!--<headhead></headhead>-->
     <div class="modeldiv">
       <el-form :model="form" :rules="rules" ref="form" label-width="100px">
-        <el-row >
+        <el-row>
           <el-col :span="8">
             <el-form-item label="账号" prop="PLAYER_NAME">
               <el-input v-model="form.PLAYER_NAME" placeholder="" :disabled="true"></el-input>

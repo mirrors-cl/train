@@ -5,8 +5,9 @@
     </div>
     <div class="headPortrait">
     <el-dropdown trigger="click" >
-          <span class="el-dropdown-link">
-          <img v-bind:src="imageSrc">
+          <span class="el-dropdown-link" >
+          <img v-bind:src="imageSrc" v-show="imagePicture">
+            <img src="static/img/picture1.png" v-show="picture"/>
           </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item class="clearfix" @click.native="dialogVisible = true">修改密码<el-badge class="mark"/>
@@ -71,6 +72,8 @@
         }
       };
       return {
+        imagePicture:false,
+        picture:false,
         //passwrod正则表达式
         rules2: {
           password: [
@@ -91,7 +94,7 @@
     },
     created() {
       this.userInfo = getStore('userInfo');
-      // this.headPrtrait();
+      this.headPrtrait();
     },
     methods: {
       //确认修改密码
@@ -141,6 +144,14 @@
       // },
       // 显示头像
       headPrtrait: function () {
+
+        if (this.userInfo.pk_IDENTITY==="1"){
+          this.imagePicture=false
+          this.picture=true
+        }else if (this.userInfo.pk_IDENTITY==="2"){
+          this.imagePicture=true
+          this.picture=false
+        }
         fetch
           .get("UP/backimg", {
             responseType: 'blob',
