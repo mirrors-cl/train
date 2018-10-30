@@ -606,6 +606,7 @@
             ref="upload1"
             action="/UP/upimg"
             :data="photoInfo"
+            :on-success="successon"
             :file-list="fileList"
             :limit="1"
             :on-exceed="handleExceed"
@@ -753,25 +754,16 @@
           BIRTHDAY:[
             { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
           ]
-
-
-
-
-
-
         },
         labelPosition: 'left',
         fileList:[],
         // 照片
-         imageSrc:"",
-
+        imageSrc:"",
         rowId:"",
-
         //身份证反面
         pagephotoback1:"",
         //身份证正面
         pagephoto1:"",
-
         //详情
         dialogVisible: false,
         //添加
@@ -852,6 +844,10 @@
       }
     },
     methods: {
+      //photo
+      successon(response, file, fileList){
+        console.log("上传成功时候的钩子",response,"file", file,"fileList", fileList)
+      },
       //敏感信息关闭
       handleClose(done) {
         this.$confirm('确认关闭？')
@@ -1014,6 +1010,7 @@
       },
       //修改
       updatabutton:function(){
+
         this.$refs.upload1.submit();
         this.$refs.upload2.submit();
         this.$refs.upload3.submit();
@@ -1079,7 +1076,6 @@
     height: 100px;
     float: left;
   }
-
   .Alist {
     user-select: none;
     width: 80%;

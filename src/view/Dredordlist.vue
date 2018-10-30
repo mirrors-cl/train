@@ -50,7 +50,7 @@
       </el-table-column>
       <el-table-column
         prop="record_DUTY"
-        label="职责"
+        label="职位"
         width="150px">
       </el-table-column>
       <el-table-column
@@ -105,7 +105,7 @@
             <!--<el-option label="教练" value="3"></el-option>-->
           <!--</el-select>-->
         <!--</el-form-item>-->
-        <el-form-item label="职称">
+        <el-form-item label="职位">
           <el-input v-model="form.RECORD_DUTY"></el-input>
         </el-form-item>
          <el-form-item label="项目">
@@ -135,7 +135,7 @@
          <el-form-item label="姓名" prop="NAME" >
           <el-input v-model="useraddlist.NAME" ></el-input>
         </el-form-item>
-        <el-form-item label="职称" prop="RECORD_DUTY">
+        <el-form-item label="职位" prop="RECORD_DUTY">
           <el-input v-model="useraddlist.RECORD_DUTY"></el-input>
         </el-form-item>
          <el-form-item label="项目" prop="RECORD_PROJECT">

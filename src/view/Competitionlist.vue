@@ -184,7 +184,7 @@
           });
       },
       // 显示数据
-      getdata: function () {
+      getdata() {
         fetch
           .get("/GL/GLshowlist")
           .then(res => {

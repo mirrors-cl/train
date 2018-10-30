@@ -52,7 +52,7 @@
             </ul>
             <el-button type="primary" size="mini" @click="checkOut" v-show="zjbutton">添加训练内容</el-button>
             <el-button type="primary" size="mini" @click="colourstyle" v-show="zjbutton">详细训练计划</el-button>
-            <el-button type="primary" size="mini" @click="PdfReport" v-show="zjbutton">pdf报告计划</el-button>
+            <el-button type="primary" size="mini" @click="PdfReport" v-show="zjbutton">PDF报告计划</el-button>
           </div>
         </template>
       </vue-event-calendar>
@@ -236,6 +236,7 @@
             class="upload-demo"
             ref="upload"
             action="/PF/uploadpf"
+            :data="parameter"
             :on-preview="handlePreview"
             :on-remove="handleRemove"
             :on-success="uploadSuccess"
@@ -277,6 +278,10 @@
     name: "ath-list",
     data: function () {
       return {
+        //上传pdf额外参数
+        parameter:{
+          date:""
+        },
         //selectplayer
         selectplayer: "",
         //加载数据动效
@@ -348,7 +353,9 @@
       },
       //显示pdf列表
       getdataPDF: function () {
-        fetch.get("/PF/selectpf").then(res => {
+        fetch.get("/PF/selectpf",{params:{
+          date:this.date
+          }}).then(res => {
           this.tablePDF = res.data.data;
           console.log(res)
         }).catch(reason => {
@@ -362,6 +369,8 @@
       },
       //uploadMovement
       submitUpload() {
+        this.parameter.date=this.date;
+
         debugger;
 
         this.$refs.upload.submit();

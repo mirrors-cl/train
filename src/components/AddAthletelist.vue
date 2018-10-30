@@ -60,7 +60,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="政治面貌" prop="region">
+            <el-form-item label="政治面貌" prop="POLITICAL">
               <el-input v-model="form.POLITICAL" placeholder=""></el-input>
             </el-form-item>
           </el-col>
@@ -181,7 +181,7 @@
           <el-col :span="24">
             <el-col :span="12" class="buttondiv">
               <el-button @click="qxbutton">返回</el-button>
-              <el-button type="primary" @click="qrbutton">确认并填写身份证</el-button>
+              <el-button type="primary" @click="qrbutton('form')">确认并填写身份证</el-button>
             </el-col>
           </el-col>
         </el-row>
@@ -338,9 +338,9 @@ export default {
           { required: true, message: '请输入正确身份证号码', trigger: 'blur' },
           { min: 15, max:18, message: '长度在15-18个字符', trigger: 'blur' }
         ],
-        FINISHSCHOOL:[
-          { required: true, message: '请输入毕业学校', trigger: 'blur' },
-          { min: 1, max:20, message: '长度在1-20个字符', trigger: 'blur' }
+        POLITICAL:[
+          { required: true, message: '请输入正确的政治面貌', trigger: 'blur' },
+          { min: 2, max:4, message: '长度在2-4个字符', trigger: 'blur' }
         ],
         CONTACTS:[
           { required: true, message: '请输入紧急联系人', trigger: 'blur' },
@@ -459,16 +459,21 @@ export default {
     handlePreview(file) {
     },
     //提交
-    qrbutton:function() {
-      debugger
-        fetch
-          .post("/DP/DPadd", qs.stringify({ ...this.form }))
-          .then(res => {
-              this.dialogVisible = true;
-              this.useraddlist = { brand_right: 0 }
-            }
-          );
-
+    qrbutton:function(form) {
+          this.$refs[form].validate(valid=>{
+              if (valid){
+                fetch
+                  .post("/DP/DPadd", qs.stringify({ ...this.form }))
+                  .then(res => {
+                      this.dialogVisible = true;
+                      this.useraddlist = { brand_right: 0 }
+                    }
+                  );
+              }else {
+                console.log('error submit !!!');
+                return false;
+              }
+          });
     },
     //取消
     qxbutton:function(){

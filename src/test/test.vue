@@ -31,6 +31,7 @@
         this.getData();
       },
       methods:{
+
         getData:function(){
             fetch
               .get("http://210.73.217.81:20005/api/data-screen/hot-word",{
@@ -39,9 +40,7 @@
                 }
               }).then(function (item) {
               console.log(item.data.data)
-
             } )
-
         },
     }
     }

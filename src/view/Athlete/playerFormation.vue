@@ -24,15 +24,15 @@
           </div>
         </template>
       </vue-event-calendar>
-      <!-- showdetails -->
+      <!-- showdetalist -->
       <el-dialog
         title="训练详情"
         :visible.sync="dialogVisible3"
-        width="80%"
+        width="60%"
         :before-close="handleClose">
         <span>
         <template>
-            <el-table :data="trainingList" style="width: 100%">
+            <el-table :data="trainingList" style="width: 100%" fit="true">
               <el-table-column
                 label="训练时间"
                 prop="mt_project_mdate"

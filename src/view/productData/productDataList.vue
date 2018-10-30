@@ -850,7 +850,6 @@
     </div>
   </div>
 </template>
-
 <script>
   import fetch from "@/assets/js/fetch.js";
   import qs from "qs";
@@ -891,17 +890,15 @@
           name:this.name
         }
       }).then(res=>{
-        console.log(  this.currentPage1)
+        console.log(this.currentPage1);
         this.pageSizi=res.data.allsize;
         this.tableData=res.data.data;
         this.state="2"
-
       })
-
     },
     //搜索时间周期
     selectDate:function(){
-      this.currentPage1=1
+      this.currentPage1=1;
       fetch.get("/SC/selectPlayerCountBytime",{
         params: {
           start:this.datelist.start,
