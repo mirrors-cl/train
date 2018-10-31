@@ -44,21 +44,19 @@
         border
         style="width: 100%">
         <el-table-column
-          prop="id"
-          label="ID"
-          width="80">
-        </el-table-column>
-        <el-table-column
+          fixed
           prop="displayname"
           label="运动员名称"
           width="120">
         </el-table-column>
         <el-table-column
+          fixed
           prop="start"
           label="开始时间"
           width="170">
         </el-table-column>
         <el-table-column
+          fixed
           prop="end"
           label="结束时间"
           width="170">

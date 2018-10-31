@@ -10,7 +10,7 @@
         :data="athlete"
         tooltip-effect="dark"
         style="width: 100%"
-        @cell-click="buttonlist"
+        @cell-click="buttonList"
         :header-cell-style="titletable"
         @selection-change="handleSelectionChange">
         <!-- 删除勾选框 -->
@@ -854,6 +854,7 @@
           .then(_ => {
             this.athleteForm.RECORD_NAME="";
             done();
+            this.imageSrc=""
           })
           .catch(_ => {});
       },
@@ -920,7 +921,7 @@
             }
           });
       },
-      buttonlist:function(row,column) {
+      buttonList:function(row,column) {
         console.log(column.label);
         if(column.label === "操作"){
 

@@ -31,7 +31,6 @@ Vue.use(vueEventCalendar, {locale: 'zh'});
 //   document.cookie = c_name + "=" + escape(value) + ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString());
 //
 // };
-
 //router全局路由守卫
 router.beforeEach((to, from, next) => {
   //getcookies
@@ -46,8 +45,6 @@ router.beforeEach((to, from, next) => {
     }
     return null;
   }
-
-
   if (to.meta.requireAuth){
     if (getCookie('token')){
       next();
@@ -56,14 +53,10 @@ router.beforeEach((to, from, next) => {
         path:'/login',
         query: {redirect: to.fullPath}
       })
-
-
     }
   }else {
     next();
   }
-
-
 })
 
 new Vue({

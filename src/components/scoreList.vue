@@ -280,7 +280,7 @@
             });
           });
       },
-      removeUser:function(){
+      removeUser:function () {
         let ids =[];
         ids =this.multipleSelection
           .map(item=>item.pk_Grade)

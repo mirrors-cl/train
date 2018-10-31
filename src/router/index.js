@@ -23,7 +23,7 @@ export default new Router({
     {
       path:'/test',
       name:'test',
-      component:test
+      component: test
     },
     //登陆
     {
@@ -35,7 +35,7 @@ export default new Router({
     {
       path:'/playerform',
       name:'playerform',
-      component:playerform
+      component: playerform
     },
     //主页面
     {
@@ -47,7 +47,7 @@ export default new Router({
         {
           path:'/productDataList',
           name:'productDataList',
-          component:productDataList,
+          component: productDataList,
           meta:{
             requireAuth:true
           }

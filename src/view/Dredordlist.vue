@@ -348,9 +348,9 @@ export default {
       //修改完取消弹框
       this.dialogFormVisible = false;
     },
+
     // 增加
     addqrbutton:function(reddate){
-
       this.$refs[reddate].validate((valid) => {
         if (valid) {
           this.useraddlist.RECORD_ROLE="管理员";
@@ -373,7 +373,6 @@ export default {
                 // 取消弹框
                 this.dialogVisible = false;
               }
-
             });
         } else {
 

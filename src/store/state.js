@@ -2,6 +2,5 @@
 let state={
   userInfo:{
     id:'',
-
   }
 }

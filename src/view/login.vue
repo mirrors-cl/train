@@ -44,10 +44,11 @@ export default {
          .then(res => {
            // const user = { name: res.data.data.token, age: 25 };
            // localStorage.setItem('user', qs.stringify(user));
-
-
            if (res.data.status === "success") {
-             document.cookie ="token=res.data.data.token";
+             let token = res.data.data.token
+
+             this.$cookies.set('token',token);
+             // document.cookie ="token=res.data.data.token";
              this.SAVE_USER(res.data.data);
              //请求成功
              let identity = res.data.data.pk_IDENTITY;

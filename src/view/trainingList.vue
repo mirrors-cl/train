@@ -35,25 +35,59 @@
                           @month-changed="monthChange"
                           @day-changed="dayChange">
         <template slot-scope="props">
+
           <div v-for="(event, index) in props.showEvents" class="event-item">
-            <ul>
-              <li>
+            <el-popover v-show="zjbutton"
+              placement="top"
+              width="160"
+              v-model="visible2">
+              <p>确定要删除下面这段内容吗？</p>
+              <div style="text-align: right; margin: 0">
+                <el-button size="mini" type="text" @click="visible2 = false">取消</el-button>
+                <el-button type="primary" size="mini" @click="deletingCycle">确定</el-button>
+              </div>
+              <div slot="reference" class="clearfix" style="width: 100%; font-size: 18px">
+                <el-button style="float: right; padding: 2px 0" type="text" icon="el-icon-close"></el-button>
+              </div>
+            </el-popover>
+
+            <el-row>
+              <el-col :span="24">
                 <span>训练时间</span>
-                <el-input v-model="event.date" :disabled="true"></el-input>
-              </li>
-              <li>
+                <el-input
+                  :disabled="true"
+                  :rows="1"
+                  placeholder="请输入内容"
+                  v-model="event.date">
+                </el-input>
+              </el-col>
+              <el-col :span="24">
                 <span>训练地点</span>
-                <el-input v-model="event.title" :disabled="true"></el-input>
-              </li>
-              <li>
-                <span>内容简介</span>
-                <el-input type="textarea" v-model="event.drill_practice" :disabled="true"></el-input>
-              </li>
-            </ul>
+                <el-input
+                  :disabled="true"
+                  :rows="1"
+                  placeholder="请输入内容"
+                  v-model="event.title">
+                </el-input>
+                </el-col>
+              <el-col :span="24">
+                <span>内容简介
+                </span>
+                <el-input
+                  type="textarea"
+                  :disabled="true"
+                  :rows="2"
+                  placeholder="请输入内容"
+                  v-model="event.drill_practice">
+                </el-input>
+                <!--{{event.drill_practice}}-->
+                </el-col>
+            </el-row>
             <el-button type="primary" size="mini" @click="checkOut" v-show="zjbutton">添加训练内容</el-button>
             <el-button type="primary" size="mini" @click="colourstyle" v-show="zjbutton">详细训练计划</el-button>
             <el-button type="primary" size="mini" @click="PdfReport" v-show="zjbutton">PDF报告计划</el-button>
           </div>
+
         </template>
       </vue-event-calendar>
       <!--添加训练计划-->
@@ -278,6 +312,8 @@
     name: "ath-list",
     data: function () {
       return {
+        //周期删除弹框
+        visible2: false,
         //上传pdf额外参数
         parameter:{
           date:""
@@ -607,6 +643,20 @@
         //this.demoEvents.push(this.formLabelAlign);
         this.dialogVisible = false
       },
+      //删除训练周期
+      deletingCycle () {
+        fetch.get("/RC/drillDelete",{
+          params:{
+            cycle:this.date
+          }}).then(res=>{
+          this.getdata();
+          this.zjbutton=false
+          this.visible2=false
+
+        }).catch(error=>{
+          alert('服务器请求错误')
+        })
+      },
       //详情
       colourstyle: function () {
         this.getdata1();
@@ -618,6 +668,7 @@
 <style scoped>
 
   .event-item li {
+    width: 100%;
     list-style-type: none;
   }
 
@@ -629,9 +680,13 @@
   }
 </style>
 <style>
+  .event-item{
+    background-color: #f29543;
+  }
   /*.is-event{*/
   /*background-color:rgb(200,149,67) ;*/
   /*}*/
+
   .highlight {
     background: #e32926;
     color: #fff;
