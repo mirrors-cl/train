@@ -1,5 +1,6 @@
 <template>
-  <div class="baymax">
+  <div class="test">
+    <button-counter></button-counter>
       <div class="head">
          <div class="eyes" v-for="ss in aa">
         {{ss.num}}
@@ -23,11 +24,12 @@
               num:"",
               word:""
             },
+            count:0
         }
       },
+      template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>',
       //初始化生命钩子
       created(){
-
         this.getData();
       },
       methods:{

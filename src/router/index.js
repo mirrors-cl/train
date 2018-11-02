@@ -13,12 +13,10 @@ import test from '@/test/test'
 import playerform from '@/view/Athlete/playerFormation'
 import productDataList from '@/view/productData/productDataList'
 // import errorfou from '@view/errorPage/404'
-
 Vue.use(Router)
 
 export default new Router({
   routes: [
-
     //测试
     {
       path:'/test',
