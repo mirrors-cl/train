@@ -12,6 +12,7 @@ import trainingList from '@/view/trainingList'
 import test from '@/test/test'
 import playerform from '@/view/Athlete/playerFormation'
 import productDataList from '@/view/productData/productDataList'
+import TrainingCycle from '@/view/TrainingModule/TrainingCycle'
 // import errorfou from '@view/errorPage/404'
 Vue.use(Router)
 
@@ -97,7 +98,14 @@ export default new Router({
           meta: {
             requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
           },
-          component:trainingList
+          component:trainingList,
+          children:[
+           {
+             path: '/TrainingCycle',
+             name: 'TrainingCycle',
+             component: TrainingCycle
+           }
+          ]
         },
         {
           path: '/AddAthletelist',

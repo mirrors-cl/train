@@ -1,56 +1,24 @@
 <template>
   <div class="bodydiv">
     <div class="modeldiv">
-      <el-dialog
-        title="添加训练计划"
-        :visible.sync="dialogVisible"
-        width="30%"
-        :before-close="handleClose">
-        <span>
-              <el-form label-width="80px" :model="formLabelAlign">
-                <el-form-item label="选择时间">
-                 <el-date-picker
-                   v-model="formLabelAlign.date"
-                   type="dates"
-                   placeholder="选择一个或多个日期"
-                   format="yyyy 年 MM 月 dd 日"
-                   value-format="yyyy-MM-dd">
-                </el-date-picker>
-                </el-form-item>
-              <el-form-item label="地点">
-                <el-input v-model="formLabelAlign.title"></el-input>
-              </el-form-item>
-              <el-form-item label="训练简介">
-                <el-input v-model="formLabelAlign.drill_practice" type="textarea" row="3"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" @click="submitForm">立即创建</el-button>
-              </el-form-item>
-            </el-form>
-        </span>
-      </el-dialog>
-      <el-button type="primary" size="mini" @click="dialogVisible=true">添加训周期</el-button>
       <!--添加训练周期-->
-      <vue-event-calendar :events="demoEvents"
-                          @month-changed="monthChange"
-                          @day-changed="dayChange">
+      <TrainingCycle @addcycle='appendComment'></TrainingCycle>
+      <!-- 日历周期列表 -->
+      <vue-event-calendar :events="demoEvents" @month-changed="monthChange" @day-changed="dayChange">
         <template slot-scope="props">
-
           <div v-for="(event, index) in props.showEvents" class="event-item">
-            <el-popover v-show="zjbutton"
-              placement="top"
-              width="160"
-              v-model="visible2">
+            <!-- deleteicon -->
+            <el-popover v-show="zjbutton" placement="top" width="160" v-model="visible2">
               <p>确定要删除下面这段内容吗？</p>
               <div style="text-align: right; margin: 0">
                 <el-button size="mini" type="text" @click="visible2 = false">取消</el-button>
                 <el-button type="primary" size="mini" @click="deletingCycle">确定</el-button>
               </div>
+              <!-- deletebutton -->
               <div slot="reference" class="clearfix" style="width: 100%; font-size: 18px">
                 <el-button style="float: right; padding: 2px 0" type="text" icon="el-icon-close"></el-button>
               </div>
             </el-popover>
-
             <el-row>
               <el-col :span="24">
                 <span>训练时间</span>
@@ -80,14 +48,12 @@
                   placeholder="请输入内容"
                   v-model="event.drill_practice">
                 </el-input>
-                <!--{{event.drill_practice}}-->
                 </el-col>
             </el-row>
             <el-button type="primary" size="mini" @click="checkOut" v-show="zjbutton">添加训练内容</el-button>
             <el-button type="primary" size="mini" @click="colourstyle" v-show="zjbutton">详细训练计划</el-button>
             <el-button type="primary" size="mini" @click="PdfReport" v-show="zjbutton">PDF报告计划</el-button>
           </div>
-
         </template>
       </vue-event-calendar>
       <!--添加训练计划-->
@@ -307,6 +273,7 @@
 <script>
   import fetch from "@/assets/js/fetch.js"
   import qs from "qs";
+  import TrainingCycle from '@/view/TrainingModule/TrainingCycle'
 
   export default {
     name: "ath-list",
@@ -326,7 +293,6 @@
         fileList: [],
         //复用勾选运动员变量
         playercheck: "",
-        dialogVisible: false,
         dialogVisible1: false,
         dialogVisible2: false,
         dialogVisible3: false,
@@ -373,6 +339,9 @@
       this.getdata();
     },
     //计算属性
+    components:{
+      TrainingCycle
+    },
     computed: {},
     methods: {
       selectfun:function(){
@@ -624,24 +593,10 @@
         // if(day.events)
         console.log("day", day)
       },
-      //创建训练周期
-      submitForm: function () {
-        // this.formLabelAlign.date.join();
-        fetch
-          .post("/RC/drillAdd", qs.stringify({
-            date: this.formLabelAlign.date.join(),
-            title: this.formLabelAlign.title,
-            drill_practice: this.formLabelAlign.drill_practice
-          }))
-          .then(res => {
-            this.getdata();
-            this.dialogVisible = false;
-          });
-
-        //正则修改时间格式（日期插件规定了时间格式）
-        // this.formLabelAlign.date=this.formLabelAlign.date.replace(/-/g,'/');
-        //this.demoEvents.push(this.formLabelAlign);
-        this.dialogVisible = false
+      // 训练周期回调方法
+      appendComment(){
+         this.zjbutton=false
+        this.getdata()
       },
       //删除训练周期
       deletingCycle () {
