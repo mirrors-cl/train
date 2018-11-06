@@ -749,10 +749,10 @@
             { required: true, message: '请选择血型', trigger: 'change' }
           ],
           JOININGDATE:[
-            { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+            { type: 'string', required: true, message: '请选择日期', trigger: 'change' }
           ],
           BIRTHDAY:[
-            { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+            { type: 'string', required: true, message: '请选择日期', trigger: 'change' }
           ]
         },
         labelPosition: 'left',

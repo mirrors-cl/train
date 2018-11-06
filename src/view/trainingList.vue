@@ -49,10 +49,15 @@
                   v-model="event.drill_practice">
                 </el-input>
                 </el-col>
+              <el-col :span="24">
+                <el-col :span="8">
+                  <!--<TrainingMen></TrainingMen>-->
+                  <el-button type="primary" size="mini" @click="checkOut" v-show="zjbutton">添加训练内容</el-button>
+                </el-col>
+                <el-col :span="8"> <el-button type="primary" size="mini" @click="colourstyle" v-show="zjbutton">详细训练计划</el-button></el-col>
+                <el-col :span="8">  <el-button type="primary" size="mini" @click="PdfReport" v-show="zjbutton">PDF报告计划</el-button></el-col>
+              </el-col>
             </el-row>
-            <el-button type="primary" size="mini" @click="checkOut" v-show="zjbutton">添加训练内容</el-button>
-            <el-button type="primary" size="mini" @click="colourstyle" v-show="zjbutton">详细训练计划</el-button>
-            <el-button type="primary" size="mini" @click="PdfReport" v-show="zjbutton">PDF报告计划</el-button>
           </div>
         </template>
       </vue-event-calendar>
@@ -274,6 +279,7 @@
   import fetch from "@/assets/js/fetch.js"
   import qs from "qs";
   import TrainingCycle from '@/view/TrainingModule/TrainingCycle'
+  import TrainingMen from '@/view/TrainingModule/TrainingMen'
 
   export default {
     name: "ath-list",
@@ -340,7 +346,8 @@
     },
     //计算属性
     components:{
-      TrainingCycle
+      TrainingCycle,
+      TrainingMen
     },
     computed: {},
     methods: {
@@ -383,6 +390,11 @@
       },
       //functionUploadSuceess
       uploadSuccess: function (response, file, fileList) {
+        this.$message({
+          message: '上传成功',
+          type: 'success'
+        });
+
         console.log("zheshiceshi",response,file,fileList);
         //emptyList
         this.$refs.upload.clearFiles()

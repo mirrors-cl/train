@@ -112,14 +112,24 @@
     computed:{
       competition(){
         const {name}=this.$route
-        if(name==='scoreList'){
-
-          return '成绩列表'
-        }else if(name==='projectList'){
-          return '项目列表'
-        }else {
-          return '比赛列表'
+        switch (name) {
+          case 'scoreList':
+            return '成绩列表';
+            break;
+          case 'projectList':
+            return '项目列表';
+            break;
+          default:
+            return '比赛列表'
         }
+        // if(name==='scoreList'){
+        //   return '成绩列表'
+        //
+        // }else if(name==='projectList'){
+        //   return '项目列表'
+        // }else {
+        //   return '比赛列表'
+        // }
       },
 
     },

@@ -124,7 +124,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="退队日期" prop="">
+            <el-form-item label="退队日期" prop="OUTDATE">
               <el-date-picker
                 v-model="form.OUTDATE"
                 type="date"
@@ -148,7 +148,7 @@
             </el-col>
           </el-col>
           <el-col :span="8">
-            <el-col span="10">
+            <el-col :span="10">
               <div style="font-size: 14px">
                 紧急联系人与本人关系
               </div>
@@ -160,14 +160,14 @@
             </el-col>
           </el-col>
             <el-col :span="12">
-              <el-form-item>
+              <el-form-item prop="HONOR">
                 <span>获得荣誉</span>
                 <el-input type="textarea" :autosize="{ minRows: 8, maxRows: 20}" placeholder="请输入内容" v-model="form.HONOR">
                 </el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item>
+              <el-form-item prop="injury">
               <span>伤病记录</span>
                 <el-input
                   size="20px"
@@ -363,10 +363,10 @@ export default {
           { required: true, message: '请选择血型', trigger: 'change' }
         ],
         JOININGDATE:[
-          { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+          { type: 'string', required: true, message: '请选择日期', trigger: 'change' }
         ],
         BIRTHDAY:[
-          { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+          { type: 'string', required: true, message: '请选择日期', trigger: 'change' }
         ]
       },
       dialogVisible: false,
@@ -460,7 +460,7 @@ export default {
     },
     //提交
     qrbutton:function(form) {
-          this.$refs[form].validate(valid=>{
+          this.$refs[form].validate((valid)=>{
               if (valid){
                 fetch
                   .post("/DP/DPadd", qs.stringify({ ...this.form }))

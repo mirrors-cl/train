@@ -84,7 +84,7 @@
                      value-format="yyyy-MM-dd">
                   </el-date-picker>
                   </el-form-item>
-              <el-form-item label="开始时间">
+              <el-form-item label="结束时间">
                    <el-date-picker
                      type="date"
                      v-model="addForm.gm_Project_EndDate"
