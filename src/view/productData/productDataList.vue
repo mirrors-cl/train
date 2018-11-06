@@ -3,26 +3,21 @@
     <template>
       <div class="menu">
         <el-row>
-          <el-col :span="8">
-              <el-col :span="12">
-                <el-input v-model="name" suffix-icon="el-icon-edit" placeholder="请输入运动员姓名"></el-input>
+          <el-col :span="24">
+              <el-col :span="3">
+                <el-input v-model="datelist.name" suffix-icon="el-icon-edit" placeholder="运动员姓名"></el-input>
               </el-col>
-              <el-col :span="12">
-                <el-button type="primary" icon="el-icon-search" @click="selectName">搜索</el-button>
+              <el-col :span="4">
+                <el-date-picker
+                  v-model="datelist.start"
+                  type="date"
+                  style="width: 100%"
+                  placeholder="选择日期"
+                  format="yyyy 年 MM 月 dd 日"
+                  value-format="yyyy-MM-dd">
+                </el-date-picker>
               </el-col>
-          </el-col>
-          <el-col :span="12">
-            <el-col :span="10">
-              <el-date-picker
-                v-model="datelist.start"
-                type="date"
-                style="width: 100%"
-                placeholder="选择日期"
-                format="yyyy 年 MM 月 dd 日"
-                value-format="yyyy-MM-dd">
-              </el-date-picker>
-            </el-col>
-            <el-col :span="10">
+            <el-col :span="4">
               <el-date-picker
                 v-model="datelist.end"
                 type="date"
@@ -32,8 +27,8 @@
                 value-format="yyyy-MM-dd">
               </el-date-picker>
             </el-col>
-            <el-col :span="4">
-            <el-button type="primary" icon="el-icon-search" @click="selectDate">搜索</el-button>
+            <el-col :span="2">
+              <el-button type="primary" icon="el-icon-search" @click="selectName">搜索</el-button>
             </el-col>
           </el-col>
         </el-row>
@@ -857,11 +852,12 @@
       return{
         currentPage1:1,
         //搜索状态（1时间周期）（2运动员姓名）
-        state:"",
-        //运动员名称
-        name:"",
+        state:true,
         //时间周期
         datelist:{
+          //运动员名称
+          initpage:"",
+          name:"",
           start:"",
           end:""
         },
@@ -882,32 +878,12 @@
     //搜索运动员
     selectName:function () {
       this.currentPage1=1
-      fetch.get("/SC/selectPlayerCountByname",{
-        params:{
-          initpage:1,
-          name:this.name
-        }
-      }).then(res=>{
+      this.datelist.initpage="1"
+      fetch.get("/SC/selectPlayerCountBynameOrTime",{params:this.datelist}).then(res=>{
         console.log(this.currentPage1);
         this.pageSizi=res.data.allsize;
         this.tableData=res.data.data;
-        this.state="2"
-      })
-    },
-    //搜索时间周期
-    selectDate:function(){
-      this.currentPage1=1;
-      fetch.get("/SC/selectPlayerCountBytime",{
-        params: {
-          start:this.datelist.start,
-          end:this.datelist.end,
-          initpage: 1
-        }
-      }).then(res=>{
-        this.pageSizi=res.data.allsize;
-        this.state="1";
-        this.tableData=res.data.data;
-
+        this.state=false
       })
     },
     //请求数据
@@ -917,8 +893,6 @@
           initpage:1,
         }
       }).then(res=>{
-
-        this.state="";
         this.tableData=res.data.data;
         this.pageSizi=res.data.allsize
       }).catch(error=>{
@@ -928,29 +902,7 @@
     //当前页改变监听事件
     handleCurrentChange(val) {
       console.log(val)
-      if (this.state==="1"){
-        fetch.get("/SC/selectPlayerCountBytime",{
-          params: {
-            start:this.datelist.start,
-            end:this.datelist.end,
-            initpage: val
-          }
-        }).then(res=>{
-          this.tableData=res.data.data;
-          console.log("进入时间周期分页")
-        })
-
-      }else if(this.state==="2"){
-        fetch.get("/SC/selectPlayerCountByname",{
-          params:{
-            initpage:val,
-            name:this.name
-          }
-        }).then(res=>{
-          console.log("进入name分页");
-          this.tableData=res.data.data
-        })
-      }else {
+      if(this.state){
         fetch.get("/SC/selectPlayerCount",{
           params: {
             initpage:val,
@@ -958,6 +910,21 @@
         }).then(res=>{
           this.tableData=res.data.data;
         })
+      }else  {
+          fetch.get("/SC/selectPlayerCountBynameOrTime",{
+            params:{
+              initpage:val,
+              name:this.datelist.name,
+              start:this.datelist.start,
+              end:this.datelist.end
+            }
+          })
+            .then(res=>{
+            console.log(this.currentPage1);
+            this.pageSizi=res.data.allsize;
+            this.tableData=res.data.data;
+            this.state=false
+          })
       }
     }
   }
