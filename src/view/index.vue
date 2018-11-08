@@ -111,7 +111,7 @@
     },
     computed:{
       competition(){
-        const {name}=this.$route
+        const {name}=this.$route;
         switch (name) {
           case 'scoreList':
             return '成绩列表';

@@ -33,9 +33,11 @@
 </template>
 <script>
   import fetch from "@/assets/js/fetch.js"
+  import {getStore} from "@/assets/js/utils.js";
   import qs from "qs";
  export default {
-   data () {
+   data:function () {
+     let userInfo = getStore('userInfo');
      return {
          dialogVisible:false,
           //添加训练周期
@@ -43,6 +45,7 @@
           date: '',
           title: '',//地点
           drill_practice: '',//简介
+          record_name: userInfo.user_NAME
         },
      }
    },
@@ -54,7 +57,8 @@
           .post("/RC/drillAdd", qs.stringify({
             date: this.formLabelAlign.date.join(),
             title: this.formLabelAlign.title,
-            drill_practice: this.formLabelAlign.drill_practice
+            drill_practice: this.formLabelAlign.drill_practice,
+            record_name:this.formLabelAlign.record_name
           }))
           .then(res => {
             this.$emit('addcycle')
@@ -84,5 +88,5 @@
 
 <style>
 
- 
+
 </style>

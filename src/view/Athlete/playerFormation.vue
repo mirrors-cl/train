@@ -106,6 +106,7 @@
       },
       //getlistall
       getDate: function () {
+        console.log(this.$state.userInfo);
         fetch.post("DP/showAlldate", qs.stringify({player_name: this.player_name})
         ).then(res => {
           this.demoEvents = res.data.data

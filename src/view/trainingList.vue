@@ -280,11 +280,13 @@
   import qs from "qs";
   import TrainingCycle from '@/view/TrainingModule/TrainingCycle'
   import TrainingMen from '@/view/TrainingModule/TrainingMen'
+  import {getStore} from "@/assets/js/utils.js";
 
   export default {
     name: "ath-list",
     data: function () {
       return {
+        userInfo: getStore('userInfo'),
         //周期删除弹框
         visible2: false,
         //上传pdf额外参数
@@ -539,7 +541,7 @@
              this.zjbutton=false
           } else {
             this.dialogVisible1 = false;
-            this.getdata()
+            this.getdata();
             this.selectfun();
           }
         })
@@ -557,7 +559,9 @@
       },
       //显示日期数据
       getdata: function () {
-        fetch.get("/RC/drillShowlist")
+        fetch.get("/RC/drillShowlist",{params:{
+            record_name:this.userInfo.user_NAME
+          }})
           .then(res => {
             this.demoEvents = res.data.data
             // this.demoEvents.push(res);

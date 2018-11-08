@@ -27,7 +27,6 @@ import  {mapMutations} from 'vuex';
 export default {
   name: "login",
   data() {
-
     return {
       form: {
         userName: "",
@@ -45,7 +44,7 @@ export default {
            // const user = { name: res.data.data.token, age: 25 };
            // localStorage.setItem('user', qs.stringify(user));
            if (res.data.status === "success") {
-             let token = res.data.data.token
+             let token = res.data.data.token;
 
              this.$cookies.set('token',token);
              // document.cookie ="token=res.data.data.token";

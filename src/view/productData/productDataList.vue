@@ -871,7 +871,6 @@
   },
   //计算属性
   computed:{
-
   },
   //funcation
   methods:{
@@ -930,7 +929,6 @@
   }
 };
 </script>
-
 <style scoped>
 .menu{
   margin-top: 5px;
