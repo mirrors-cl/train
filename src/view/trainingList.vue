@@ -360,8 +360,12 @@
       },
       //select
       selectName: function () {
+        fetch.post("/DP/likeSearch", qs.stringify({
+          name: this.selectplayer,
+          record_name:this.userInfo.user_NAME
 
-        fetch.post("/DP/likeSearch", qs.stringify({name: this.selectplayer})).then(res => {
+        })).then(res => {
+          console.log(res.data.data);
           this.playerform = res.data.data
         })
       },
@@ -553,7 +557,10 @@
       },
       //运动员信息
       playerdata: function () {
-        fetch.get("/DP/DPshowlist").then(res => {
+        fetch.post("/DP/likeSearch",qs.stringify({
+          name:"",
+          record_name:this.userInfo.user_NAME
+        })).then(res => {
           this.playerform = res.data.data
         })
       },
