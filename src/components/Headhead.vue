@@ -43,7 +43,6 @@
 </template>
 <script>
   // 引用fetch
-
   import fetch from "@/assets/js/fetch.js";
   import {getStore} from "@/assets/js/utils.js";
   import qs from "qs";
@@ -101,7 +100,9 @@
       datepassword: function () {
         fetch.post("/restPassword", qs.stringify({pk_user: this.userInfo.pk_USER, password: this.form.password}))
           .then(res => {
-            this.dialogVisible = false;
+            // this.dialogVisible = false;
+            this.$cookies.set("token",'',-1, '/');
+            this.$router.push({name: 'login'})
 
           }).catch(errors => {
           alert("请求超时")

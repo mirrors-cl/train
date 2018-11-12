@@ -65,7 +65,6 @@
     created(){
      this.Navigationmenu()
     },
-
     methods:{
       handleSelect(key, keyPath) {
         if (keyPath ==1){

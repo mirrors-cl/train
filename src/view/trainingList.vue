@@ -462,7 +462,7 @@
       updateTrainingButton: function () {
         this.updateTraining.mt_project_mdate = this.updateTraining.mt_project_mdate.join();
         fetch
-          .post("/TP/TPupdate", qs.stringify(this.updateTraining))
+          .post("/TP/TPupdate", qs.stringify({...this.updateTraining, record_name:this.userInfo.user_NAME}))
           .then(res => {
             if (res.data.status === "error") {
               let tishi = res.data.data;
@@ -523,7 +523,8 @@
           mt_project_projoct: this.trainingDetails.MT_PROJECT_PROJOCT,
           mt_project_participant: this.trainingDetails.user,
           mt_project_practice: this.trainingDetails.MT_PROJECT_PRACTICE,
-          oldKey:''
+          oldKey:'',
+          record_name:this.userInfo.user_NAME
         })).then(res => {
           if (res.data.status === "error") {
             let tishi = res.data.data;
@@ -577,6 +578,7 @@
       getdata1: function () {
         fetch.get("/TP/TPselect", {
           params: {
+            record_name:this.userInfo.user_NAME,
             date: this.date
           }
         }).then(item => {
@@ -628,7 +630,7 @@
             cycle:this.date
           }}).then(res=>{
           this.getdata();
-          this.zjbutton=false
+          this.zjbutton=false;
           this.visible2=false
 
         }).catch(error=>{

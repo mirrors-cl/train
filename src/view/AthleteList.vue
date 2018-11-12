@@ -64,7 +64,7 @@
         next-text="下一页"
         :total="total">
       </el-pagination>
-      <!--详情框架-->
+      <!--详情列表-->
       <el-dialog
         title="运动员详情"
         :visible.sync="dialogVisible"

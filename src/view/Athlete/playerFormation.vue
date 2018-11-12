@@ -95,12 +95,13 @@
       this.getDate()
     },
     //count
-    computed: {},
-    methods: {
+    computed: {
 
+    },
+    methods: {
       //showdetails
       colourstyle: function () {
-        this.getDate1()
+        this.getDate1();
         // 弹框
         this.dialogVisible3 = true
       },
@@ -109,7 +110,7 @@
         console.log(this.$state.userInfo);
         fetch.post("DP/showAlldate", qs.stringify({player_name: this.player_name})
         ).then(res => {
-          this.demoEvents = res.data.data
+          this.demoEvents = res.data.data;
           console.log(res)
         })
       },
@@ -135,8 +136,8 @@
         console.log(month)
       },
       dayChange(day) {
-        this.date=day.date
-        this.monitor = true
+        this.date=day.date;
+        this.monitor = true;
         console.log(day)
       },
 
