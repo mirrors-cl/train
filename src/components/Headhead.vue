@@ -97,7 +97,7 @@
     },
     methods: {
       //确认修改密码
-      datepassword: function () {
+      datepassword() {
         fetch.post("/restPassword", qs.stringify({pk_user: this.userInfo.pk_USER, password: this.form.password}))
           .then(res => {
             // this.dialogVisible = false;
@@ -109,7 +109,7 @@
         })
       },
       //取消清除正则验证提示
-      qxbuuton: function () {
+      qxbuuton() {
         this.$refs["form"].resetFields();
         this.dialogVisible = false
       },
@@ -124,7 +124,7 @@
       },
       //设置token
       //设置cookie
-      setCookie: function (cname, cvalue, exdays) {
+      setCookie(cname, cvalue, exdays) {
         var d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
         var expires = "expires=" + d.toUTCString();
@@ -133,7 +133,7 @@
         console.info(document.cookie);
       },
       //退出
-      qcbuuon: function () {
+      qcbuuon() {
         this.$cookies.set("token",'',-1, '/');
         this.$router.push({name: 'login'})
       },
@@ -144,7 +144,7 @@
       //   alink.click();
       // },
       // 显示头像
-      headPrtrait: function () {
+      headPrtrait() {
 
         if (this.userInfo.pk_IDENTITY==="1"){
           this.imagePicture=false

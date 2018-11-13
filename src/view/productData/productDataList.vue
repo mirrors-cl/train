@@ -828,9 +828,7 @@
         </el-table-column>
       </el-table>
     </template>
-    <!--数据测试按钮-->
-    <!--<el-button @click="getdata">sss</el-button>-->
-    <!--分页-->
+    <!--paging-->
     <div class="block">
       <el-pagination
         @current-change="handleCurrentChange"
@@ -874,8 +872,8 @@
   },
   //funcation
   methods:{
-    //搜索运动员
-    selectName:function () {
+    //selectplayer
+    selectName() {
       this.currentPage1=1
       this.datelist.initpage="1"
       fetch.get("/SC/selectPlayerCountBynameOrTime",{params:this.datelist}).then(res=>{
@@ -885,8 +883,7 @@
         this.state=false
       })
     },
-    //请求数据
-    getdata:function(){
+    getdata(){
       fetch.get("/SC/selectPlayerCount",{
         params:{
           initpage:1,
@@ -898,7 +895,7 @@
         console.log("请求失败")
       })
     },
-    //当前页改变监听事件
+    //pageSizievent
     handleCurrentChange(val) {
       console.log(val)
       if(this.state){

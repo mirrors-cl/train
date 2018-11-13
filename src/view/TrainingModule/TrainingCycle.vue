@@ -51,7 +51,7 @@
    },
    methods:{
         //创建训练周期
-      submitForm: function (formLabelAlign) {
+      submitForm(formLabelAlign) {
         // this.formLabelAlign.date.join();
         fetch
           .post("/RC/drillAdd", qs.stringify({

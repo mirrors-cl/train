@@ -41,9 +41,7 @@
         <!--<el-menu-item index="6"><i class="el-icon-menu"></i>训练数据报告</el-menu-item>-->
       </el-menu>
     </div>
-
     <!-- 显示内容 -->
-
     <router-view></router-view>
   </div>
 </template>
@@ -80,7 +78,7 @@
         }
       },
       //动态颜色
-      Navigationmenu:function(){
+      Navigationmenu(){
         const {name} =this.$route;
         if (name==='admin-list-2'){
           this.activeIndex2='1'

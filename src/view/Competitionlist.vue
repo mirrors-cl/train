@@ -197,7 +197,7 @@
           })
       },
       //add
-      competiTionadd: function () {
+      competiTionadd() {
         console.log({...this.form});
         fetch.post("/GL/GLadd", qs.stringify(this.form)).then(res => {
               this.getdata();
@@ -216,7 +216,7 @@
         this.updataForm.scoreType = row.scoreType;
         this.adddialogVisible = true;
       },
-      updataMatch:function(){
+      updataMatch(){
         console.log(this.updataForm);
         fetch.post("/GL/GLupdate", qs.stringify(this.updataForm))
           .then(res => {
@@ -225,7 +225,7 @@
           })
       },
       //路由传参数（项目列表）
-      projectList: function (row, column) {
+      projectList(row, column) {
         console.log(column.label);
         if (column.label === "操作") {
         } else {
@@ -233,7 +233,7 @@
         }
       },
       //delete
-      handleSelectionChange:function(val){
+      handleSelectionChange(val){
       this.multipleSelection=val;
       },
       open1() {
@@ -252,7 +252,7 @@
             });
           });
       },
-      removeUser:function(){
+      removeUser(){
         let ids =[];
         ids =this.multipleSelection
           .map(item=>item.pk_List)

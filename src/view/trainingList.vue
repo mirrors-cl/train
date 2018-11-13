@@ -149,49 +149,49 @@
         :before-close="handleClose">
         <span>
           <template>
-  <el-table
-    :data="trainingList"
-    style="width: 100%">
-    <el-table-column
-      label="训练时间"
-      prop="mt_project_mdate"
-      width="250px">
-    </el-table-column>
-     <el-table-column
-       label="项目"
-       prop="mt_project_projoct"
-       width="100px">
-    </el-table-column>
-    <el-table-column
-      label="姓名"
-      width="100px">
-      <template slot-scope="scope">
-        <el-popover trigger="hover" placement="top">
-          <p>姓名: {{ scope.row.mt_project_participant }}</p>
-          <div slot="reference" class="name-wrapper">
-            <el-tag size="medium">运动员名称</el-tag>
-          </div>
-        </el-popover>
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="训练内容"
-      prop="mt_project_practice"
-      width="300px">
-    </el-table-column>
-    <el-table-column label="操作">
-      <template slot-scope="scope">
-        <el-button
-          size="mini"
-          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-        <el-button
-          size="mini"
-          type="danger"
-          @click="Deletehandle(scope.$index, scope.row)">删除</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-</template>
+              <el-table
+                :data="trainingList"
+                style="width: 100%">
+                <el-table-column
+                  label="训练时间"
+                  prop="mt_project_mdate"
+                  width="250px">
+                </el-table-column>
+                 <el-table-column
+                   label="项目"
+                   prop="mt_project_projoct"
+                   width="100px">
+                </el-table-column>
+                <el-table-column
+                  label="姓名"
+                  width="100px">
+                  <template slot-scope="scope">
+                    <el-popover trigger="hover" placement="top">
+                      <p>姓名: {{ scope.row.mt_project_participant }}</p>
+                      <div slot="reference" class="name-wrapper">
+                        <el-tag size="medium">运动员名称</el-tag>
+                      </div>
+                    </el-popover>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  label="训练内容"
+                  prop="mt_project_practice"
+                  width="300px">
+                </el-table-column>
+                <el-table-column label="操作">
+                  <template slot-scope="scope">
+                    <el-button
+                      size="mini"
+                      @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                    <el-button
+                      size="mini"
+                      type="danger"
+                      @click="Deletehandle(scope.$index, scope.row)">删除</el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+          </template>
         </span>
         <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible3 = false">取 消</el-button>
@@ -313,11 +313,11 @@
         //训练计划列表
         trainingList: [],
         //添加训练周期
-        formLabelAlign: {
-          date: '',
-          title: '',//地点
-          drill_practice: '',//简介
-        },
+        // formLabelAlign: {
+        //   date: '',
+        //   title: '',//地点
+        //   drill_practice: '',//简介
+        // },
         //计划详情
         trainingDetails: {
           date: "",//某天
@@ -335,31 +335,33 @@
           mt_project_projoct: "",//新项目
           mt_project_practice: "",//新的训练内容
         },
+        //监听的日期
         date: "",
         //运动员
         playerform: [],
         //pdf列表
         tablePDF: []
-
       }
     },
     created() {
+      //显示训练日期
       this.getdata();
     },
-    //计算属性
+    //组件
     components:{
       TrainingCycle,
       TrainingMen
     },
+    //计算属性
     computed: {},
     methods: {
-      selectfun:function(){
+      selectfun(){
         this.$refs["trainingDetails"].resetFields();
         this.useraddlist = { brand_right: 0 };
         this.zjbutton=false
       },
       //select
-      selectName: function () {
+      selectName() {
         fetch.post("/DP/likeSearch", qs.stringify({
           name: this.selectplayer,
           record_name:this.userInfo.user_NAME
@@ -370,7 +372,7 @@
         })
       },
       //显示pdf列表
-      getdataPDF: function () {
+      getdataPDF() {
         fetch.get("/PF/selectpf",{params:{
           date:this.date
           }}).then(res => {
@@ -381,7 +383,7 @@
         })
       },
       //pdf窗口
-      PdfReport: function () {
+      PdfReport() {
         this.getdataPDF();
         this.dialogVisible5 = true;
       },
@@ -395,7 +397,7 @@
         // this.dialogVisible5=false;
       },
       //functionUploadSuceess
-      uploadSuccess: function (response, file, fileList) {
+      uploadSuccess(response, file, fileList) {
         this.$message({
           message: '上传成功',
           type: 'success'
@@ -430,7 +432,7 @@
         })
         console.log(row)
       },
-      handleEditpdf: function (index, row) {
+      handleEditpdf(index, row) {
         let alink =document.createElement("a");
         alink.download="name";
         alink.href=`/PF/downpf?id=${row.id}`;
@@ -447,7 +449,7 @@
         // })
       },
       //修改界面
-      handleEdit: function (index, row) {
+      handleEdit(index, row) {
         this.updateTraining.olddate = row.mt_project_mdate;
         this.updateTraining.oldmt_project_participant = row.mt_project_participant;
 
@@ -459,7 +461,7 @@
         console.log("index,row", index, row)
       },
       //修改操作
-      updateTrainingButton: function () {
+      updateTrainingButton() {
         this.updateTraining.mt_project_mdate = this.updateTraining.mt_project_mdate.join();
         fetch
           .post("/TP/TPupdate", qs.stringify({...this.updateTraining, record_name:this.userInfo.user_NAME}))
@@ -492,12 +494,12 @@
         const property = column['property'];
         return row[property] === value;
       },
-      qxplayerbutton: function () {
+      qxplayerbutton() {
         this.dialogVisible2 = false;
         this.playercheck = ""
       },
       //勾选成功传入添加训练计划
-      playerbutton: function () {
+      playerbutton() {
         if (this.playercheck === "") {
           this.dialogVisible2 = false;
           this.dialogVisible4 = true
@@ -514,7 +516,7 @@
         this.multipleSelection = val;
       },
       //增加详情训练计划
-      trainingbutton: function () {
+      trainingbutton() {
         this.playercheck = "";
         this.trainingDetails.MT_PROJECT_MDATE.join();
         fetch.post("/TP/TPadd", qs.stringify({
@@ -552,12 +554,12 @@
         })
       },
       //增加取消
-      qxtrainingbutton: function () {
+      qxtrainingbutton() {
         this.dialogVisible1 = false;
         this.playercheck = ""
       },
       //运动员信息
-      playerdata: function () {
+      playerdata() {
         fetch.post("/DP/likeSearch",qs.stringify({
           name:"",
           record_name:this.userInfo.user_NAME
@@ -566,7 +568,7 @@
         })
       },
       //显示日期数据
-      getdata: function () {
+      getdata() {
         fetch.get("/RC/drillShowlist",{params:{
             record_name:this.userInfo.user_NAME
           }})
@@ -575,7 +577,7 @@
             // this.demoEvents.push(res);
           })
       },
-      getdata1: function () {
+      getdata1() {
         fetch.get("/TP/TPselect", {
           params: {
             record_name:this.userInfo.user_NAME,
@@ -587,7 +589,7 @@
         })
       },
       //勾选操作
-      checkOut: function () {
+      checkOut() {
         this.playercheck = "1";
 
         this.playerdata();
@@ -638,7 +640,7 @@
         })
       },
       //详情
-      colourstyle: function () {
+      colourstyle() {
         this.getdata1();
         this.dialogVisible3 = true
       },

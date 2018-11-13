@@ -100,13 +100,13 @@
     },
     methods: {
       //showdetails
-      colourstyle: function () {
-        this.getDate1();
+      colourstyle() {
+        this.getDateDetailed();
         // 弹框
         this.dialogVisible3 = true
       },
       //getlistall
-      getDate: function () {
+      getDate() {
         console.log(this.$state.userInfo);
         fetch.post("DP/showAlldate", qs.stringify({player_name: this.player_name})
         ).then(res => {
@@ -114,7 +114,8 @@
           console.log(res)
         })
       },
-      getDate1: function(){
+      //listDetailed
+      getDateDetailed(){
         fetch.post("/DP/showAllProject",qs.stringify({playerName:this.player_name,date:this.date}))
           .then(res=>{
             this.trainingList = res.data.data;

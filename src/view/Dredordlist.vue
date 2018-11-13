@@ -252,7 +252,7 @@ export default {
     }
   },
   methods: {
-    addqxbutton:function(){
+    addqxbutton(){
       this.$refs["useraddlist"].resetFields();
       this.dialogVisible=false
     },
@@ -266,7 +266,7 @@ export default {
         .catch(_ => {});
     },
     // 请求显示数据
-    getData: function() {
+    getData() {
       fetch
         .get("/DR/DRshowlist")
         .then(res => {
@@ -282,7 +282,7 @@ export default {
       this.page = val;
     },
     // 状态改变方法
-    handleSelectionChange: function(val) {
+    handleSelectionChange(val) {
       this.multipleSelection = val;
     },
 
@@ -304,7 +304,7 @@ export default {
         });
     },
     //删除
-    removeUser: function() {
+    removeUser() {
       let ids = [];
       ids = this.multipleSelection
         .map(item => item.pk_RECORD)
@@ -324,7 +324,7 @@ export default {
         });
     },
     //修改回显数据UI
-    handleEdit: function(index, row) {
+    handleEdit(index, row) {
       console.log(row);
       this.form.RECORD_DUTY=row.record_DUTY;
       this.form.PK_RECORD = row.pk_RECORD; //ID
@@ -338,7 +338,7 @@ export default {
       this.dialogFormVisible = true;
     },
     //修改
-    qrbutton: function() {
+    qrbutton() {
       this.form.RECORD_ROLE="管理员";
       fetch
         .post("/DR/DRupdate", qs.stringify({ ...this.form }))
@@ -350,7 +350,7 @@ export default {
     },
 
     // 增加
-    addqrbutton:function(reddate){
+    addqrbutton(reddate){
       this.$refs[reddate].validate((valid) => {
         if (valid) {
           this.useraddlist.RECORD_ROLE="管理员";
@@ -375,7 +375,6 @@ export default {
               }
             });
         } else {
-
           console.log('error submit!!');
           return false;
         }

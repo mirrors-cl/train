@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     ...mapMutations(['SAVE_USER']),
-    fn_submit: function() {
+    fn_submit() {
      try {
        fetch
          .post("/Mlogin", qs.stringify(this.form))

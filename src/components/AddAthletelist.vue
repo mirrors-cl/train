@@ -459,7 +459,7 @@ export default {
     handlePreview(file) {
     },
     //提交
-    qrbutton:function(form) {
+    qrbutton(form) {
           this.$refs[form].validate((valid)=>{
               if (valid){
                 fetch
@@ -476,7 +476,7 @@ export default {
           });
     },
     //取消
-    qxbutton:function(){
+    qxbutton(){
       let a = this.form.PK_PLAYER;
         fetch
           .post("/DP/deleteUAndP",qs.stringify({pk_player:a}))

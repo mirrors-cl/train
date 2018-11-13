@@ -215,7 +215,7 @@
     },
     computed:{
       //计算属性
-      querys:function () {
+      querys() {
         return this.$route.query.id
       }
     },
@@ -230,15 +230,14 @@
           .catch(_ => {
           });
       },
-      // 显示数据
-      getdata: function () {
+      // showdata
+      getdata() {
         let id=this.$route.query.id;
         console.log("sd",id);
         fetch
           .get("/PL/PLshowlist",{
             params:{
               pk_List:id
-
             }
           })
           .then(res => {
@@ -250,8 +249,8 @@
             alert("服务器错误")
           })
       },
-      //````````````````````````````add api
-      competiTionadd: function () {
+      //add api
+      competiTionadd() {
         fetch
           .post("/PL/PLadd",qs.stringify(this.addForm)).then(res => {
           this.getdata();
@@ -259,19 +258,19 @@
           this.dialogVisible = false;
         })
       },
-      //---------------------------------------------修改
+      //update
       handleEdit(index, row) {
         this.updataForm=row;
         this.updatadialogVisible = true;
       },
-      updataMatch:function(){
+      updataMatch(){
         fetch.post("/PL/PLupdate", qs.stringify(this.updataForm)).then(res => {
           this.getdata();
           this.updatadialogVisible = false;
         })
       },
       //比赛成绩列表
-      scoreList:function (row, column) {
+      scoreList(row, column) {
         console.log(row);
         if (column.label === "操作") {
         } else {
@@ -279,7 +278,7 @@
         }
       },
       //delete
-      handleSelectionChange:function(val){
+      handleSelectionChange(val){
         console.log(val)
         this.multipleSelection=val;
 
@@ -300,7 +299,7 @@
             });
           });
       },
-      removeUser:function(){
+      removeUser(){
         let ids =[];
         ids =this.multipleSelection
           .map(item=>item.pk_Gm_Project)
@@ -321,7 +320,7 @@
 
 
       },
-      cancel:function(){
+      cancel(){
         this.updatadialogVisible=false
         this.getdata();
       },

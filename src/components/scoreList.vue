@@ -203,7 +203,7 @@
       setTimeout(()=>this.show3=true,200)
     },
     computed:{
-      querys:function(){
+      querys(){
        return this.$route.query.id
       }
     },
@@ -219,7 +219,7 @@
           });
       },
       // 显示数据
-      getdata: function () {
+      getdata() {
         fetch
           .get("/GC/GCshowlist",{
             params:{
@@ -236,8 +236,7 @@
           })
       },
       //add
-      competiTionadd: function () {
-        debugger
+      competiTionadd() {
         console.log({...this.form});
         this.form.pk_Gm_Project=this.querys;
         fetch.post("/GC/GCadd", qs.stringify(this.form)).then(res => {
@@ -245,12 +244,12 @@
           this.dialogVisible = false;
         })
       },
-      //---------------------------------------------修改
+      //update
       handleEdit(index, row) {
        this.updataForm=row;
         this.adddialogVisible = true;
       },
-      updataMatch:function(){
+      updataMatch(){
         console.log(this.updataForm);
         fetch.post("/GC/GCupdate", qs.stringify(this.updataForm)).then(res => {
 
@@ -261,7 +260,7 @@
         })
       },
       //delete
-      handleSelectionChange:function(val){
+      handleSelectionChange(val){
         this.multipleSelection=val;
       },
       open1() {
@@ -280,7 +279,7 @@
             });
           });
       },
-      removeUser:function () {
+      removeUser() {
         let ids =[];
         ids =this.multipleSelection
           .map(item=>item.pk_Grade)

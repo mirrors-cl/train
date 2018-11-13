@@ -866,7 +866,7 @@
         //this.athlete =;
       },
       // 显示
-      getData:function(){
+      getData(){
         fetch
           .get("/DP/DPshowlist")
           .then(res => {
@@ -896,7 +896,7 @@
           });
       },
       //单条传id，多条不传
-      mulRemoveath: function (id) {
+      mulRemoveath(id) {
         debugger;
         let ids = [];
         if (id) {
@@ -921,7 +921,7 @@
             }
           });
       },
-      buttonList:function(row,column) {
+      buttonList(row,column) {
         console.log(column.label);
         if(column.label === "操作"){
 
@@ -995,7 +995,7 @@
         alink1.click();
       },
       //添加运动员账号
-      addButton:function(){
+      addButton(){
         fetch.post("DR/DRaddPlayer",qs.stringify(this.athleteForm))
           .then(res=>{
             if(res.data.data===null){
@@ -1010,7 +1010,7 @@
           })
       },
       //修改
-      updatabutton:function(){
+      updatabutton(){
 
         this.$refs.upload1.submit();
         this.$refs.upload2.submit();
@@ -1021,7 +1021,7 @@
               this.updatadialogVisible=false;
             })
       },
-      handleEdit:function(index,row){
+      handleEdit(index,row){
         debugger
         console.log("row",row);
         this.photoInfo.pk_player=row.PK_PLAYER;
