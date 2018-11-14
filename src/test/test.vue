@@ -30,10 +30,10 @@
       template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>',
       //初始化生命钩子
       created(){
+        this.upload();
         this.getData();
       },
       methods:{
-
         getData:function(){
             fetch
               .get("http://210.73.217.81:20005/api/data-screen/hot-word",{

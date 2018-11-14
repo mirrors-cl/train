@@ -452,7 +452,6 @@
       handleEdit(index, row) {
         this.updateTraining.olddate = row.mt_project_mdate;
         this.updateTraining.oldmt_project_participant = row.mt_project_participant;
-
         //修改勾选人弹框
         this.dialogVisible2 = true;
         this.playerdata();
