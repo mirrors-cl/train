@@ -15,7 +15,7 @@ import productDataList from '@/view/productData/productDataList'
 import TrainingCycle from '@/view/TrainingModule/TrainingCycle'
 import TrainingMen from '@/view/TrainingModule/TrainingMen'
 // import errorfou from '@view/errorPage/404'
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [

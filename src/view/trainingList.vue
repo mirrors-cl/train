@@ -281,7 +281,6 @@
   import TrainingCycle from '@/view/TrainingModule/TrainingCycle'
   import TrainingMen from '@/view/TrainingModule/TrainingMen'
   import {getStore} from "@/assets/js/utils.js";
-
   export default {
     name: "ath-list",
     data: function () {
@@ -668,10 +667,10 @@
   /*background-color:rgb(200,149,67) ;*/
   /*}*/
 
-  .highlight {
-    background: #e32926;
-    color: #fff;
-    border-radius: 100%;
-  }
+  /*.highlight {*/
+    /*background: #e32926;*/
+    /*color: #fff;*/
+    /*border-radius: 100%;*/
+  /*}*/
 
 </style>

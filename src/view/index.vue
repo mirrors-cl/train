@@ -42,7 +42,9 @@
       </el-menu>
     </div>
     <!-- 显示内容 -->
+    <transition>
     <router-view></router-view>
+      </transition>
   </div>
 </template>
 

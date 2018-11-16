@@ -3,7 +3,7 @@
     <div style="height: 10%;min-height: 120px"></div>
     <div id="win10-login-box">
       <div class="win10-login-box-square">
-        <img src="static/img/yd.png" class="content"/>
+        <img src="static/img/yd.png" class="content" ALT="图片不见了"/>
       </div>
       <p style="font-size: 24px;color: #ffaa51;text-align: center">管理员</p>
       <form @click.prevent>

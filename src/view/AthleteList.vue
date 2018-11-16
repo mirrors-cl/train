@@ -6,6 +6,7 @@
         <el-button type="primary" size="medium" @click="dialogVisible1=true" icon="el-icon-circle-plus-outline">添加运动员账号</el-button>
       </div>
       <el-table
+        v-show="select"
         ref="multipleTable"
         :data="athlete"
         tooltip-effect="dark"
@@ -28,9 +29,8 @@
           prop="record_PROJECT"
           label="项目"
           show-overflow-tooltip
-          :filters="[{text:'短跑',value:'短跑'},{text:'长跑',value:'长跑'}]"
-          :filter-method="filterHandler"
-        >
+          :filters=jisuan
+          :filter-method="filterHandler">
         </el-table-column>
         <el-table-column
           prop="sex"
@@ -825,15 +825,47 @@
         },
         totalList: [],
         multipleSelection: "",
-        page: 1
+        page: 1,
+        //筛选数组
+        project: [],
+        //v-show select
+        select: false
+
       };
     },
     created() {
       this.getData();
+      //去重复
+      Array.prototype.unique = function(key) {
+        var arr = this;
+        var n = [arr[0]];
+        for (var i = 1; i < arr.length; i++) {
+          if (key === undefined) {
+            if (n.indexOf(arr[i]) == -1) n.push(arr[i]);
+          } else {
+            inner: {
+              var has = false;
+              for (var j = 0; j < n.length; j++) {
+                if (arr[i][key] == n[j][key]) {
+                  has = true;
+                  break inner;
+                }
+              }
+            }
+            if (!has) {
+              n.push(arr[i]);
+            }
+          }
+        }
+        return n;
+      };
     },
     //计算属性
     computed: {
-      athlete() {
+      jisuan(){
+       return this.project.unique('text')
+      },
+    athlete() {
         let val = this.page;
         return this.totalList.slice((val - 1) * 10, val * 10);
       },
@@ -844,7 +876,8 @@
       }
     },
     methods: {
-      //photo
+
+    //photo
       successon(response, file, fileList){
         console.log("上传成功时候的钩子",response,"file", file,"fileList", fileList)
       },
@@ -870,9 +903,17 @@
         fetch
           .get("/DP/DPshowlist")
           .then(res => {
+            let  map = res.data.data;
+            console.log(res.data.data);
+            for (let i=0; i<map.length; i++){
+              let list={text:'',value:''};
+              list.value =map[i].record_PROJECT;
+              list.text =map[i].record_PROJECT;
+              this.project.push(list);
+            }
+            this.select=true;
             this.totalList = res.data.data;
             this.totalList.forEach(item => this.$set(item, "checked", false));
-            console.log(this);
           })
           .catch(err => {
             alert("错误");
@@ -975,7 +1016,6 @@
       filterHandler(value,row,column){
         console.log(value,row,column);
         const property =column['property'];
-        console.log("1",property);
         return row[property]===value;
       },
       //下载(身份证正面)
