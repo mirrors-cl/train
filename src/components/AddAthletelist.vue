@@ -345,7 +345,6 @@ export default {
         CONTACTS:[
           { required: true, message: '请输入紧急联系人', trigger: 'blur' },
           { min: 2, max:8, message: '长度在2-8个字符', trigger: 'blur' }
-
         ],
         HONOR:[
           { required: true, message: '请填写荣誉', trigger: 'blur' },

@@ -13,7 +13,8 @@ import test from '@/test/test'
 import playerform from '@/view/Athlete/playerFormation'
 import productDataList from '@/view/productData/productDataList'
 import TrainingCycle from '@/view/TrainingModule/TrainingCycle'
-import TrainingMen from '@/view/TrainingModule/TrainingMen'
+
+
 // import errorfou from '@view/errorPage/404'
 Vue.use(Router);
 
@@ -105,11 +106,6 @@ export default new Router({
              path: '/TrainingCycle',
              name: 'TrainingCycle',
              component: TrainingCycle
-           },
-           {
-             path: '/TrainingMen',
-             name: 'TrainingMen',
-             component: TrainingMen
            }
           ]
         },

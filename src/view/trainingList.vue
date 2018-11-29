@@ -2,10 +2,11 @@
   <div class="bodydiv">
     <div class="modeldiv">
       <!--添加训练周期-->
-      <TrainingCycle @addcycle='appendComment'></TrainingCycle>
+
       <!-- 日历周期列表 -->
       <vue-event-calendar :events="demoEvents" @month-changed="monthChange" @day-changed="dayChange">
         <template slot-scope="props">
+          <TrainingCycle @addcycle='appendComment'></TrainingCycle>
           <div v-for="(event, index) in props.showEvents" class="event-item">
             <!-- deleteicon -->
             <el-popover v-show="zjbutton" placement="top" width="160" v-model="visible2">
@@ -51,7 +52,6 @@
                 </el-col>
               <el-col :span="24">
                 <el-col :span="8">
-                  <!--<TrainingMen></TrainingMen>-->
                   <el-button type="primary" size="mini" @click="checkOut" v-show="zjbutton">添加训练内容</el-button>
                 </el-col>
                 <el-col :span="8"> <el-button type="primary" size="mini" @click="colourstyle" v-show="zjbutton">详细训练计划</el-button></el-col>
@@ -279,7 +279,7 @@
   import fetch from "@/assets/js/fetch.js"
   import qs from "qs";
   import TrainingCycle from '@/view/TrainingModule/TrainingCycle'
-  import TrainingMen from '@/view/TrainingModule/TrainingMen'
+
   import {getStore} from "@/assets/js/utils.js";
   export default {
     name: "ath-list",
@@ -348,8 +348,7 @@
     },
     //组件
     components:{
-      TrainingCycle,
-      TrainingMen
+      TrainingCycle
     },
     //计算属性
     computed: {},
@@ -620,7 +619,7 @@
       },
       // 训练周期回调方法
       appendComment(){
-         this.zjbutton=false
+        this.zjbutton=false;
         this.getdata()
       },
       //删除训练周期
@@ -646,31 +645,12 @@
   };
 </script>
 <style scoped>
-
-  .event-item li {
-    width: 100%;
-    list-style-type: none;
-  }
-
-  .modeldiv {
-    width: 80%;
-    height: 100px;
-    margin-left: 10%;
-    user-select: none;
-  }
 </style>
 <style>
-  .event-item{
-    background-color: #f29543;
+  /* 日历背景*/
+  .__vev_calendar-wrapper .cal-wrapper {
+    border: 1px solid white;
+    border-radius: 9px;
+    background-color: white;
   }
-  /*.is-event{*/
-  /*background-color:rgb(200,149,67) ;*/
-  /*}*/
-
-  /*.highlight {*/
-    /*background: #e32926;*/
-    /*color: #fff;*/
-    /*border-radius: 100%;*/
-  /*}*/
-
 </style>

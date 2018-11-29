@@ -831,6 +831,7 @@
     <!--paging-->
     <div class="block">
       <el-pagination
+        class="classpager"
         @current-change="handleCurrentChange"
         background
         :page-size="100"
@@ -926,11 +927,15 @@
   }
 };
 </script>
-<style scoped>
-.menu{
-  margin-top: 5px;
-  width: 80%;
-  margin-left: 10%;
-  user-select: none;
-}
+<style scoped lang="stylus">
+  .classpager{
+    border 1px solid white;
+    background-color white
+  }
+/*.menu{*/
+  /*margin-top: 5px;*/
+  /*width: 80%;*/
+  /*margin-left: 10%;*/
+  /*user-select: none;*/
+/*}*/
 </style>

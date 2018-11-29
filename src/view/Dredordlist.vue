@@ -82,11 +82,10 @@
     </el-table>
     <!-- 分页 -->
     <el-pagination
+      class="classpager"
       background
        @current-change="currentChange"
       layout="total,prev, pager, next"
-      prev-text="上一页"
-      next-text="下一页"
       :total="total">
     </el-pagination>
     <!--修改弹窗-->
@@ -348,7 +347,6 @@ export default {
       //修改完取消弹框
       this.dialogFormVisible = false;
     },
-
     // 增加
     addqrbutton(reddate){
       this.$refs[reddate].validate((valid) => {
@@ -388,10 +386,8 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
-.divbody {
-  width: 80%;
-  margin-left: 10%;
-
-  user-select: none;
-}
+  .classpager{
+    border 1px solid white;
+    background-color white
+  }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="head">
     <div class="htitle">
-      田径训练管理平台
+      <header>田径训练管理平台</header>
     </div>
     <div class="headPortrait">
     <el-dropdown trigger="click" >
@@ -24,6 +24,8 @@
     <el-dialog
       title="修改密码"
       :visible.sync="dialogVisible"
+      append-to-body="true"
+      :modal-append-to-body="false"
       width="25%"
       :before-close="handleClose">
       <el-form :model="form" ref="form" status-icon :rules="rules2" label-width="80px" class="demo-ruleForm">
@@ -46,7 +48,6 @@
   import fetch from "@/assets/js/fetch.js";
   import {getStore} from "@/assets/js/utils.js";
   import qs from "qs";
-
   export default {
     name: "Headhead",
     data() {
@@ -122,27 +123,21 @@
           .catch(_ => {
           });
       },
-      //设置token
-      //设置cookie
-      setCookie(cname, cvalue, exdays) {
-        var d = new Date();
-        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-        var expires = "expires=" + d.toUTCString();
-        console.info(cname + "=" + cvalue + "; " + expires);
-        document.cookie = cname + "=" + cvalue + "; " + expires;
-        console.info(document.cookie);
-      },
+      // //设置token
+      // //设置cookie
+      // setCookie(cname, cvalue, exdays) {
+      //   var d = new Date();
+      //   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+      //   var expires = "expires=" + d.toUTCString();
+      //   console.info(cname + "=" + cvalue + "; " + expires);
+      //   document.cookie = cname + "=" + cvalue + "; " + expires;
+      //   console.info(document.cookie);
+      // },
       //退出
       qcbuuon() {
         this.$cookies.set("token",'',-1, '/');
         this.$router.push({name: 'login'})
       },
-      // downs: function () {
-      //   var alink = document.createElement("a");
-      //   alink.download = "pig";
-      //   alink.href = this.imageSrc;
-      //   alink.click();
-      // },
       // 显示头像
       headPrtrait() {
 
@@ -173,6 +168,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" scoped>
   .head {
+    opacity 0.9;
     width: 100%;
     height: 100px;
     background-color: #1e578f;

@@ -279,10 +279,10 @@
 </script>
 
 <style>
-  .listdiv {
-    display: block;
-    user-select: none;
-    width: 80%;
-    margin-left: 10%;
-  }
+  /*.listdiv {*/
+    /*display: block;*/
+    /*user-select: none;*/
+    /*width: 80%;*/
+    /*margin-left: 10%;*/
+  /*}*/
 </style>

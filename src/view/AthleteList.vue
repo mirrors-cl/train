@@ -56,12 +56,10 @@
        </el-table-column>
       </el-table>
       <!-- 分页 -->
-      <el-pagination
+      <el-pagination class="classpager"
         @current-change="currentChange"
         background
         layout="total,prev, pager, next"
-        prev-text="上一页"
-        next-text="下一页"
         :total="total">
       </el-pagination>
       <!--详情列表-->
@@ -1112,15 +1110,12 @@
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .classpager{
+    background-color: white;
+  }
   .headPortrait {
     width: 100px;
     height: 100px;
     float: left;
   }
-  .Alist {
-    user-select: none;
-    width: 80%;
-    margin-left: 10%;
-  }
-
 </style>
