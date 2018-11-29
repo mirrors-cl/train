@@ -3,7 +3,7 @@
   <div class="bkdiv">
     <headhead></headhead>
     <div class="dhdiv">
-      <!--<template>-->
+      <!--<templatnche>-->
         <!--<el-tabs v-model="activeName2" type="border-card" @tab-click="handleClick">-->
           <!--<el-tab-pane>-->
             <!--<span slot="label"><i class="el-icon-menu"> </i>运动员列表</span>-->
