@@ -5,6 +5,7 @@
     @select="handleSelect"
     background-color="#304156"
     text-color="#BFCBD9"
+    style="border-right: none"
     active-text-color="rgb(64, 158, 255)">
     <el-menu-item index="1"><i class="el-icon-menu"></i>运动员列表</el-menu-item>
     <el-menu-item index="2"><i class="el-icon-menu"></i>管理员列表</el-menu-item>

@@ -5,12 +5,12 @@
         <headhead></headhead>
       </el-header>
       <el-container>
-        <el-aside width="200px" style="margin-top: 2px">
+        <el-aside width="200px" style="margin-top: 0px">
           <div class="asidediv">
             <pagemenu></pagemenu>
           </div>
         </el-aside>
-        <el-main style="padding: 3px">
+        <el-main style="padding: 0px; background-color: white; border: 1px solid  white; border-radius: 10px">
           <router-view></router-view>
         </el-main>
       </el-container>

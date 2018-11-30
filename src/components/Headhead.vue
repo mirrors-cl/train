@@ -9,6 +9,7 @@
           <img v-bind:src="imageSrc" v-show="imagePicture">
             <img src="static/img/picture1.png" v-show="picture"/>
           </span>
+      <i class="el-icon-arrow-down el-icon--right"></i>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item class="clearfix" @click.native="dialogVisible = true">修改密码<el-badge class="mark"/>
           </el-dropdown-item>

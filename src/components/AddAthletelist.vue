@@ -289,85 +289,85 @@ export default {
    let b=this.$route.query.user_name;
 
     return {
-      rules:{
-        PLAYER_TELEPHONE:[
-          { required: true, message: '请输入手机号', trigger: 'blur' },
-          { min: 11, max: 11, message: '长度在 11个字符', trigger: 'blur' }
-        ],
-        HEIGHT:[
-          { required: true, message: '请输入正确身高', trigger: 'blur' },
-          { min: 2, max: 3, message: '长度在 2-3个字符（单位CM）', trigger: 'blur' }
-        ],
-        NAME:[
-          { required: true, message: '请输入正确姓名', trigger: 'blur' },
-          { min: 2, max: 4, message: '长度在2-4个字符', trigger: 'blur' }
-        ],
-        WEIGHT:[
-          { required: true, message: '请输入正确体重', trigger: 'blur' },
-          { min: 2, max: 3, message: '长度在2-4个字符（单位kg）', trigger: 'blur' }
-        ],
-        NPLACE:[
-          { required: true, message: '请输入正确籍贯', trigger: 'blur' },
-          { min: 2, max: 6, message: '长度在2-6个字符', trigger: 'blur' }
-        ],
-        AGE:[
-          { required: true, message: '请输入正确年龄', trigger: 'blur' },
-          { min: 2, max: 2, message: '长度在2个字符', trigger: 'blur' }
-        ],
-        LEAVEL:[
-          { required: true, message: '请输入正确等级', trigger: 'blur' },
-          { min: 1, max: 8, message: '长度在1-8个字符', trigger: 'blur' }
-        ],
-        RECORD_PROJECT:[
-          { required: true, message: '请输入正确项目', trigger: 'blur' },
-          { min: 2, max: 10, message: '长度在2-10个字符', trigger: 'blur' }
-        ],
-        SEX:[
-          { required: true, message: '请输入正确性别', trigger: 'blur' },
-          { min: 1, max: 1, message: '长度在1个字符', trigger: 'blur' }
-        ],
-        NATION:[
-          { required: true, message: '请输入正确名族', trigger: 'blur' },
-          { min: 1, max: 5, message: '长度在1-5个字符', trigger: 'blur' }
-        ],
-        ADRESS:[
-          { required: true, message: '请输入正确通讯地址', trigger: 'blur' },
-          { min: 1, max:30, message: '长度在1-30个字符', trigger: 'blur' }
-        ],
-        CRAD:[
-          { required: true, message: '请输入正确身份证号码', trigger: 'blur' },
-          { min: 15, max:18, message: '长度在15-18个字符', trigger: 'blur' }
-        ],
-        POLITICAL:[
-          { required: true, message: '请输入正确的政治面貌', trigger: 'blur' },
-          { min: 2, max:4, message: '长度在2-4个字符', trigger: 'blur' }
-        ],
-        CONTACTS:[
-          { required: true, message: '请输入紧急联系人', trigger: 'blur' },
-          { min: 2, max:8, message: '长度在2-8个字符', trigger: 'blur' }
-        ],
-        HONOR:[
-          { required: true, message: '请填写荣誉', trigger: 'blur' },
-          { min: 1, max:100, message: '请填写荣誉', trigger: 'blur' }
-        ],
-        CONTACTSPHONE:[
-          { required: true, message: '请输入手机号', trigger: 'blur' },
-          { min: 11, max: 11, message: '长度在 11个字符', trigger: 'blur' }
-        ],
-        CONTACTSRELATION:[
-          { required: true, message: '请输入正确格式', trigger: 'blur' },
-          { min: 2, max: 20, message: '长度在 2-20个字符', trigger: 'blur' }
-        ],
-        BLOOD:[
-          { required: true, message: '请选择血型', trigger: 'change' }
-        ],
-        JOININGDATE:[
-          { type: 'string', required: true, message: '请选择日期', trigger: 'change' }
-        ],
-        BIRTHDAY:[
-          { type: 'string', required: true, message: '请选择日期', trigger: 'change' }
-        ]
-      },
+      // rules:{
+      //   PLAYER_TELEPHONE:[
+      //     { required: true, message: '请输入手机号', trigger: 'blur' },
+      //     { min: 11, max: 11, message: '长度在 11个字符', trigger: 'blur' }
+      //   ],
+      //   HEIGHT:[
+      //     { required: true, message: '请输入正确身高', trigger: 'blur' },
+      //     { min: 2, max: 3, message: '长度在 2-3个字符（单位CM）', trigger: 'blur' }
+      //   ],
+      //   NAME:[
+      //     { required: true, message: '请输入正确姓名', trigger: 'blur' },
+      //     { min: 2, max: 4, message: '长度在2-4个字符', trigger: 'blur' }
+      //   ],
+      //   WEIGHT:[
+      //     { required: true, message: '请输入正确体重', trigger: 'blur' },
+      //     { min: 2, max: 3, message: '长度在2-4个字符（单位kg）', trigger: 'blur' }
+      //   ],
+      //   NPLACE:[
+      //     { required: true, message: '请输入正确籍贯', trigger: 'blur' },
+      //     { min: 2, max: 6, message: '长度在2-6个字符', trigger: 'blur' }
+      //   ],
+      //   AGE:[
+      //     { required: true, message: '请输入正确年龄', trigger: 'blur' },
+      //     { min: 2, max: 2, message: '长度在2个字符', trigger: 'blur' }
+      //   ],
+      //   LEAVEL:[
+      //     { required: true, message: '请输入正确等级', trigger: 'blur' },
+      //     { min: 1, max: 8, message: '长度在1-8个字符', trigger: 'blur' }
+      //   ],
+      //   RECORD_PROJECT:[
+      //     { required: true, message: '请输入正确项目', trigger: 'blur' },
+      //     { min: 2, max: 10, message: '长度在2-10个字符', trigger: 'blur' }
+      //   ],
+      //   SEX:[
+      //     { required: true, message: '请输入正确性别', trigger: 'blur' },
+      //     { min: 1, max: 1, message: '长度在1个字符', trigger: 'blur' }
+      //   ],
+      //   NATION:[
+      //     { required: true, message: '请输入正确名族', trigger: 'blur' },
+      //     { min: 1, max: 5, message: '长度在1-5个字符', trigger: 'blur' }
+      //   ],
+      //   ADRESS:[
+      //     { required: true, message: '请输入正确通讯地址', trigger: 'blur' },
+      //     { min: 1, max:30, message: '长度在1-30个字符', trigger: 'blur' }
+      //   ],
+      //   CRAD:[
+      //     { required: true, message: '请输入正确身份证号码', trigger: 'blur' },
+      //     { min: 15, max:18, message: '长度在15-18个字符', trigger: 'blur' }
+      //   ],
+      //   POLITICAL:[
+      //     { required: true, message: '请输入正确的政治面貌', trigger: 'blur' },
+      //     { min: 2, max:4, message: '长度在2-4个字符', trigger: 'blur' }
+      //   ],
+      //   CONTACTS:[
+      //     { required: true, message: '请输入紧急联系人', trigger: 'blur' },
+      //     { min: 2, max:8, message: '长度在2-8个字符', trigger: 'blur' }
+      //   ],
+      //   HONOR:[
+      //     { required: true, message: '请填写荣誉', trigger: 'blur' },
+      //     { min: 1, max:100, message: '请填写荣誉', trigger: 'blur' }
+      //   ],
+      //   CONTACTSPHONE:[
+      //     { required: true, message: '请输入手机号', trigger: 'blur' },
+      //     { min: 11, max: 11, message: '长度在 11个字符', trigger: 'blur' }
+      //   ],
+      //   CONTACTSRELATION:[
+      //     { required: true, message: '请输入正确格式', trigger: 'blur' },
+      //     { min: 2, max: 20, message: '长度在 2-20个字符', trigger: 'blur' }
+      //   ],
+      //   BLOOD:[
+      //     { required: true, message: '请选择血型', trigger: 'change' }
+      //   ],
+      //   JOININGDATE:[
+      //     { type: 'string', required: true, message: '请选择日期', trigger: 'change' }
+      //   ],
+      //   BIRTHDAY:[
+      //     { type: 'string', required: true, message: '请选择日期', trigger: 'change' }
+      //   ]
+      // },
       dialogVisible: false,
       //照片
       fileList: [],
@@ -518,10 +518,14 @@ export default {
   margin: 8px auto;
 }
 .modeldiv {
-  margin-top: 10px;
-  user-select: none;
-  width: 80%;
-  margin-left: 10%;
+  margin-top: 2px;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 10px;
+  /*margin-top: 10px;*/
+  /*user-select: none;*/
+  /*width: 80%;*/
+  /*margin-left: 10%;*/
 }
 .buttondiv {
   margin-top: 20px;

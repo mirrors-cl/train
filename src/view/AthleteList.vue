@@ -963,7 +963,6 @@
       buttonList(row,column) {
         console.log(column.label);
         if(column.label === "操作"){
-
         }else {
           this.rowId=row.pk_PLAYER;
           //照片
@@ -1049,7 +1048,6 @@
       },
       //修改
       updatabutton(){
-
         this.$refs.upload1.submit();
         this.$refs.upload2.submit();
         this.$refs.upload3.submit();
@@ -1060,7 +1058,6 @@
             })
       },
       handleEdit(index,row){
-        debugger
         console.log("row",row);
         this.photoInfo.pk_player=row.PK_PLAYER;
         this.pagephoto.pk_player=row.PK_PLAYER;
