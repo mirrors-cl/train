@@ -312,5 +312,8 @@
   };
 </script>
 
-<style>
+<style lang="stylus" scoped>
+  button{
+    outline:none;
+  }
 </style>

@@ -4,6 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+//引用svg
+import Icon from 'vue-svg-icon/Icon.vue'
+Vue.component('icon', Icon);
 //vue-cookies
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)

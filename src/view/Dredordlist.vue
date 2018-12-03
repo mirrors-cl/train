@@ -2,7 +2,7 @@
   <div class="divbody">
     <div class="delete">
       <el-button type="danger" size="medium" @click="open1" icon="el-icon-delete">删除</el-button>
-      <el-button type="primary" size="medium" @click="dialogVisible = true" icon="el-icon-circle-plus-outline">新增管理员</el-button>
+      <el-button type="primary" size="medium" @click="dialogVisible = true" icon="el-icon-circle-plus-outline">新增</el-button>
     </div>
     <!-- 表格 -->
     <el-table
@@ -75,6 +75,7 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
+            class="update1"
             @click="handleEdit(scope.$index, scope.row)">编辑
           </el-button>
         </template>
@@ -386,6 +387,10 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
+  button{
+    outline:none;
+  }
+  // 浮动
   .classpager{
     border 1px solid white;
     background-color white

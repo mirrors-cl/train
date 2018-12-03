@@ -644,7 +644,10 @@
     }
   };
 </script>
-<style scoped>
+<style lang="stylus" scoped>
+  button{
+    outline:none;
+  }
 </style>
 <style>
   /* 日历背景*/

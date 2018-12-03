@@ -45,7 +45,6 @@ export default {
            // localStorage.setItem('user', qs.stringify(user));
            if (res.data.status === "success") {
              let token = res.data.data.token;
-
              this.$cookies.set('token',token);
              // document.cookie ="token=res.data.data.token";
              this.SAVE_USER(res.data.data);
@@ -75,7 +74,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 #win10-login {
-  background: url("../../static/img/login.jpeg") no-repeat fixed;
+  background: url("../assets/img/login.jpeg") no-repeat fixed;
   width: 100%;
   height: 100%;
   background-size: 100% 100%;

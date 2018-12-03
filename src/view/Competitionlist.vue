@@ -1,5 +1,4 @@
 <template>
-  <div id="app">
     <div class="bodydiv">
       <div class="listdiv">
         <div>
@@ -131,7 +130,6 @@
         </el-dialog>
       </div>
     </div>
-  </div>
 </template>
 <script>
   import fetch from "@/assets/js/fetch";
@@ -278,7 +276,15 @@
   };
 </script>
 
-<style>
+<style lang="stylus" scoped>
+  button{
+    outline:none;
+  }
+    .bodydiv{
+      width:100%;
+      height: 100%;
+      position: relative;
+    }
   /*.listdiv {*/
     /*display: block;*/
     /*user-select: none;*/

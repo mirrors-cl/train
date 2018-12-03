@@ -3,7 +3,7 @@
     <div class="Alist">
       <div>
         <el-button type="danger" size="medium" @click="open1" icon="el-icon-delete">删除</el-button>
-        <el-button type="primary" size="medium" @click="dialogVisible1=true" icon="el-icon-circle-plus-outline">添加运动员账号</el-button>
+        <el-button type="primary" size="medium" @click="dialogVisible1=true" icon="el-icon-circle-plus-outline">新增</el-button>
       </div>
       <el-table
         v-show="select"
@@ -1107,6 +1107,9 @@
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  button{
+    outline:none;
+  }
   .classpager{
     background-color: white;
   }

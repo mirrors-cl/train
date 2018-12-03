@@ -13,12 +13,13 @@ export default {
 </script>
 <style>
   body {
-    background: url("./assets/img/login.jpeg") no-repeat center center;
+    background: url("./assets/img/top2.jpg") no-repeat center center;
+    background-size: 100% 100%;
     /*background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);*/
     filter:alpha(opacity=60);-moz-opacity:0.6;opacity:0.95;
   }
-  *{
-    padding: 0px;
+  * {
+    margin: 0%;
+    padding: 0;
   }
-
 </style>

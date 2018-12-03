@@ -32,7 +32,7 @@
             <el-table-column
               prop="gm_Project_Date"
               label="比赛时间"
-              width="180px">
+              width="190px">
             </el-table-column>
             <el-table-column
               prop="gm_Pname"
@@ -337,5 +337,8 @@
   };
 </script>
 
-<style>
+<style lang="stylus" scoped>
+  button{
+    outline:none;
+  }
 </style>

@@ -12,6 +12,13 @@
     <el-menu-item index="3"><i class="el-icon-menu"></i>{{competition}}</el-menu-item>
     <el-menu-item index="4"><i class="el-icon-menu"></i>训练计划</el-menu-item>
     <el-menu-item index="5"><i class="el-icon-menu"></i>运动员表现统计</el-menu-item>
+    <el-menu-item index="6" disabled="true"></el-menu-item>
+    <el-menu-item index="6" disabled="true"></el-menu-item>
+    <el-menu-item index="6" disabled="true"></el-menu-item>
+    <el-menu-item index="6" disabled="true"></el-menu-item>
+    <el-menu-item index="6" disabled="true"></el-menu-item>
+    <el-menu-item index="6" disabled="true"></el-menu-item>
+    <el-menu-item index="6" disabled="true"></el-menu-item>
   </el-menu>
 
 </template>
@@ -28,6 +35,7 @@
         }
       },
       created(){
+        this.styleaa()
         this.Navigationmenu()
       },
       methods:{
@@ -42,6 +50,8 @@
             this.$router.push({name:'trainingList'})
           }else if (keyPath ==5){
             this.$router.push({name:'productDataList'})
+          }else if (keyPath==6){
+              this.Navigationmenu()
           }
         },
         //动态颜色
@@ -58,7 +68,24 @@
           }else if (name==='productDataList'){
             this.activeIndex2='5'
           }
-        }
+        },
+        styleaa(){
+          const {name} =this.$route;
+          console.log({name})
+          // if (this.activeIndex2 === '0'){
+          //   if (name==='admin-list-2'){
+          //     this.activeIndex2='1'
+          //   }else if (name==='admin-list'){
+          //     this.activeIndex2='2'
+          //   }else if(name==='Competition'){
+          //     this.activeIndex2='3'
+          //   }else if (name==='trainingList') {
+          //     this.activeIndex2='4'
+          //   }else if (name==='productDataList'){
+          //     this.activeIndex2='5'
+          //   }
+          // }
+        },
       },
       computed:{
         competition(){
