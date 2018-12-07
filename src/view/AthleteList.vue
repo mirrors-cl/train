@@ -79,7 +79,7 @@
                     名称
             </el-col>
             <el-col :span="18">
-                <el-input v-model="form.PLAYER_NAME" placeholder="" :disabled="true"></el-input>
+                <el-input v-model="form.PLAYER_NAME" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
          <el-col :span="8">
@@ -87,7 +87,7 @@
                     联系方式
             </el-col>
             <el-col :span="18">
-              <el-input v-model="form.PLAYER_TELEPHONE" placeholder="" :disabled="true"></el-input>
+              <el-input v-model="form.PLAYER_TELEPHONE" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
          <el-col :span="8">
@@ -95,7 +95,7 @@
                     身高
             </el-col>
             <el-col :span="18">
-               <el-input v-model="form.HEIGHT" placeholder="" :disabled="true"></el-input>
+               <el-input v-model="form.HEIGHT" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
 
@@ -104,7 +104,7 @@
                     姓名
             </el-col>
             <el-col :span="18">
-               <el-input v-model="form.NAME" placeholder="" :disabled="true"></el-input>
+               <el-input v-model="form.NAME" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
          <el-col :span="8">
@@ -112,7 +112,7 @@
                     体重
             </el-col>
             <el-col :span="18">
-               <el-input v-model="form.WEIGHT" placeholder="" :disabled="true"></el-input>
+               <el-input v-model="form.WEIGHT" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
          <el-col :span="8">
@@ -120,7 +120,7 @@
                     籍贯
             </el-col>
             <el-col :span="18">
-               <el-input v-model="form.NPLACE" placeholder="" :disabled="true"></el-input>
+               <el-input v-model="form.NPLACE" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
 
@@ -129,7 +129,7 @@
                     年龄
             </el-col>
             <el-col :span="18">
-               <el-input v-model="form.AGE" placeholder="" :disabled="true"></el-input>
+               <el-input v-model="form.AGE" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
           <el-col :span="8">
@@ -137,7 +137,7 @@
                     专业等级
             </el-col>
             <el-col :span="18">
-               <el-input v-model="form.LEAVEL" placeholder="" :disabled="true"></el-input>
+               <el-input v-model="form.LEAVEL" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
           <el-col :span="8">
@@ -145,7 +145,7 @@
                     项目
             </el-col>
             <el-col :span="18">
-               <el-input v-model="form.RECORD_PROJECT" placeholder="" :disabled="true"></el-input>
+               <el-input v-model="form.RECORD_PROJECT" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
 
@@ -154,7 +154,7 @@
                     性别
             </el-col>
             <el-col :span="18">
-               <el-input v-model="form.SEX" placeholder="" :disabled="true"></el-input>
+               <el-input v-model="form.SEX" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
         <el-col :span="8">
@@ -162,7 +162,7 @@
                     民族
             </el-col>
             <el-col :span="18">
-               <el-input v-model="form.NATION" placeholder="" :disabled="true"></el-input>
+               <el-input v-model="form.NATION" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
         <el-col :span="8">
@@ -170,7 +170,7 @@
                     政治面貌
             </el-col>
             <el-col :span="18">
-               <el-input v-model="form.POLITICAL" placeholder="" :disabled="true"></el-input>
+               <el-input v-model="form.POLITICAL" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
 
@@ -179,7 +179,7 @@
                     通讯地址
             </el-col>
             <el-col :span="18">
-               <el-input v-model="form.ADRESS" placeholder="" :disabled="true"></el-input>
+               <el-input v-model="form.ADRESS" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
         <el-col :span="8">
@@ -187,7 +187,7 @@
                     身份证号
             </el-col>
             <el-col :span="18">
-               <el-input v-model="form.CRAD" placeholder="" :disabled="true"></el-input>
+               <el-input v-model="form.CRAD" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
         <el-col :span="8">
@@ -195,7 +195,7 @@
                     毕业学校
             </el-col>
             <el-col :span="18">
-               <el-input v-model="form.FINISHSCHOOL" placeholder="" :disabled="true"></el-input>
+               <el-input v-model="form.FINISHSCHOOL" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
 
@@ -204,7 +204,7 @@
                     紧急联系人
             </el-col>
             <el-col :span="18">
-               <el-input v-model="form.CONTACTS" placeholder="" :disabled="true"></el-input>
+               <el-input v-model="form.CONTACTS" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
                <el-col :span="8">
@@ -212,7 +212,7 @@
                     获得荣誉
             </el-col>
             <el-col :span="18">
-               <el-input v-model="form.HONOR" placeholder="" :disabled="true"></el-input>
+               <el-input v-model="form.HONOR" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
         <el-col :span="8">
@@ -220,7 +220,7 @@
                     紧急联系人电话
             </el-col>
             <el-col :span="16">
-               <el-input v-model="form.CONTACTSPHONE" placeholder="" :disabled="true"></el-input>
+               <el-input v-model="form.CONTACTSPHONE" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
         <el-col :span="8">
@@ -228,7 +228,7 @@
                     退队原因
             </el-col>
             <el-col :span="18">
-               <el-input v-model="form.CAUSE" :disabled="true"></el-input>
+               <el-input v-model="form.CAUSE" :disabled=true></el-input>
             </el-col>
         </el-col>
         <el-col :span="8">
@@ -236,7 +236,7 @@
                     紧急联系人与本人关系
             </el-col>
             <el-col :span="14">
-               <el-input v-model="form.CONTACTSRELATION" placeholder="" :disabled="true"></el-input>
+               <el-input v-model="form.CONTACTSRELATION" placeholder="" :disabled=true></el-input>
             </el-col>
         </el-col>
                  <el-col :span="8">
@@ -244,7 +244,7 @@
                     血型
             </el-col>
             <el-col :span="18">
-               <el-select v-model="form.BLOOD" placeholder="请选择血型" :disabled="true">
+               <el-select v-model="form.BLOOD" placeholder="请选择血型" :disabled=true>
                 <el-option label="血型A" value="血型A"></el-option>
                 <el-option label="血型B" value="血型B"></el-option>
                 <el-option label="血型AB" value="血型AB"></el-option>
@@ -259,7 +259,7 @@
             <el-col :span="18">
                <el-col :span="18">
                  <el-date-picker
-                   :disabled="true"
+                   :disabled=true
                    v-model="form.JOININGDATE"
                    type="date"
                    placeholder="选择日期"
@@ -275,7 +275,7 @@
             </el-col>
             <el-col :span="18">
               <el-date-picker
-                :disabled="true"
+                :disabled=true
                 v-model="form.BIRTHDAY"
                 type="date"
                 placeholder="选择日期"
@@ -290,7 +290,7 @@
             </el-col>
             <el-col :span="18">
               <el-date-picker
-                :disabled="true"
+                :disabled=true
                 v-model="form.OUTDATE"
                 type="date"
                 placeholder="选择日期"
@@ -337,7 +337,7 @@
             <!--<el-col :span="6" class="textsize">账号</el-col>-->
             <el-col :span="24">
               <el-form-item label="账号" prop="PLAYER_NAME">
-                <el-input v-model="updataform.PLAYER_NAME" placeholder="" :disabled="true"></el-input>
+                <el-input v-model="updataform.PLAYER_NAME" placeholder="" :disabled=true></el-input>
               </el-form-item>
             </el-col>
         </el-col>
@@ -874,7 +874,6 @@
       }
     },
     methods: {
-
     //photo
       successon(response, file, fileList){
         console.log("上传成功时候的钩子",response,"file", file,"fileList", fileList)
@@ -1028,7 +1027,7 @@
         let alink1 =document.createElement("a");
         alink1.download="name2";
         alink1.href=`/DI/downimg?pk_player=${this.rowId}&type=3`;
-        console.log("type2",alink1.href)
+        console.log("type2",alink1.href);
         alink1.click();
       },
       //添加运动员账号
@@ -1040,11 +1039,19 @@
                 message: res.data.message,
                 type: 'error'
               })
-            }else
-          this.$router.push({name:'addath',query:{pk_user:res.data.data.pk_user,user_name:res.data.data.user_name}})
-        })
-          .catch(()=>{
+            }else{
+              let pkuser = res.data.data.pk_user;
+              let username = res.data.data.user_name;
+              let pkidentity = res.data.data.pk_identity;
+              let userpasswd = res.data.data.user_passwd;
+              this.$router.push({name:'addath',query:{pk_user:pkuser,user_name:username,pk_identity:pkidentity,user_passwd:userpasswd}})
+            }
+        }).catch(()=>{
+          this.$message({
+            message: '服务器错误',
+            type: 'warning'
           })
+        })
       },
       //修改
       updatabutton(){

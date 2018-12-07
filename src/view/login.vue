@@ -73,7 +73,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+  button{
+    outline:none;
+  }
 #win10-login {
+
   background: url("../assets/img/login.jpeg") no-repeat fixed;
   width: 100%;
   height: 100%;

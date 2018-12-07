@@ -7,11 +7,11 @@
     text-color="#BFCBD9"
     style="border-right: none"
     active-text-color="rgb(64, 158, 255)">
-    <el-menu-item index="1"><i class="el-icon-menu"></i>运动员列表</el-menu-item>
-    <el-menu-item index="2"><i class="el-icon-menu"></i>管理员列表</el-menu-item>
-    <el-menu-item index="3"><i class="el-icon-menu"></i>{{competition}}</el-menu-item>
-    <el-menu-item index="4"><i class="el-icon-menu"></i>训练计划</el-menu-item>
-    <el-menu-item index="5"><i class="el-icon-menu"></i>运动员表现统计</el-menu-item>
+    <el-menu-item index="1"><icon name="information" scale="2"></icon> 运动员列表</el-menu-item>
+    <el-menu-item index="2"><icon name="Administrators" scale="2"></icon> 管理员列表</el-menu-item>
+    <el-menu-item index="3"><icon name="motion-8" scale="2"/> {{competition}}</el-menu-item>
+    <el-menu-item index="4"><icon name="motion-55" scale="2"/> 训练计划</el-menu-item>
+    <el-menu-item index="5"><icon name="science" scale="2"/> 运动员表现统计</el-menu-item>
     <el-menu-item index="6" disabled="true"></el-menu-item>
     <el-menu-item index="6" disabled="true"></el-menu-item>
     <el-menu-item index="6" disabled="true"></el-menu-item>
@@ -20,7 +20,6 @@
     <el-menu-item index="6" disabled="true"></el-menu-item>
     <el-menu-item index="6" disabled="true"></el-menu-item>
   </el-menu>
-
 </template>
 
 <script>
@@ -35,7 +34,6 @@
         }
       },
       created(){
-        this.styleaa()
         this.Navigationmenu()
       },
       methods:{
@@ -69,23 +67,6 @@
             this.activeIndex2='5'
           }
         },
-        styleaa(){
-          const {name} =this.$route;
-          console.log({name})
-          // if (this.activeIndex2 === '0'){
-          //   if (name==='admin-list-2'){
-          //     this.activeIndex2='1'
-          //   }else if (name==='admin-list'){
-          //     this.activeIndex2='2'
-          //   }else if(name==='Competition'){
-          //     this.activeIndex2='3'
-          //   }else if (name==='trainingList') {
-          //     this.activeIndex2='4'
-          //   }else if (name==='productDataList'){
-          //     this.activeIndex2='5'
-          //   }
-          // }
-        },
       },
       computed:{
         competition(){
@@ -105,7 +86,5 @@
       },
     }
 </script>
-
 <style scoped>
-
 </style>

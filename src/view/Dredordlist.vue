@@ -203,8 +203,6 @@ export default {
       show: false,
       //增加开关
       dialogVisible: false,
-      //增加运动员账号
-
       //修改开关
       dialogFormVisible: false,
       //状态勾选值
@@ -230,7 +228,7 @@ export default {
         AGE: "", //年龄
         NPLACE: "" //籍贯
         // RECORD_TS: "", //创建时间
-        //  UPDATEDATE: "" //最后更新时间
+        // UPDATEDATE: "" //最后更新时间
       },
       page: 1,
       //增加删除弹框对齐方式
@@ -278,7 +276,6 @@ export default {
         });
     },
     currentChange(val) {
-      // console.log("sssssssssssssssss",val)
       this.page = val;
     },
     // 状态改变方法

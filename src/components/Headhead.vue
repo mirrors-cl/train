@@ -36,6 +36,7 @@
     }
 
     .htitle {
+      font-family:SimHei;
       position absolute;
       font-size: 33px;
       color: #fff;

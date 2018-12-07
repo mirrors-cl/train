@@ -4,7 +4,7 @@
     <div class="bodydiv" v-show="show3">
       <div class="listdiv">
         <div>
-          <el-button icon="el-icon-back" size="mini" @click="back">返回</el-button>
+          <el-button icon="el-icon-back" size="medium" @click="back">返回</el-button>
           <el-button type="danger" size="medium" @click="open1" icon="el-icon-delete">删除</el-button>
           <el-button type="primary" size="medium" @click="dialogVisible = true" icon="el-icon-circle-plus-outline">新增
           </el-button>

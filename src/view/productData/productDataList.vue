@@ -35,7 +35,7 @@
       </div>
       <el-table
         :data="tableData"
-        height="550"
+        height="600px"
         border
         style="width: 100%">
         <el-table-column

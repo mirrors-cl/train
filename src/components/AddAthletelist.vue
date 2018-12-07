@@ -6,7 +6,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="账号" prop="PLAYER_NAME">
-              <el-input v-model="form.PLAYER_NAME" placeholder="" :disabled="true"></el-input>
+              <el-input v-model="form.PLAYER_NAME" placeholder="" :disabled=true></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -287,7 +287,8 @@ export default {
     let userInfo=getStore('userInfo');
    let a=this.$route.query.pk_user;
    let b=this.$route.query.user_name;
-
+   let c=this.$route.query.pk_identity;
+   let d=this.$route.query.user_passwd;
     return {
       // rules:{
       //   PLAYER_TELEPHONE:[
@@ -377,6 +378,8 @@ export default {
       file3:"",
       //增加
       form: {
+        pk_identity:c,
+        user_passwd:d,
         injury:"",//伤病text
         PK_PLAYER:a,
         ADRESS: "", //通讯地址
