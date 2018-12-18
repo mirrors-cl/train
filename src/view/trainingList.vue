@@ -24,7 +24,7 @@
               <el-col :span="24">
                 <span>训练时间</span>
                 <el-input
-                  :disabled="true"
+                  :disabled=true
                   :rows="1"
                   placeholder="请输入内容"
                   v-model="event.date">
@@ -33,7 +33,7 @@
               <el-col :span="24">
                 <span>训练地点</span>
                 <el-input
-                  :disabled="true"
+                  :disabled=true
                   :rows="1"
                   placeholder="请输入内容"
                   v-model="event.title">
@@ -44,7 +44,7 @@
                 </span>
                 <el-input
                   type="textarea"
-                  :disabled="true"
+                  :disabled=true
                   :rows="2"
                   placeholder="请输入内容"
                   v-model="event.drill_practice">
@@ -54,8 +54,8 @@
                 <el-col :span="8">
                   <el-button type="primary" size="mini" @click="checkOut" v-show="zjbutton">添加训练内容</el-button>
                 </el-col>
-                <el-col :span="8"> <el-button type="primary" size="mini" @click="colourstyle" v-show="zjbutton">详细训练计划</el-button></el-col>
-                <el-col :span="8">  <el-button type="primary" size="mini" @click="PdfReport" v-show="zjbutton">PDF报告计划</el-button></el-col>
+                <el-col :span="8"> <el-button type="primary" size="mini" @click="colourstyle" v-show="zjbutton">查询训练内容</el-button></el-col>
+                <el-col :span="8">  <el-button type="primary" size="mini" @click="PdfReport" v-show="zjbutton">PDF报告上传</el-button></el-col>
               </el-col>
             </el-row>
           </div>
@@ -240,7 +240,7 @@
           <el-upload
             class="upload-demo"
             ref="upload"
-            action="/PF/uploadpf"
+            action="http://127.0.0.1:8081/PF/uploadpf"
             :data="parameter"
             :on-preview="handlePreview"
             :on-remove="handleRemove"
@@ -249,6 +249,14 @@
             :file-list="fileList"
             :auto-upload="false">
           <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+            <el-select v-model="value" placeholder="请选择分类" style="width: 120px">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.label">
+              </el-option>
+            </el-select>
           <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
             <!--<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
         </el-upload>
@@ -290,7 +298,8 @@
         visible2: false,
         //上传pdf额外参数
         parameter:{
-          date:""
+          date:"",
+          type:"",
         },
         //selectplayer
         selectplayer: "",
@@ -311,12 +320,6 @@
         demoEvents: [],
         //训练计划列表
         trainingList: [],
-        //添加训练周期
-        // formLabelAlign: {
-        //   date: '',
-        //   title: '',//地点
-        //   drill_practice: '',//简介
-        // },
         //计划详情
         trainingDetails: {
           date: "",//某天
@@ -339,12 +342,16 @@
         //运动员
         playerform: [],
         //pdf列表
-        tablePDF: []
+        tablePDF: [],
+        //pdf select
+        options:[],
+        value: ''
       }
     },
     created() {
       //显示训练日期
       this.getdata();
+      this.getpdfdata();
     },
     //组件
     components:{
@@ -353,6 +360,21 @@
     //计算属性
     computed: {},
     methods: {
+      //pdf 分类
+      getpdfdata(){
+        fetch.get('/PF/selectpdftype').then(res => {
+          let array = res.data.data;
+          let opop =[];
+          if (array.length) {
+            for (let i=0;i<array.length;i++){
+              opop.push({value: `选项${i+1}`,label: `${array[i].type}`})
+            }
+            this.options = opop
+          }else {
+            alert('请联系管理员')
+          }
+        })
+      },
       selectfun(){
         this.$refs["trainingDetails"].resetFields();
         this.useraddlist = { brand_right: 0 };
@@ -363,7 +385,6 @@
         fetch.post("/DP/likeSearch", qs.stringify({
           name: this.selectplayer,
           record_name:this.userInfo.user_NAME
-
         })).then(res => {
           console.log(res.data.data);
           this.playerform = res.data.data
@@ -387,15 +408,19 @@
       },
       //uploadMovement
       submitUpload() {
-        this.parameter.date=this.date;
-
-        debugger;
-
-        this.$refs.upload.submit();
+        if(this.value!== ''){
+          this.parameter.type=this.value;
+          this.parameter.date=this.date;
+          this.$refs.upload.submit();
+        }else {
+          this.$message.error('未选择文件类型');
+        }
         // this.dialogVisible5=false;
       },
       //functionUploadSuceess
       uploadSuccess(response, file, fileList) {
+        this.value='';
+        this.getdataPDF();
         this.$message({
           message: '上传成功',
           type: 'success'

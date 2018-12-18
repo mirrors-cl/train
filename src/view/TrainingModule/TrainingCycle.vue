@@ -36,29 +36,33 @@
   import {getStore} from "@/assets/js/utils.js";
   import qs from "qs";
  export default {
+   name:"TrainingCycle",
    data:function () {
      let userInfo = getStore('userInfo');
      return {
+        userinfoname:userInfo.user_NAME,
          dialogVisible:false,
           //添加训练周期
         formLabelAlign: {
           date: '',
           title: '',//地点
           drill_practice: '',//简介
-          record_name: userInfo.user_NAME
+          record_name: ''
         },
      }
    },
+   created(){
+   },
    methods:{
         //创建训练周期
-      submitForm(formLabelAlign) {
+      submitForm() {
         // this.formLabelAlign.date.join();
         fetch
           .post("/RC/drillAdd", qs.stringify({
             date: this.formLabelAlign.date.join(),
             title: this.formLabelAlign.title,
             drill_practice: this.formLabelAlign.drill_practice,
-            record_name:this.formLabelAlign.record_name
+            record_name:this.userinfoname
           }))
           .then(res => {
             this.$emit('addcycle')

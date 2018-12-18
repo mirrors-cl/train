@@ -17,14 +17,14 @@
         <!-- 删除勾选框 -->
         <el-table-column
           type="selection"
-          width="55">
-        </el-table-column>
-        <!-- 列表显示内容 -->
-        <el-table-column
-          prop="player_CODE"
-          label="编号"
           width="120">
         </el-table-column>
+        <!--<el-table-column-->
+          <!--prop="player_CODE"-->
+          <!--label="编号"-->
+          <!--width="120">-->
+        <!--</el-table-column>-->
+        <!-- 列表显示内容 -->
         <el-table-column
           prop="record_PROJECT"
           label="项目"

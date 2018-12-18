@@ -12,7 +12,7 @@
                   v-model="datelist.start"
                   type="date"
                   style="width: 100%"
-                  placeholder="选择日期"
+                  placeholder="开始时间"
                   format="yyyy 年 MM 月 dd 日"
                   value-format="yyyy-MM-dd">
                 </el-date-picker>
@@ -22,7 +22,7 @@
                 v-model="datelist.end"
                 type="date"
                 style="width: 100%"
-                placeholder="选择日期"
+                placeholder="结束时间"
                 format="yyyy 年 MM 月 dd 日"
                 value-format="yyyy-MM-dd">
               </el-date-picker>

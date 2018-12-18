@@ -98,13 +98,6 @@
          <el-form-item label="姓名" >
           <el-input v-model="form.NAME" ></el-input>
         </el-form-item>
-        <!--<el-form-item label="角色" >-->
-          <!--<el-select v-model="form.RECORD_ROLE" placeholder="角色">-->
-            <!--<el-option label="管理员" value="1"></el-option>-->
-            <!--<el-option label="运动员" value="2"></el-option>-->
-            <!--<el-option label="教练" value="3"></el-option>-->
-          <!--</el-select>-->
-        <!--</el-form-item>-->
         <el-form-item label="职位">
           <el-input v-model="form.RECORD_DUTY"></el-input>
         </el-form-item>
@@ -196,8 +189,6 @@ export default {
           { required: true, message: '请输入内容', trigger: 'blur' },
           { min: 2, max: 8, message: '长度在 2 到 8 个字符', trigger: 'blur' }
         ],
-
-
       },
       userList: [],
       show: false,
