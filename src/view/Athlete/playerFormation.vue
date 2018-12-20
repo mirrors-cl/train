@@ -141,7 +141,6 @@
         this.monitor = true;
         console.log(day)
       },
-
       // submitForm:function(){
       //   //正则修改时间格式（日期插件规定了时间格式）
       //   this.formLabelAlign.date=this.formLabelAlign.date.replace(/-/g,'/');

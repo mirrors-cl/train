@@ -44,11 +44,13 @@ export default {
            // const user = { name: res.data.data.token, age: 25 };
            // localStorage.setItem('user', qs.stringify(user));
            if (res.data.status === "success") {
+             //拿到token 存入cookies
              let token = res.data.data.token;
              this.$cookies.set('token',token);
              // document.cookie ="token=res.data.data.token";
+             //vueX 拿数据
              this.SAVE_USER(res.data.data);
-             //请求成功
+             //请求成功 （拿到数据判断用户类型路由）
              let identity = res.data.data.pk_IDENTITY;
              if (identity === '1') {
                this.$router.push({ path: "/adminUser"});

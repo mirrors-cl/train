@@ -364,12 +364,10 @@
       getpdfdata(){
         fetch.get('/PF/selectpdftype').then(res => {
           let array = res.data.data;
-          let opop =[];
           if (array.length) {
             for (let i=0;i<array.length;i++){
-              opop.push({value: `选项${i+1}`,label: `${array[i].type}`})
+              this.options.push({value: `选项${i+1}`,label: `${array[i].type}`})
             }
-            this.options = opop
           }else {
             alert('请联系管理员')
           }
@@ -613,7 +611,6 @@
       //勾选操作
       checkOut() {
         this.playercheck = "1";
-
         this.playerdata();
         this.dialogVisible2 = true
       },
@@ -656,7 +653,6 @@
           this.getdata();
           this.zjbutton=false;
           this.visible2=false
-
         }).catch(error=>{
           alert('服务器请求错误')
         })
@@ -676,7 +672,7 @@
 </style>
 <style>
   /* 日历背景*/
-  .__vev_calendar-wrapper .cal-wrapper {
+  .__vev_calendar-wrapper .cal-wrapper{
     border: 1px solid white;
     border-radius: 9px;
     background-color: white;
