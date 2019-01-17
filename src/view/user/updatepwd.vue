@@ -6,10 +6,10 @@
             <img src="static/img/picture1.png" v-show="picture"/>
           </span>
     <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item class="clearfix" @click.native="dialogVisible = true">修改密码<el-badge class="mark"/>
-      </el-dropdown-item>
-      <el-dropdown-item class="clearfix" @click.native="qcbuuon">安全退出<el-badge class="mark"/>
-      </el-dropdown-item>
+      <Jurisdiction></Jurisdiction>
+      <el-dropdown-item @click.native="dialogVisible = true">修改密码</el-dropdown-item>
+      <el-dropdown-item @click.native="qcbuuon">安全退出</el-dropdown-item>
+
     </el-dropdown-menu>
   </el-dropdown>
     <!-- updatepwd-->
@@ -39,10 +39,14 @@
 <script>
   // 引用fetch
   import fetch from "@/assets/js/fetch.js";
+  import Jurisdiction from '@/view/user/Jurisdiction'
   import {getStore} from "@/assets/js/utils.js";
   import qs from "qs";
     export default {
       name: "updatepwd",
+      components:{
+        Jurisdiction
+      },
       data() {
         //自定义正则
         const validatePass = (rule, value, callback) => {

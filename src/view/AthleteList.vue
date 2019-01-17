@@ -511,8 +511,6 @@
                <!--<el-input v-model="updataform.CONTACTSPHONE" placeholder="" ></el-input>-->
             </el-col>
         </el-col>
-
-
         <el-col :span="8">
             <el-col span="10">
               <div>
@@ -532,7 +530,7 @@
             <!--<el-col :span="6" class="textsize">血型</el-col>-->
             <el-col :span="24">
               <el-form-item label="血型" prop="BLOOD">
-                <el-select v-model="updataform.BLOOD" placeholder="请选择活动区域" style="width: 100%">
+                <el-select v-model="updataform.BLOOD" placeholder="请选择血型" style="width: 100%">
                   <el-option label="血型A" value="血型A"></el-option>
                   <el-option label="血型B" value="血型B"></el-option>
                   <el-option label="血型AB" value="血型AB"></el-option>

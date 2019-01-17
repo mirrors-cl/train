@@ -367,6 +367,7 @@
             for (let i=0;i<array.length;i++){
               this.options.push({value: `选项${i+1}`,label: `${array[i].type}`})
             }
+            console.log("213231231",this.options)
           }else {
             alert('请联系管理员')
           }
