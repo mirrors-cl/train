@@ -287,7 +287,6 @@
   import fetch from "@/assets/js/fetch.js"
   import qs from "qs";
   import TrainingCycle from '@/view/TrainingModule/TrainingCycle'
-
   import {getStore} from "@/assets/js/utils.js";
   export default {
     name: "ath-list",
@@ -454,11 +453,16 @@
         console.log(row)
       },
       handleEditpdf(index, row) {
-        let alink =document.createElement("a");
-        alink.download="name";
-        alink.href=`/PF/downpf?id=${row.id}`;
-        console.log("type1",alink.href);
-        alink.click();
+        try {
+          let alink =document.createElement("a");
+          alink.download="name";
+          alink.href=`/PF/downpf?id=${row.id}`;
+          console.log("type1",alink.href);
+          alink.click();
+        } catch (e) {
+          console.log('出错了'+e)
+        }
+        console.log(alink)
         // fetch.get("/PF/downpf", {
         //   params: {
         //     id: row.id
