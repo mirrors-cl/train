@@ -13,8 +13,7 @@
             style="width: 100%"
             :header-cell-style="titletable"
             @cell-click="projectList"
-            @selection-change="handleSelectionChange"
-          >
+            @selection-change="handleSelectionChange">
             <el-table-column
               v-for=""
               type="selection"

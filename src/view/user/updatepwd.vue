@@ -6,10 +6,9 @@
             <img src="static/img/picture1.png" v-show="picture"/>
           </span>
     <el-dropdown-menu slot="dropdown">
-      <Jurisdiction></Jurisdiction>
+      <Jurisdiction v-if="userInfo.pk_IDENTITY ==='3'"></Jurisdiction>
       <el-dropdown-item @click.native="dialogVisible = true">修改密码</el-dropdown-item>
       <el-dropdown-item @click.native="qcbuuon">安全退出</el-dropdown-item>
-
     </el-dropdown-menu>
   </el-dropdown>
     <!-- updatepwd-->
@@ -39,11 +38,13 @@
 <script>
   // 引用fetch
   import fetch from "@/assets/js/fetch.js";
+  import qs from "qs";
   import Jurisdiction from '@/view/user/Jurisdiction'
   import {getStore} from "@/assets/js/utils.js";
-  import qs from "qs";
     export default {
       name: "updatepwd",
+      comments:{
+      },
       components:{
         Jurisdiction
       },
@@ -82,7 +83,7 @@
             ],
           },
           imageSrc: "",
-          userInfo: {},
+          userInfo:getStore('userInfo'),
           dialogVisible: false,
           form: {
             password: "",
@@ -91,7 +92,6 @@
         };
       },
       created() {
-        this.userInfo = getStore('userInfo');
         this.headPrtrait();
       },
       methods: {
@@ -138,7 +138,7 @@
         },
         // 显示头像
         headPrtrait() {
-          if (this.userInfo.pk_IDENTITY==="1"){
+          if (this.userInfo.pk_IDENTITY==="1"||this.userInfo.pk_IDENTITY==="3"){
             this.imagePicture=false
             this.picture=true
           }else if (this.userInfo.pk_IDENTITY==="2"){

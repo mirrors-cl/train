@@ -54,7 +54,7 @@
                 <el-col :span="8">
                   <el-button type="primary" size="mini" @click="checkOut" v-show="zjbutton">添加训练内容</el-button>
                 </el-col>
-                <el-col :span="8"> <el-button type="primary" size="mini" @click="colourstyle" v-show="zjbutton">查询训练内容</el-button></el-col>
+                <el-col :span="8"> <el-button type="primary" size="mini" @click="查询训练内容" v-show="zjbutton">查询训练内容</el-button></el-col>
                 <el-col :span="8">  <el-button type="primary" size="mini" @click="PdfReport" v-show="zjbutton">PDF报告上传</el-button></el-col>
               </el-col>
             </el-row>

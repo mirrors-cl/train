@@ -52,7 +52,7 @@ export default {
              this.SAVE_USER(res.data.data);
              //请求成功 （拿到数据判断用户类型路由）
              let identity = res.data.data.pk_IDENTITY;
-             if (identity === '1') {
+             if (identity === '1'||identity==='3') {
                this.$router.push({ path: "/adminUser"});
              } else if (identity === '2') {
                this.$router.push({ path: '/playerform'});
