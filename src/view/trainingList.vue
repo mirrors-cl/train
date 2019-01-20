@@ -6,7 +6,14 @@
       <!-- 日历周期列表 -->
       <vue-event-calendar :events="demoEvents" @month-changed="monthChange" @day-changed="dayChange">
         <template slot-scope="props">
-          <TrainingCycle @addcycle='appendComment'></TrainingCycle>
+          <el-row>
+            <el-col :span="5">
+              <TrainingCycle @addcycle='appendComment'></TrainingCycle>
+            </el-col>
+            <el-col :span="5">
+              <Jurisdiction v-if="userInfo.pk_IDENTITY ==='3'" @myEvent="doSomething"></Jurisdiction>
+            </el-col>
+          </el-row>
           <div v-for="(event, index) in props.showEvents" class="event-item">
             <!-- deleteicon -->
             <el-popover v-show="zjbutton" placement="top" width="160" v-model="visible2">
@@ -54,7 +61,7 @@
                 <el-col :span="8">
                   <el-button type="primary" size="mini" @click="checkOut" v-show="zjbutton">添加训练内容</el-button>
                 </el-col>
-                <el-col :span="8"> <el-button type="primary" size="mini" @click="查询训练内容" v-show="zjbutton">查询训练内容</el-button></el-col>
+                <el-col :span="8"> <el-button type="primary" size="mini" @click="colourstyle" v-show="zjbutton">查询训练内容</el-button></el-col>
                 <el-col :span="8">  <el-button type="primary" size="mini" @click="PdfReport" v-show="zjbutton">PDF报告上传</el-button></el-col>
               </el-col>
             </el-row>
@@ -288,6 +295,7 @@
   import qs from "qs";
   import TrainingCycle from '@/view/TrainingModule/TrainingCycle'
   import {getStore} from "@/assets/js/utils.js";
+  import Jurisdiction from '@/view/user/Jurisdiction'
   export default {
     name: "ath-list",
     data: function () {
@@ -344,7 +352,8 @@
         tablePDF: [],
         //pdf select
         options:[],
-        value: ''
+        value: '',
+        xm:''
       }
     },
     created() {
@@ -354,11 +363,24 @@
     },
     //组件
     components:{
-      TrainingCycle
+      TrainingCycle,
+      Jurisdiction
     },
     //计算属性
     computed: {},
     methods: {
+      doSomething(role_classification){
+        this.xm=role_classification
+        fetch.get('/RC/showAllByProject',{
+          params:{
+            project:this.xm
+          }
+        }).then(res => {
+
+          this.demoEvents = res.data.data;
+          this.zjbutton=false;
+        })
+      },
       //pdf 分类
       getpdfdata(){
         fetch.get('/PF/selectpdftype').then(res => {
@@ -599,14 +621,14 @@
           }})
           .then(res => {
             this.demoEvents = res.data.data
-            // this.demoEvents.push(res);
           })
       },
       getdata1() {
         fetch.get("/TP/TPselect", {
           params: {
             record_name:this.userInfo.user_NAME,
-            date: this.date
+            date: this.date,
+            record_project:this.xm
           }
         }).then(item => {
           this.trainingList = item.data.data;

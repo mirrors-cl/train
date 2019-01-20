@@ -51,8 +51,6 @@
         },
      }
    },
-   created(){
-   },
    methods:{
         //创建训练周期
       submitForm() {
@@ -84,9 +82,6 @@
           });
       },
    },
-   components: {
-
-   }
  }
 </script>
 
