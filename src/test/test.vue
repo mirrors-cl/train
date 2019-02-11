@@ -26,6 +26,7 @@
   </div>
 </template>
 <script>
+  import qs from 'qs'
   import fetch from "@/assets/js/fetch.js";
     export default {
       name: "test",
@@ -62,8 +63,17 @@
       //初始化生命钩子
       created(){
         this.gettestdata()
+        this.handleLogin()
       },
       methods:{
+         handleLogin () {
+            fetch.post('/testlogin',qs.stringify({
+              userCode:'Qincl',
+              password:'123456'
+            })).then(res => {
+              console.log(res)
+            })
+    },
         gettestdata(){
           fetch.get('/PF/selectpdftype').then(res => {
             let array = res.data.data;
