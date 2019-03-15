@@ -2,7 +2,6 @@
   <div class="bodydiv">
     <div class="modeldiv">
       <!--添加训练周期-->
-
       <!-- 日历周期列表 -->
       <vue-event-calendar :events="demoEvents" @month-changed="monthChange" @day-changed="dayChange">
         <template slot-scope="props">

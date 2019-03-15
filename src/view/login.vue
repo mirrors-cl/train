@@ -14,7 +14,7 @@
             <!--登陆按钮-->
           <button  value="登录" id="btn-login" class="login-submit"
             @click="fn_submit">登陆
-          </button>
+          </button>  
       </form>
     </div>
   </div>

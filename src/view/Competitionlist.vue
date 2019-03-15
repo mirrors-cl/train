@@ -133,7 +133,6 @@
 <script>
   import fetch from "@/assets/js/fetch";
   import qs from "qs";
-
   export default {
     name: "Competition",
     data: function () {
